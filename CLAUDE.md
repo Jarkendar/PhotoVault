@@ -60,6 +60,13 @@ All versions managed centrally in `gradle/libs.versions.toml`. Current active de
 
 Phase 0 (scaffold only). The roadmap in `README.md` defines 8 phases. Convention plugins for modules have not been created yet — when adding modules, follow the dependency rules above strictly.
 
+## Working with Claude Code
+
+- Do not run `./gradlew build`, `assembleDebug`, or similar full-build commands without explicit request. The user runs Gradle locally in Android Studio. Exception: you may run `./gradlew :<module>:test` when asked to verify a specific test you just wrote.
+- When suggesting new dependencies, always check `gradle/libs.versions.toml` first and add new libraries there. Never hardcode versions in module `build.gradle.kts` files.
+- Before creating a new module, verify it's listed in the Planned Module Graph and confirm with the user which phase we're targeting.
+- When writing tests, follow TDD strictly: failing test first, then minimum implementation to pass, then refactor. Show the failing test (or expected failure mode) before writing the implementation.
+
 ## Conventions
 
 ### Code
@@ -67,6 +74,7 @@ Phase 0 (scaffold only). The roadmap in `README.md` defines 8 phases. Convention
 - Package naming: `dev.jarkendar.photovault.{layer}.{module}.*`
 - Kotlin DSL only in Gradle — never Groovy
 - Compose-first UI — no XML layouts
+- Internationalization: all user-facing strings go in `strings.xml`. Default locale is Polish (`values/strings.xml`), English in `values-en/strings.xml`. Never hardcode user-facing strings in Composables.
 
 ### Commits
 - Format: Conventional Commits (`feat:`, `fix:`, `chore:`, `docs:`, `refactor:`, `test:`)
@@ -75,3 +83,9 @@ Phase 0 (scaffold only). The roadmap in `README.md` defines 8 phases. Convention
 ### Testing
 - Framework: JUnit 5 + MockK + Turbine (for Flows)
 - Approach: TDD red → green → refactor
+
+## Known Quirks
+
+- Project is currently a single `:app` module. The modular structure in "Planned Module Graph" is a target, not yet reality.
+- No Gradle convention plugins yet. Initial module setup will use copy-paste of `build.gradle.kts` files, to be refactored into convention plugins in a later phase.
+- Kotlin version is 2.2.10 (AGP-paired default). Kotlin 2.3.20 is available but upgrade is deferred until there's a concrete reason.
