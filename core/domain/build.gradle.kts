@@ -7,6 +7,6 @@ kotlin {
 }
 
 dependencies {
-    implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.kotlinx.datetime)
+    api(libs.kotlinx.coroutines.core)
+    api(libs.kotlinx.datetime)
 }

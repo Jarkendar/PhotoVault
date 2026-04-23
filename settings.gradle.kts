@@ -26,4 +26,5 @@ rootProject.name = "PhotoVault"
 include(":app")
 include(":core:common")
 include(":core:domain")
+include(":core:ui")
  
