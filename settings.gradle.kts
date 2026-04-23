@@ -24,4 +24,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "PhotoVault"
 include(":app")
+include(":core:common")
  
