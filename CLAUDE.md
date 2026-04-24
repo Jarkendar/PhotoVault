@@ -81,7 +81,10 @@ Phase 0 (scaffold only). The roadmap in `README.md` defines 8 phases. Convention
 - No `Co-authored-by` or any attribution lines in commit messages
 
 ### Testing
-- Framework: JUnit 5 + MockK + Turbine (for Flows)
+- Assertions: kotlin-test (`assertEquals`, `assertTrue` — multiplatform-ready)
+- Test runner: JUnit 4 for Android instrumented tests (required by `AndroidJUnit4`); JUnit 5 (Jupiter) for pure JVM modules when added
+- Mocking: MockK
+- Flow assertions: Turbine
 - Approach: TDD red → green → refactor
 
 ## Known Quirks
