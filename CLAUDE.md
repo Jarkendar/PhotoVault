@@ -81,8 +81,8 @@ Phase 0 (scaffold only). The roadmap in `README.md` defines 8 phases. Convention
 - No `Co-authored-by` or any attribution lines in commit messages
 
 ### Testing
-- Assertions: kotlin-test (`assertEquals`, `assertTrue` — multiplatform-ready)
-- Test runner: JUnit 4 for Android instrumented tests (required by `AndroidJUnit4`); JUnit 5 (Jupiter) for pure JVM modules when added
+- Assertions: kotlin-test (`assertEquals`, `assertTrue`, `assertFalse`) — multiplatform-ready
+- Test runner: JUnit 4 for Android instrumented tests (required by `AndroidJUnit4`), JUnit 5 (Jupiter) for pure JVM modules when added
 - Mocking: MockK
 - Flow assertions: Turbine
 - Approach: TDD red → green → refactor
@@ -92,3 +92,6 @@ Phase 0 (scaffold only). The roadmap in `README.md` defines 8 phases. Convention
 - Project is currently a single `:app` module. The modular structure in "Planned Module Graph" is a target, not yet reality.
 - No Gradle convention plugins yet. Initial module setup will use copy-paste of `build.gradle.kts` files, to be refactored into convention plugins in a later phase.
 - Kotlin version is 2.2.10 (AGP-paired default). Kotlin 2.3.20 is available but upgrade is deferred until there's a concrete reason.
+- **AGP 8+ built-in Kotlin support:** `com.android.library` and `com.android.application` plugins automatically configure Kotlin for modules with `.kt` sources. Do NOT explicitly add `alias(libs.plugins.kotlin.android)` to Android library modules — causes "Cannot add extension with name 'kotlin', as there is an extension already registered". Only add a Kotlin plugin when a different variant is needed: `kotlin.compose` for Compose modules, `kotlin.jvm` for pure Kotlin JVM modules (`:core:common`, `:core:domain`).
+- **Room `@Junction` uses `entityColumn`, not `childColumn`.** Older tutorials often show `Junction(value = X, parentColumn, childColumn)`, but current API is `Junction(value = X, parentColumn, entityColumn)`. Using `childColumn` produces cryptic KSP error: "Cannot find the child entity referencing column `id` in the junction".
+- **Android instrumented tests need explicit runner setup.** Both the library `androidx.test:runner` (provides `AndroidJUnitRunner`) and the build config `testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"` in `android.defaultConfig` are required. Without them, runtime fails with `ClassNotFoundException: androidx.test.runner.AndroidJUnitRunner`. `androidx.test.ext:junit` (provides `AndroidJUnit4` class for `@RunWith`) is a separate dependency — both are needed.
