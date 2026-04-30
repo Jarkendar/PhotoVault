@@ -80,6 +80,30 @@ class PhotoDaoTest {
         }
     }
 
+    @Test
+    fun replacePhotoTags_replaces_existing_associations() = runTest {
+        db.photoDao().upsertPhotos(listOf(buildPhoto("p1")))
+        db.tagDao().upsert(
+            listOf(
+                TagEntity(id = "t1", name = "morze"),
+                TagEntity(id = "t2", name = "zachod"),
+                TagEntity(id = "t3", name = "lato"),
+            ),
+        )
+
+        db.photoDao().replacePhotoTags("p1", listOf("t1", "t2"))
+        db.photoDao().replacePhotoTags("p1", listOf("t1", "t3"))
+
+        val cursor = db.openHelper.readableDatabase
+            .query("SELECT tagId FROM photo_tags WHERE photoId = 'p1' ORDER BY tagId")
+        val remaining = mutableListOf<String>()
+        while (cursor.moveToNext()) {
+            remaining += cursor.getString(0)
+        }
+        cursor.close()
+        assertEquals(listOf("t1", "t3"), remaining)
+    }
+
     private fun buildPhoto(id: String, isFavorite: Boolean = false) = PhotoEntity(
         id = id,
         name = "photo_$id.jpg",
