@@ -35,11 +35,11 @@ Secondary learning goals that fall out naturally:
 
 | Phase | Focus | Status |
 |---|---|---|
-| 0 | Architecture planning, module boundaries, dependency rules | in progress |
-| 1 | Project scaffold — Gradle modules, convention plugins, version catalog, empty feature screens | next |
-| 2 | REST API contract — OpenAPI-ish spec, mock endpoints on n8n for offline dev | |
-| 3 | Gallery feature — read-only grid backed by mock data, then by real Room cache | |
-| 4 | Ktor backend — photo upload, storage, metadata DB on Raspberry Pi | |
+| 0 | Architecture planning, module boundaries, dependency rules | done |
+| 1 | Project scaffold — Gradle modules, convention plugins, version catalog, empty feature screens | done |
+| 2 | REST API contract — OpenAPI-ish spec, mock endpoints on n8n for offline dev | done |
+| 3 | Gallery feature — read-only grid backed by mock data, then by real Room cache | in progress |
+| 4 | Ktor backend — photo upload, storage, metadata DB on Raspberry Pi | in progress |
 | 5 | Upload feature — picker, progress, background work | |
 | 6 | On-device ML — auto-tagging during upload | |
 | 7 | Search feature — online query against server | |
