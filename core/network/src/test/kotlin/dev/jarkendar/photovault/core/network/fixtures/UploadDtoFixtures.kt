@@ -2,7 +2,7 @@ package dev.jarkendar.photovault.core.network.fixtures
 
 import dev.jarkendar.photovault.core.network.dto.upload.UploadDto
 import dev.jarkendar.photovault.core.network.dto.upload.UploadStatus
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 object UploadDtoFixtures {
 

@@ -1,7 +1,7 @@
 package dev.jarkendar.photovault.core.database.converter
 
 import androidx.room.TypeConverter
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 class InstantConverter {
 

@@ -8,7 +8,7 @@ import dev.jarkendar.photovault.core.database.entity.CategoryEntity
 import dev.jarkendar.photovault.core.database.entity.PhotoEntity
 import dev.jarkendar.photovault.core.database.entity.TagEntity
 import kotlinx.coroutines.test.runTest
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import org.junit.After
 import org.junit.Before
 import org.junit.Test

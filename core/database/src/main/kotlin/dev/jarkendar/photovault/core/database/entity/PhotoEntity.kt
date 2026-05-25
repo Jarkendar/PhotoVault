@@ -2,7 +2,7 @@ package dev.jarkendar.photovault.core.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 @Entity(tableName = "photos")
 data class PhotoEntity(

@@ -12,7 +12,7 @@ import dev.jarkendar.photovault.core.ui.state.EmptyState
 import dev.jarkendar.photovault.core.ui.state.ErrorState
 import dev.jarkendar.photovault.core.ui.state.LoadingState
 import dev.jarkendar.photovault.core.ui.theme.PhotoVaultTheme
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 internal fun previewPhotos(): List<Photo> = List(6) { i ->
     Photo(

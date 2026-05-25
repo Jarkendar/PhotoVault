@@ -1,7 +1,7 @@
 package dev.jarkendar.photovault.core.domain.model
 
 import dev.jarkendar.photovault.core.domain.id.PhotoId
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 data class Photo(
     val id: PhotoId,

@@ -1,6 +1,6 @@
 package dev.jarkendar.photovault.core.network.dto.upload
 
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

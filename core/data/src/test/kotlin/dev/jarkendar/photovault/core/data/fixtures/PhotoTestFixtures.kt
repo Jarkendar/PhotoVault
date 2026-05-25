@@ -23,7 +23,7 @@ import dev.jarkendar.photovault.core.network.dto.photo.PhotoPageDto
 import dev.jarkendar.photovault.core.network.dto.photo.ProcessingStatus
 import dev.jarkendar.photovault.core.network.dto.tag.TagDto
 import dev.jarkendar.photovault.core.network.dto.user.UserRefDto
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 object PhotoTestFixtures {
 

@@ -4,7 +4,7 @@ import dev.jarkendar.photovault.core.network.dto.category.CategoryDto
 import dev.jarkendar.photovault.core.network.dto.label.LabelDto
 import dev.jarkendar.photovault.core.network.dto.tag.TagDto
 import dev.jarkendar.photovault.core.network.dto.user.UserRefDto
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
