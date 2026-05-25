@@ -11,6 +11,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ./gradlew connectedAndroidTest   # Run instrumented tests (requires device/emulator)
 ./gradlew :app:test              # Run unit tests for a specific module
 ./gradlew lint                   # Run lint checks
+./gradlew :core:ui:recordPaparazziDebug   # Generate/update golden PNG screenshots
+./gradlew :core:ui:verifyPaparazziDebug   # Compare against golden screenshots (CI regression check)
 ```
 
 **Config:** compileSdk 36, minSdk 31 (Android 12+), Java 11, Kotlin 2.2.10, Gradle 9.3.1
@@ -97,4 +99,22 @@ Phase 0 (scaffold only). The roadmap in `README.md` defines 8 phases. Convention
 - **Android instrumented tests need explicit runner setup.** Both the library `androidx.test:runner` (provides `AndroidJUnitRunner`) and the build config `testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"` in `android.defaultConfig` are required. Without them, runtime fails with `ClassNotFoundException: androidx.test.runner.AndroidJUnitRunner`. `androidx.test.ext:junit` (provides `AndroidJUnit4` class for `@RunWith`) is a separate dependency — both are needed.
 - **Ktor 3.x path resolution with `DefaultRequest { url(baseUrl) }`:** request paths must be RELATIVE (e.g., `client.get("photos")`) not absolute (`client.get("/photos")`). Absolute paths replace the baseUrl path entirely, causing the `/v1/` prefix to be dropped. In factory functions, normalize baseUrl to ensure a trailing slash before passing to `DefaultRequest`.
 - **Ktor 3.x removed `URLBuilder.encodedPath`** as a String property. Use `url.encodedPathSegments.joinToString("/")` instead, or work with the segments list directly.
+- **Paparazzi 2.x requires Java 21 at test runtime** even though the project compiles to Java 11. Fix: add `tasks.withType<Test>().configureEach { javaLauncher.set(javaToolchains.launcherFor { languageVersion.set(JavaLanguageVersion.of(21)) }) }` to the module's `build.gradle.kts`. Keep `jvmToolchain(11)` for compilation — this only overrides the test launcher.
 - **Kotlin 2.2+ on JVM requires explicit `kotlin-test-junit` bridge** for `kotlin-test` assertions to work as JUnit tests. Add `testImplementation(libs.kotlin.test.junit)` alongside `kotlin-test` for any module with JVM tests using `import kotlin.test.*`. The bridge was implicit in older Kotlin/Gradle combinations; now it's explicit.
+
+## Claude Code UI Workflow (Paparazzi)
+
+Paparazzi renders Compose composables to PNG on the JVM — no emulator needed.
+
+**Screenshot location:** `core/ui/src/test/snapshots/images/`
+
+**Filename format:** `dev.jarkendar.photovault.core.ui.snapshot_CoreUiSnapshotTest_<testName>.png`
+
+**Workflow for creating or iterating on a new layout:**
+1. Write the composable in `core/ui/src/main/kotlin/...`
+2. Add a `@Test` in `CoreUiSnapshotTest` (`core/ui/src/test/kotlin/dev/jarkendar/photovault/core/ui/snapshot/CoreUiSnapshotTest.kt`)
+3. Run `./gradlew :core:ui:recordPaparazziDebug`
+4. Read the generated PNG with the `Read` tool
+5. Iterate based on visual feedback
+
+**When modifying an existing composable:** `verifyPaparazziDebug` fails if the render changed — update goldens intentionally with `recordPaparazziDebug`.
