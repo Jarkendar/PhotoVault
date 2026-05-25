@@ -14,8 +14,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
     buildFeatures {
         compose = true
@@ -23,14 +23,7 @@ android {
 }
 
 kotlin {
-    jvmToolchain(11)
-}
-
-// Paparazzi 2.x requires Java 21 at test runtime; compilation stays at Java 11
-tasks.withType<Test>().configureEach {
-    javaLauncher.set(javaToolchains.launcherFor {
-        languageVersion.set(JavaLanguageVersion.of(21))
-    })
+    jvmToolchain(21)
 }
 
 dependencies {
