@@ -18,10 +18,11 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.jarkendar.photovault.core.domain.model.Photo
+import kotlinx.collections.immutable.ImmutableList
 
 @Composable
 fun PhotoGrid(
-    photos: List<Photo>,
+    photos: ImmutableList<Photo>,
     onPhotoClick: (Photo) -> Unit,
     modifier: Modifier = Modifier,
     columns: Int = 3,

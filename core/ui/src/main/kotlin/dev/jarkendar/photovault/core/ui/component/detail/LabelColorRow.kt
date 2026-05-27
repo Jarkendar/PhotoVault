@@ -16,10 +16,11 @@ import dev.jarkendar.photovault.core.ui.preview.PhonePreview
 import dev.jarkendar.photovault.core.ui.preview.previewLabels
 import dev.jarkendar.photovault.core.ui.theme.PhotoVaultTheme
 import dev.jarkendar.photovault.core.ui.util.parseHexColor
+import kotlinx.collections.immutable.ImmutableList
 
 @Composable
 fun LabelColorRow(
-    labels: List<Label>,
+    labels: ImmutableList<Label>,
     modifier: Modifier = Modifier,
 ) {
     Row(

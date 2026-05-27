@@ -2,6 +2,7 @@ package dev.jarkendar.photovault.core.domain.model
 
 import dev.jarkendar.photovault.core.domain.id.PhotoId
 import kotlin.time.Instant
+import kotlinx.collections.immutable.ImmutableList
 
 data class Photo(
     val id: PhotoId,
@@ -14,8 +15,8 @@ data class Photo(
     val uploadedAt: Instant,
     val camera: String?,
     val location: GeoLocation?,
-    val tags: List<Tag>,
-    val categories: List<Category>,
-    val labels: List<Label>,
+    val tags: ImmutableList<Tag>,
+    val categories: ImmutableList<Category>,
+    val labels: ImmutableList<Label>,
     val isFavorite: Boolean,
 )

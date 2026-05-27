@@ -16,6 +16,7 @@ turbine = "1.2.1"
 androidxTestRunner = "1.7.0"
 ktor = "3.5.0"
 kotlinx-serialization-json = "1.11.0"
+kotlinx-collections-immutable = "0.3.8"
 paparazzi = "2.0.0-alpha05"
 
 [libraries]
@@ -53,6 +54,7 @@ ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version
 ktor-client-auth = { group = "io.ktor", name = "ktor-client-auth", version.ref = "ktor" }
 ktor-client-mock = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
+kotlinx-collections-immutable = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "kotlinx-collections-immutable" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

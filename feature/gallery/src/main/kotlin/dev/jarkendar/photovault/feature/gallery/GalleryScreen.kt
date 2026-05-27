@@ -32,6 +32,8 @@ import dev.jarkendar.photovault.core.ui.theme.PhotoVaultTheme
 import dev.jarkendar.photovault.core.domain.id.LabelId
 import dev.jarkendar.photovault.core.domain.id.PhotoId
 import kotlin.time.Instant
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.persistentMapOf
 
 @Composable
 fun GalleryScreen(
@@ -167,14 +169,15 @@ private fun previewGalleryContentState(): GalleryUiState.Content {
             id = PhotoId("p$i"), name = "photo_$i.jpg", sizeBytes = 4_200_000L,
             mimeType = "image/jpeg", width = w, height = h,
             capturedAt = null, uploadedAt = Instant.fromEpochMilliseconds(0L),
-            camera = null, location = null, tags = emptyList(), categories = emptyList(),
-            labels = if (i % 3 == 0) listOf(Label(LabelId("l$i"), "lbl", "#FF9800")) else emptyList(),
+            camera = null, location = null, tags = persistentListOf(), categories = persistentListOf(),
+            labels = if (i % 3 == 0) persistentListOf(Label(LabelId("l$i"), "lbl", "#FF9800")) else persistentListOf(),
             isFavorite = i % 4 == 0,
         )
     }
     return GalleryUiState.Content(
-        photos = photos, categories = listOf(cat1, cat2),
-        counts = mapOf(cat1.id to 48, cat2.id to 73),
-        selectedCategoryId = null, totalCount = 12, currentPage = 3, pages = listOf(2, 3, 4),
+        photos = persistentListOf(*photos.toTypedArray()),
+        categories = persistentListOf(cat1, cat2),
+        counts = persistentMapOf(cat1.id to 48, cat2.id to 73),
+        selectedCategoryId = null, totalCount = 12, currentPage = 3, pages = persistentListOf(2, 3, 4),
     )
 }

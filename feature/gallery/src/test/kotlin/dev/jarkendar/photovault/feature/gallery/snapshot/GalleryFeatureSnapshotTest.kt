@@ -17,6 +17,8 @@ import dev.jarkendar.photovault.feature.gallery.GalleryUiState
 import dev.jarkendar.photovault.feature.gallery.PhotoDetailScreen
 import dev.jarkendar.photovault.feature.gallery.PhotoDetailUiState
 import kotlin.time.Instant
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.persistentMapOf
 import org.junit.Rule
 import org.junit.Test
 
@@ -85,20 +87,20 @@ private fun galleryContentState(): GalleryUiState.Content {
             uploadedAt = Instant.fromEpochMilliseconds(0L),
             camera = null,
             location = null,
-            tags = emptyList(),
-            categories = emptyList(),
-            labels = if (i % 3 == 0) listOf(Label(LabelId("l$i"), "lbl", "#FF9800")) else emptyList(),
+            tags = persistentListOf(),
+            categories = persistentListOf(),
+            labels = if (i % 3 == 0) persistentListOf(Label(LabelId("l$i"), "lbl", "#FF9800")) else persistentListOf(),
             isFavorite = i % 4 == 0,
         )
     }
     return GalleryUiState.Content(
-        photos = photos,
-        categories = categories,
-        counts = mapOf(CategoryId("cat_1") to 48, CategoryId("cat_2") to 73),
+        photos = persistentListOf(*photos.toTypedArray()),
+        categories = persistentListOf(*categories.toTypedArray()),
+        counts = persistentMapOf(CategoryId("cat_1") to 48, CategoryId("cat_2") to 73),
         selectedCategoryId = null,
         totalCount = 12,
         currentPage = 3,
-        pages = listOf(2, 3, 4),
+        pages = persistentListOf(2, 3, 4),
     )
 }
 
@@ -113,15 +115,15 @@ private fun detailPhoto(): Photo = Photo(
     uploadedAt = Instant.fromEpochMilliseconds(1_776_525_840_000L),
     camera = "Pixel 8 Pro",
     location = GeoLocation(latitude = 54.40, longitude = 18.57, placeName = "Sopot, PL"),
-    tags = listOf(
+    tags = persistentListOf(
         Tag(TagId("t1"), "#zachód-słońca"),
         Tag(TagId("t2"), "#morze"),
     ),
-    categories = listOf(
+    categories = persistentListOf(
         Category(CategoryId("c1"), "Natura", "#4CAF50"),
         Category(CategoryId("c2"), "Podróże", "#2196F3"),
     ),
-    labels = listOf(
+    labels = persistentListOf(
         Label(LabelId("l1"), "Czerwony", "#F44336"),
         Label(LabelId("l2"), "Pomarańczowy", "#FF9800"),
         Label(LabelId("l3"), "Żółty", "#FFEB3B"),

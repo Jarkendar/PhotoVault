@@ -30,6 +30,7 @@ import dev.jarkendar.photovault.core.ui.state.LoadingState
 import dev.jarkendar.photovault.core.ui.theme.PhotoVaultTheme
 import dev.jarkendar.photovault.core.ui.util.photoPlaceholderColor
 import kotlin.time.Instant
+import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 fun PhotoDetailScreen(
@@ -123,12 +124,12 @@ private fun previewDetailPhoto() = Photo(
     uploadedAt = Instant.fromEpochMilliseconds(1_776_525_840_000L),
     camera = "Pixel 8 Pro",
     location = GeoLocation(latitude = 54.40, longitude = 18.57, placeName = "Sopot, PL"),
-    tags = listOf(Tag(TagId("t1"), "#zachód-słońca"), Tag(TagId("t2"), "#morze")),
-    categories = listOf(
+    tags = persistentListOf(Tag(TagId("t1"), "#zachód-słońca"), Tag(TagId("t2"), "#morze")),
+    categories = persistentListOf(
         Category(CategoryId("c1"), "Natura", "#4CAF50"),
         Category(CategoryId("c2"), "Podróże", "#2196F3"),
     ),
-    labels = listOf(
+    labels = persistentListOf(
         Label(LabelId("l1"), "Czerwony", "#F44336"),
         Label(LabelId("l2"), "Pomarańczowy", "#FF9800"),
         Label(LabelId("l3"), "Żółty", "#FFEB3B"),

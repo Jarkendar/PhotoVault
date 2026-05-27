@@ -20,11 +20,14 @@ import dev.jarkendar.photovault.core.ui.R
 import dev.jarkendar.photovault.core.ui.preview.PhonePreview
 import dev.jarkendar.photovault.core.ui.preview.previewCategories
 import dev.jarkendar.photovault.core.ui.theme.PhotoVaultTheme
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.ImmutableMap
+import kotlinx.collections.immutable.persistentMapOf
 
 @Composable
 fun CategoryFilterRow(
-    categories: List<Category>,
-    counts: Map<CategoryId, Int>,
+    categories: ImmutableList<Category>,
+    counts: ImmutableMap<CategoryId, Int>,
     selectedCategoryId: CategoryId?,
     onCategorySelect: (CategoryId?) -> Unit,
     modifier: Modifier = Modifier,
@@ -78,7 +81,7 @@ private fun CategoryFilterRowAllSelectedPreview() {
     PhotoVaultTheme {
         CategoryFilterRow(
             categories = previewCategories(),
-            counts = mapOf(),
+            counts = persistentMapOf(),
             selectedCategoryId = null,
             onCategorySelect = {},
         )
@@ -92,7 +95,7 @@ private fun CategoryFilterRowCategorySelectedPreview() {
     PhotoVaultTheme {
         CategoryFilterRow(
             categories = categories,
-            counts = mapOf(categories[0].id to 48, categories[1].id to 73),
+            counts = persistentMapOf(categories[0].id to 48, categories[1].id to 73),
             selectedCategoryId = categories[0].id,
             onCategorySelect = {},
         )

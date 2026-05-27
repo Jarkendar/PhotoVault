@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import dev.jarkendar.photovault.core.domain.model.Photo
 import dev.jarkendar.photovault.core.domain.model.Tag
 import dev.jarkendar.photovault.core.ui.R
+import kotlinx.collections.immutable.ImmutableList
 import dev.jarkendar.photovault.core.ui.component.TagChip
 import dev.jarkendar.photovault.core.ui.preview.PhonePreview
 import dev.jarkendar.photovault.core.ui.preview.previewDetailPhoto
@@ -141,7 +142,7 @@ private fun PhotoDetailSection(
 }
 
 @Composable
-private fun TagsRow(tags: List<Tag>) {
+private fun TagsRow(tags: ImmutableList<Tag>) {
     LazyRow(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         contentPadding = PaddingValues(horizontal = 16.dp),

@@ -12,10 +12,11 @@ import dev.jarkendar.photovault.core.domain.model.Photo
 import dev.jarkendar.photovault.core.ui.preview.PhonePreview
 import dev.jarkendar.photovault.core.ui.preview.previewStaggeredPhotos
 import dev.jarkendar.photovault.core.ui.theme.PhotoVaultTheme
+import kotlinx.collections.immutable.ImmutableList
 
 @Composable
 fun StaggeredPhotoGrid(
-    photos: List<Photo>,
+    photos: ImmutableList<Photo>,
     onPhotoClick: (Photo) -> Unit,
     onFavoriteClick: (Photo) -> Unit,
     modifier: Modifier = Modifier,

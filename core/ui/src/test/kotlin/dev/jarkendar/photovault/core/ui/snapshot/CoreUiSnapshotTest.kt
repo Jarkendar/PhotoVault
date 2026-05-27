@@ -26,6 +26,8 @@ import dev.jarkendar.photovault.core.ui.state.EmptyState
 import dev.jarkendar.photovault.core.ui.state.ErrorState
 import dev.jarkendar.photovault.core.ui.state.LoadingState
 import dev.jarkendar.photovault.core.ui.theme.PhotoVaultTheme
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.persistentMapOf
 import org.junit.Rule
 import org.junit.Test
 
@@ -109,7 +111,7 @@ class CoreUiSnapshotTest {
         PhotoVaultTheme {
             CategoryFilterRow(
                 categories = previewCategories(),
-                counts = mapOf(),
+                counts = persistentMapOf(),
                 selectedCategoryId = null,
                 onCategorySelect = {},
             )
@@ -132,7 +134,7 @@ class CoreUiSnapshotTest {
         PhotoVaultTheme {
             GalleryPaginationRow(
                 totalCount = 12,
-                pages = listOf(2, 3, 4),
+                pages = persistentListOf(2, 3, 4),
                 currentPage = 3,
                 onPageClick = {},
             )

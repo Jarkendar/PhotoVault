@@ -21,11 +21,13 @@ import androidx.compose.ui.unit.dp
 import dev.jarkendar.photovault.core.ui.R
 import dev.jarkendar.photovault.core.ui.preview.PhonePreview
 import dev.jarkendar.photovault.core.ui.theme.PhotoVaultTheme
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 fun GalleryPaginationRow(
     totalCount: Int,
-    pages: List<Int>,
+    pages: ImmutableList<Int>,
     currentPage: Int,
     onPageClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
@@ -75,7 +77,7 @@ private fun GalleryPaginationRowPreview() {
     PhotoVaultTheme {
         GalleryPaginationRow(
             totalCount = 12,
-            pages = listOf(2, 3, 4),
+            pages = persistentListOf(2, 3, 4),
             currentPage = 3,
             onPageClick = {},
         )

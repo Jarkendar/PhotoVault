@@ -24,10 +24,11 @@ import dev.jarkendar.photovault.core.ui.preview.PhonePreview
 import dev.jarkendar.photovault.core.ui.preview.previewCategories
 import dev.jarkendar.photovault.core.ui.theme.PhotoVaultTheme
 import dev.jarkendar.photovault.core.ui.util.parseHexColor
+import kotlinx.collections.immutable.ImmutableList
 
 @Composable
 fun CategoryChipRow(
-    categories: List<Category>,
+    categories: ImmutableList<Category>,
     onAddClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {

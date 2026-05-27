@@ -18,8 +18,11 @@ import dev.jarkendar.photovault.core.ui.state.ErrorState
 import dev.jarkendar.photovault.core.ui.state.LoadingState
 import dev.jarkendar.photovault.core.ui.theme.PhotoVaultTheme
 import kotlin.time.Instant
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
 
-internal fun previewPhotos(): List<Photo> = List(6) { i ->
+internal fun previewPhotos(): ImmutableList<Photo> = List(6) { i ->
     Photo(
         id = PhotoId("photo_$i"),
         name = "photo_$i.jpg",
@@ -31,14 +34,14 @@ internal fun previewPhotos(): List<Photo> = List(6) { i ->
         uploadedAt = Instant.fromEpochMilliseconds(0L),
         camera = null,
         location = null,
-        tags = if (i % 2 == 0) listOf(previewTags().first()) else emptyList(),
-        categories = emptyList(),
-        labels = emptyList(),
+        tags = if (i % 2 == 0) persistentListOf(previewTags().first()) else persistentListOf(),
+        categories = persistentListOf(),
+        labels = persistentListOf(),
         isFavorite = i % 3 == 0,
     )
-}
+}.toImmutableList()
 
-internal fun previewStaggeredPhotos(): List<Photo> {
+internal fun previewStaggeredPhotos(): ImmutableList<Photo> {
     val dimensions = listOf(
         1080 to 1440, 1920 to 1080, 1080 to 1920,
         1920 to 1920, 1440 to 1080, 1080 to 1440,
@@ -57,12 +60,12 @@ internal fun previewStaggeredPhotos(): List<Photo> {
             uploadedAt = Instant.fromEpochMilliseconds(0L),
             camera = null,
             location = null,
-            tags = emptyList(),
-            categories = emptyList(),
-            labels = if (i % 3 == 0) listOf(previewLabels().first()) else emptyList(),
+            tags = persistentListOf(),
+            categories = persistentListOf(),
+            labels = if (i % 3 == 0) persistentListOf(previewLabels().first()) else persistentListOf(),
             isFavorite = i % 4 == 0,
         )
-    }
+    }.toImmutableList()
 }
 
 internal fun previewDetailPhoto(): Photo = Photo(
@@ -76,28 +79,28 @@ internal fun previewDetailPhoto(): Photo = Photo(
     uploadedAt = Instant.fromEpochMilliseconds(1_776_525_840_000L),
     camera = "Pixel 8 Pro",
     location = GeoLocation(latitude = 54.40, longitude = 18.57, placeName = "Sopot, PL"),
-    tags = listOf(
+    tags = persistentListOf(
         Tag(id = TagId("tag_s"), name = "#zachód-słońca"),
         Tag(id = TagId("tag_m"), name = "#morze"),
     ),
-    categories = previewCategories().take(2),
+    categories = previewCategories().take(2).toImmutableList(),
     labels = previewLabels(),
     isFavorite = true,
 )
 
-internal fun previewTags(): List<Tag> = listOf(
+internal fun previewTags(): ImmutableList<Tag> = persistentListOf(
     Tag(id = TagId("tag_1"), name = "#morze"),
     Tag(id = TagId("tag_2"), name = "#góry"),
     Tag(id = TagId("tag_3"), name = "#miasto"),
 )
 
-internal fun previewCategories(): List<Category> = listOf(
+internal fun previewCategories(): ImmutableList<Category> = persistentListOf(
     Category(id = CategoryId("cat_1"), name = "Natura", colorHex = "#4CAF50"),
     Category(id = CategoryId("cat_2"), name = "Podróże", colorHex = "#2196F3"),
     Category(id = CategoryId("cat_3"), name = "Ludzie", colorHex = "#FF5722"),
 )
 
-internal fun previewLabels(): List<Label> = listOf(
+internal fun previewLabels(): ImmutableList<Label> = persistentListOf(
     Label(id = LabelId("lbl_1"), name = "Czerwony", colorHex = "#F44336"),
     Label(id = LabelId("lbl_2"), name = "Pomarańczowy", colorHex = "#FF9800"),
     Label(id = LabelId("lbl_3"), name = "Żółty", colorHex = "#FFEB3B"),
