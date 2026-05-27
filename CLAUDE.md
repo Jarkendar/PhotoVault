@@ -11,21 +11,23 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ./gradlew connectedAndroidTest   # Run instrumented tests (requires device/emulator)
 ./gradlew :app:test              # Run unit tests for a specific module
 ./gradlew lint                   # Run lint checks
-./gradlew :core:ui:recordPaparazziDebug   # Generate/update golden PNG screenshots
-./gradlew :core:ui:verifyPaparazziDebug   # Compare against golden screenshots (CI regression check)
+./gradlew :core:ui:recordPaparazziDebug            # Generate/update golden PNGs (core:ui components)
+./gradlew :core:ui:verifyPaparazziDebug            # Compare against goldens (CI regression check)
+./gradlew :feature:gallery:recordPaparazziDebug    # Generate/update golden PNGs (full screens)
+./gradlew :feature:gallery:verifyPaparazziDebug    # Compare against goldens (CI regression check)
 ```
 
 **Config:** compileSdk 36, minSdk 31 (Android 12+), Java 21, Kotlin 2.3.21, Gradle 9.3.1
 
 ## Architecture
 
-This is a **multi-module, layered Android app** (Jetpack Compose + Material 3). The project is in early scaffold phase — modules are planned but most are not yet created.
+This is a **multi-module, layered Android app** (Jetpack Compose + Material 3). Phase 1 in progress — `:feature:gallery` is implemented; remaining feature modules are planned.
 
 ### Planned Module Graph
 
 ```
 :app
- ├── :feature:gallery
+ ├── :feature:gallery   ← implemented (stateless UI, Phase 1)
  ├── :feature:upload
  ├── :feature:search
  └── :feature:settings
@@ -56,11 +58,15 @@ A Kotlin + Ktor server runs in Docker on a Raspberry Pi. The Android client is a
 
 ## Dependencies
 
-All versions managed centrally in `gradle/libs.versions.toml`. Current active deps are minimal (Compose BOM, Material 3, AndroidX core/lifecycle/activity). Planned additions: Koin, Ktor client, Room, WorkManager, MediaPipe.
+All versions managed centrally in `gradle/libs.versions.toml`.
+
+**Active:** Compose BOM 2026.05.01, Material 3, AndroidX core/lifecycle/activity, material-icons-extended, kotlinx.collections.immutable 0.3.8, kotlinx.datetime 0.8.0, Paparazzi 2.0.0-alpha05.
+
+**Planned additions:** Koin, Ktor client, Room, WorkManager, MediaPipe.
 
 ## Project Phase
 
-Phase 0 (scaffold only). The roadmap in `README.md` defines 8 phases. Convention plugins for modules have not been created yet — when adding modules, follow the dependency rules above strictly.
+Phase 1 (`:feature:gallery` — stateless UI done; ViewModels and repository wiring pending). The roadmap in `README.md` defines 8 phases. Convention plugins for modules have not been created yet — when adding modules, follow the dependency rules above strictly.
 
 ## Working with Claude Code
 
@@ -82,6 +88,15 @@ Phase 0 (scaffold only). The roadmap in `README.md` defines 8 phases. Convention
 - Format: Conventional Commits (`feat:`, `fix:`, `chore:`, `docs:`, `refactor:`, `test:`)
 - No `Co-authored-by` or any attribution lines in commit messages
 
+### Compose stability
+- All `List<T>` / `Map<K,V>` in composable parameters and `UiState` data classes must use `ImmutableList<T>` / `ImmutableMap<K,V>` from `kotlinx.collections.immutable`. Use `persistentListOf` / `persistentMapOf` at call sites.
+- Domain model collections (`Photo.tags`, `.categories`, `.labels`) are `ImmutableList<T>` — keep them that way. When constructing `Photo` from network/DB, convert with `.toImmutableList()`.
+
+### Previews
+- `@Preview` lives in the **same file** as the composable, at the bottom, marked `private`.
+- Use the `@PhonePreview` multi-preview annotation (`core/ui/.../preview/PhonePreview.kt`) — it covers Light/Dark × Portrait/Landscape in one annotation.
+- Preview fixtures for `core:ui` components live in `PreviewFixtures.kt` (internal). Feature modules define their own private helper functions inline.
+
 ### Testing
 - Assertions: kotlin-test (`assertEquals`, `assertTrue`, `assertFalse`) — multiplatform-ready
 - Test runner: JUnit 4 for Android instrumented tests (required by `AndroidJUnit4`), JUnit 5 (Jupiter) for pure JVM modules when added
@@ -91,29 +106,42 @@ Phase 0 (scaffold only). The roadmap in `README.md` defines 8 phases. Convention
 
 ## Known Quirks
 
-- Project is currently a single `:app` module. The modular structure in "Planned Module Graph" is a target, not yet reality.
+- `:feature:gallery` exists with stateless composables. `:app` and remaining feature modules are not yet created.
 - No Gradle convention plugins yet. Initial module setup will use copy-paste of `build.gradle.kts` files, to be refactored into convention plugins in a later phase.
-- Kotlin version is 2.2.10 (AGP-paired default). Kotlin 2.3.20 is available but upgrade is deferred until there's a concrete reason.
+- Kotlin version is 2.3.21.
 - **AGP 8+ built-in Kotlin support:** `com.android.library` and `com.android.application` plugins automatically configure Kotlin for modules with `.kt` sources. Do NOT explicitly add `alias(libs.plugins.kotlin.android)` to Android library modules — causes "Cannot add extension with name 'kotlin', as there is an extension already registered". Only add a Kotlin plugin when a different variant is needed: `kotlin.compose` for Compose modules, `kotlin.jvm` for pure Kotlin JVM modules (`:core:common`, `:core:domain`).
 - **Room `@Junction` uses `entityColumn`, not `childColumn`.** Older tutorials often show `Junction(value = X, parentColumn, childColumn)`, but current API is `Junction(value = X, parentColumn, entityColumn)`. Using `childColumn` produces cryptic KSP error: "Cannot find the child entity referencing column `id` in the junction".
 - **Android instrumented tests need explicit runner setup.** Both the library `androidx.test:runner` (provides `AndroidJUnitRunner`) and the build config `testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"` in `android.defaultConfig` are required. Without them, runtime fails with `ClassNotFoundException: androidx.test.runner.AndroidJUnitRunner`. `androidx.test.ext:junit` (provides `AndroidJUnit4` class for `@RunWith`) is a separate dependency — both are needed.
 - **Ktor 3.x path resolution with `DefaultRequest { url(baseUrl) }`:** request paths must be RELATIVE (e.g., `client.get("photos")`) not absolute (`client.get("/photos")`). Absolute paths replace the baseUrl path entirely, causing the `/v1/` prefix to be dropped. In factory functions, normalize baseUrl to ensure a trailing slash before passing to `DefaultRequest`.
 - **Ktor 3.x removed `URLBuilder.encodedPath`** as a String property. Use `url.encodedPathSegments.joinToString("/")` instead, or work with the segments list directly.
 - **Kotlin 2.2+ on JVM requires explicit `kotlin-test-junit` bridge** for `kotlin-test` assertions to work as JUnit tests. Add `testImplementation(libs.kotlin.test.junit)` alongside `kotlin-test` for any module with JVM tests using `import kotlin.test.*`. The bridge was implicit in older Kotlin/Gradle combinations; now it's explicit.
+- **`Modifier.weight()` cannot be explicitly imported.** It is `internal in file` in the Compose layout source. Do NOT add `import androidx.compose.foundation.layout.weight` — it causes a compiler error. Access it purely through the `ColumnScope` / `RowScope` receiver inside a `Column` / `Row` lambda.
+- **`kotlinx.datetime.LocalDateTime.monthNumber` and `dayOfMonth` are deprecated** in 0.8.0, but the suggested replacements (`month.number`, `day`) do not compile against the JVM typealias (`java.time.Month` has no `.number`). Use the deprecated properties until a library version ships a working replacement — the warnings are non-blocking.
 
 ## Claude Code UI Workflow (Paparazzi)
 
 Paparazzi renders Compose composables to PNG on the JVM — no emulator needed.
 
+### core:ui components
+
 **Screenshot location:** `core/ui/src/test/snapshots/images/`
 
 **Filename format:** `dev.jarkendar.photovault.core.ui.snapshot_CoreUiSnapshotTest_<testName>.png`
 
-**Workflow for creating or iterating on a new layout:**
+**Workflow:**
 1. Write the composable in `core/ui/src/main/kotlin/...`
 2. Add a `@Test` in `CoreUiSnapshotTest` (`core/ui/src/test/kotlin/dev/jarkendar/photovault/core/ui/snapshot/CoreUiSnapshotTest.kt`)
 3. Run `./gradlew :core:ui:recordPaparazziDebug`
-4. Read the generated PNG with the `Read` tool
-5. Iterate based on visual feedback
+4. Read the generated PNG with the `Read` tool and iterate
+
+### feature:gallery full-screen tests
+
+**Screenshot location:** `feature/gallery/src/test/snapshots/images/`
+
+**Filename format:** `dev.jarkendar.photovault.feature.gallery.snapshot_GalleryFeatureSnapshotTest_<testName>.png`
+
+**Workflow:** same pattern — add `@Test` in `GalleryFeatureSnapshotTest`, run `./gradlew :feature:gallery:recordPaparazziDebug`.
+
+Note: `core:ui` cannot depend on `feature:gallery`, so full-screen screen tests must live in the feature module. The feature test file defines its own private data helpers (fixtures from `core:ui` are `internal`).
 
 **When modifying an existing composable:** `verifyPaparazziDebug` fails if the render changed — update goldens intentionally with `recordPaparazziDebug`.
