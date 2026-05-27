@@ -29,7 +29,7 @@ Secondary learning goals that fall out naturally:
 
 ## Current phase
 
-**Phase 0 — architecture planning.** No code yet. This README captures the decisions so far.
+**Phase 3 — Gallery feature (stateless UI complete).** `:feature:gallery` is implemented as stateless Compose screens driven by `GalleryUiState` / `PhotoDetailUiState`. All reusable components live in `:core:ui` (staggered grid, category chips, detail sheet, pagination row, bottom nav). Paparazzi snapshot tests cover all components. ViewModels and repository wiring are the next step.
 
 ## Roadmap
 
