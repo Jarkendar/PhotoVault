@@ -2,8 +2,13 @@ package dev.jarkendar.photovault.core.ui.preview
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import dev.jarkendar.photovault.core.domain.id.CategoryId
+import dev.jarkendar.photovault.core.domain.id.LabelId
 import dev.jarkendar.photovault.core.domain.id.PhotoId
 import dev.jarkendar.photovault.core.domain.id.TagId
+import dev.jarkendar.photovault.core.domain.model.Category
+import dev.jarkendar.photovault.core.domain.model.GeoLocation
+import dev.jarkendar.photovault.core.domain.model.Label
 import dev.jarkendar.photovault.core.domain.model.Photo
 import dev.jarkendar.photovault.core.domain.model.Tag
 import dev.jarkendar.photovault.core.ui.component.PhotoGrid
@@ -33,10 +38,72 @@ internal fun previewPhotos(): List<Photo> = List(6) { i ->
     )
 }
 
+internal fun previewStaggeredPhotos(): List<Photo> {
+    val dimensions = listOf(
+        1080 to 1440, 1920 to 1080, 1080 to 1920,
+        1920 to 1920, 1440 to 1080, 1080 to 1440,
+        1920 to 1080, 1080 to 1920, 1920 to 1440,
+        1440 to 1920, 1920 to 1080, 1080 to 1440,
+    )
+    return dimensions.mapIndexed { i, (w, h) ->
+        Photo(
+            id = PhotoId("stag_$i"),
+            name = "photo_$i.jpg",
+            sizeBytes = 4_200_000L,
+            mimeType = "image/jpeg",
+            width = w,
+            height = h,
+            capturedAt = null,
+            uploadedAt = Instant.fromEpochMilliseconds(0L),
+            camera = null,
+            location = null,
+            tags = emptyList(),
+            categories = emptyList(),
+            labels = if (i % 3 == 0) listOf(previewLabels().first()) else emptyList(),
+            isFavorite = i % 4 == 0,
+        )
+    }
+}
+
+internal fun previewDetailPhoto(): Photo = Photo(
+    id = PhotoId("detail_1"),
+    name = "zachod_morze.jpg",
+    sizeBytes = 4_200_000L,
+    mimeType = "image/jpeg",
+    width = 4000,
+    height = 3000,
+    capturedAt = Instant.fromEpochMilliseconds(1_776_525_840_000L),
+    uploadedAt = Instant.fromEpochMilliseconds(1_776_525_840_000L),
+    camera = "Pixel 8 Pro",
+    location = GeoLocation(latitude = 54.40, longitude = 18.57, placeName = "Sopot, PL"),
+    tags = listOf(
+        Tag(id = TagId("tag_s"), name = "#zachód-słońca"),
+        Tag(id = TagId("tag_m"), name = "#morze"),
+    ),
+    categories = previewCategories().take(2),
+    labels = previewLabels(),
+    isFavorite = true,
+)
+
 internal fun previewTags(): List<Tag> = listOf(
     Tag(id = TagId("tag_1"), name = "#morze"),
     Tag(id = TagId("tag_2"), name = "#góry"),
     Tag(id = TagId("tag_3"), name = "#miasto"),
+)
+
+internal fun previewCategories(): List<Category> = listOf(
+    Category(id = CategoryId("cat_1"), name = "Natura", colorHex = "#4CAF50"),
+    Category(id = CategoryId("cat_2"), name = "Podróże", colorHex = "#2196F3"),
+    Category(id = CategoryId("cat_3"), name = "Ludzie", colorHex = "#FF5722"),
+)
+
+internal fun previewLabels(): List<Label> = listOf(
+    Label(id = LabelId("lbl_1"), name = "Czerwony", colorHex = "#F44336"),
+    Label(id = LabelId("lbl_2"), name = "Pomarańczowy", colorHex = "#FF9800"),
+    Label(id = LabelId("lbl_3"), name = "Żółty", colorHex = "#FFEB3B"),
+    Label(id = LabelId("lbl_4"), name = "Zielony", colorHex = "#4CAF50"),
+    Label(id = LabelId("lbl_5"), name = "Niebieski", colorHex = "#2196F3"),
+    Label(id = LabelId("lbl_6"), name = "Fioletowy", colorHex = "#9C27B0"),
 )
 
 @Preview(showBackground = true)

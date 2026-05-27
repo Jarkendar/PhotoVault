@@ -1,4 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="core_ui_retry">Retry</string>
+    <string name="core_ui_menu">Menu</string>
+    <string name="core_ui_account">Account</string>
+    <string name="core_ui_search_hint">Search your photos</string>
+    <string name="core_ui_filter">Filter</string>
+    <string name="core_ui_all_categories">All</string>
+    <string name="core_ui_add">+ Add</string>
+    <string name="core_ui_back">Back</string>
+    <string name="core_ui_share">Share</string>
+    <string name="core_ui_add_favorite">Add to favorites</string>
+    <string name="core_ui_remove_favorite">Remove from favorites</string>
+    <string name="core_ui_more">More options</string>
+    <string name="core_ui_section_categories">CATEGORIES</string>
+    <string name="core_ui_section_tags">TAGS</string>
+    <string name="core_ui_section_labels">LABELS</string>
+    <string name="core_ui_section_info">INFO</string>
+    <string name="core_ui_nav_gallery">Gallery</string>
+    <string name="core_ui_nav_search">Search</string>
+    <string name="core_ui_nav_upload">Upload</string>
+    <string name="core_ui_nav_manage">Manage</string>
+    <string name="core_ui_nav_settings">Settings</string>
+    <plurals name="core_ui_photo_count">
+        <item quantity="one">%d photo</item>
+        <item quantity="other">%d photos</item>
+    </plurals>
 </resources>

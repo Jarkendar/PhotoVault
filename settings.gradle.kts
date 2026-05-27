@@ -30,4 +30,4 @@ include(":core:ui")
 include(":core:database")
 include(":core:network")
 include(":core:data")
- 
+include(":feature:gallery")

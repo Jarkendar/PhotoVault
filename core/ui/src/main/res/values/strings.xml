@@ -1,4 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="core_ui_retry">Spróbuj ponownie</string>
+    <string name="core_ui_menu">Menu</string>
+    <string name="core_ui_account">Konto</string>
+    <string name="core_ui_search_hint">Szukaj w swoich zdjęciach</string>
+    <string name="core_ui_filter">Filtruj</string>
+    <string name="core_ui_all_categories">Wszystkie</string>
+    <string name="core_ui_add">+ Dodaj</string>
+    <string name="core_ui_back">Wróć</string>
+    <string name="core_ui_share">Udostępnij</string>
+    <string name="core_ui_add_favorite">Dodaj do ulubionych</string>
+    <string name="core_ui_remove_favorite">Usuń z ulubionych</string>
+    <string name="core_ui_more">Więcej opcji</string>
+    <string name="core_ui_section_categories">KATEGORIE</string>
+    <string name="core_ui_section_tags">TAGI</string>
+    <string name="core_ui_section_labels">ETYKIETY</string>
+    <string name="core_ui_section_info">INFORMACJE</string>
+    <string name="core_ui_nav_gallery">Galeria</string>
+    <string name="core_ui_nav_search">Szukaj</string>
+    <string name="core_ui_nav_upload">Prześlij</string>
+    <string name="core_ui_nav_manage">Zarządzaj</string>
+    <string name="core_ui_nav_settings">Ustawienia</string>
+    <plurals name="core_ui_photo_count">
+        <item quantity="one">%d zdjęcie</item>
+        <item quantity="few">%d zdjęcia</item>
+        <item quantity="many">%d zdjęć</item>
+        <item quantity="other">%d zdjęć</item>
+    </plurals>
 </resources>

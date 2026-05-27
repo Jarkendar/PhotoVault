@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "dev.jarkendar.photovault.core.ui"
+    namespace = "dev.jarkendar.photovault.feature.gallery"
     compileSdk = 36
 
     defaultConfig {
@@ -27,15 +27,8 @@ kotlin {
 }
 
 dependencies {
+    implementation(project(":core:ui"))
     implementation(project(":core:domain"))
 
     testImplementation(libs.junit)
-
-    api(platform(libs.androidx.compose.bom))
-    api(libs.androidx.compose.ui)
-    api(libs.androidx.compose.ui.graphics)
-    api(libs.androidx.compose.material3)
-    api(libs.androidx.compose.material.icons.extended)
-    api(libs.androidx.compose.ui.tooling.preview)
-    debugImplementation(libs.androidx.compose.ui.tooling)
 }
