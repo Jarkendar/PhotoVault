@@ -1,7 +1,7 @@
-package dev.jarkendar.photovault.core.network
+package dev.jskrzypczak.photovault.core.network
 
-import dev.jarkendar.photovault.core.network.auth.StubAuthTokenProvider
-import dev.jarkendar.photovault.core.network.dto.health.HealthDto
+import dev.jskrzypczak.photovault.core.network.auth.StubAuthTokenProvider
+import dev.jskrzypczak.photovault.core.network.dto.health.HealthDto
 import io.ktor.client.call.body
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.respond

@@ -1,10 +1,10 @@
-package dev.jarkendar.photovault.core.network.api
+package dev.jskrzypczak.photovault.core.network.api
 
-import dev.jarkendar.photovault.core.network.dto.auth.AuthResponseDto
-import dev.jarkendar.photovault.core.network.dto.auth.LoginRequestDto
-import dev.jarkendar.photovault.core.network.dto.auth.RefreshRequestDto
-import dev.jarkendar.photovault.core.network.dto.user.UserDto
-import dev.jarkendar.photovault.core.network.error.mapToNetworkError
+import dev.jskrzypczak.photovault.core.network.dto.auth.AuthResponseDto
+import dev.jskrzypczak.photovault.core.network.dto.auth.LoginRequestDto
+import dev.jskrzypczak.photovault.core.network.dto.auth.RefreshRequestDto
+import dev.jskrzypczak.photovault.core.network.dto.user.UserDto
+import dev.jskrzypczak.photovault.core.network.error.mapToNetworkError
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get

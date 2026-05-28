@@ -1,8 +1,8 @@
-package dev.jarkendar.photovault.core.network.api
+package dev.jskrzypczak.photovault.core.network.api
 
-import dev.jarkendar.photovault.core.network.dto.upload.UploadDto
-import dev.jarkendar.photovault.core.network.dto.upload.UploadListDto
-import dev.jarkendar.photovault.core.network.dto.upload.UploadStatus
+import dev.jskrzypczak.photovault.core.network.dto.upload.UploadDto
+import dev.jskrzypczak.photovault.core.network.dto.upload.UploadListDto
+import dev.jskrzypczak.photovault.core.network.dto.upload.UploadStatus
 
 interface UploadsApi {
     suspend fun listUploads(statuses: List<UploadStatus>? = null): Result<UploadListDto>

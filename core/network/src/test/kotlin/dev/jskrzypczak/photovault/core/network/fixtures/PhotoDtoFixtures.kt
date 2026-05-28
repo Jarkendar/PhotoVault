@@ -1,14 +1,14 @@
-package dev.jarkendar.photovault.core.network.fixtures
+package dev.jskrzypczak.photovault.core.network.fixtures
 
-import dev.jarkendar.photovault.core.network.dto.category.CategoryDto
-import dev.jarkendar.photovault.core.network.dto.label.LabelDto
-import dev.jarkendar.photovault.core.network.dto.label.LabelName
-import dev.jarkendar.photovault.core.network.dto.photo.LocationDto
-import dev.jarkendar.photovault.core.network.dto.photo.PhotoDto
-import dev.jarkendar.photovault.core.network.dto.photo.PhotoPageDto
-import dev.jarkendar.photovault.core.network.dto.photo.ProcessingStatus
-import dev.jarkendar.photovault.core.network.dto.tag.TagDto
-import dev.jarkendar.photovault.core.network.dto.user.UserRefDto
+import dev.jskrzypczak.photovault.core.network.dto.category.CategoryDto
+import dev.jskrzypczak.photovault.core.network.dto.label.LabelDto
+import dev.jskrzypczak.photovault.core.network.dto.label.LabelName
+import dev.jskrzypczak.photovault.core.network.dto.photo.LocationDto
+import dev.jskrzypczak.photovault.core.network.dto.photo.PhotoDto
+import dev.jskrzypczak.photovault.core.network.dto.photo.PhotoPageDto
+import dev.jskrzypczak.photovault.core.network.dto.photo.ProcessingStatus
+import dev.jskrzypczak.photovault.core.network.dto.tag.TagDto
+import dev.jskrzypczak.photovault.core.network.dto.user.UserRefDto
 import kotlin.time.Instant
 
 object PhotoDtoFixtures {

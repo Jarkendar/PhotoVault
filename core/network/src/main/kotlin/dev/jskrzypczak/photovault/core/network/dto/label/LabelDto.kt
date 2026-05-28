@@ -1,4 +1,4 @@
-package dev.jarkendar.photovault.core.network.dto.label
+package dev.jskrzypczak.photovault.core.network.dto.label
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

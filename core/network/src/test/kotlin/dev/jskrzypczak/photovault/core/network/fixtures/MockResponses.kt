@@ -1,4 +1,4 @@
-package dev.jarkendar.photovault.core.network.fixtures
+package dev.jskrzypczak.photovault.core.network.fixtures
 
 object MockResponses {
 

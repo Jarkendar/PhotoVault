@@ -1,4 +1,4 @@
-package dev.jarkendar.photovault.core.ui.theme
+package dev.jskrzypczak.photovault.core.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

@@ -1,6 +1,6 @@
-package dev.jarkendar.photovault.feature.gallery
+package dev.jskrzypczak.photovault.feature.gallery
 
-import dev.jarkendar.photovault.core.domain.model.Photo
+import dev.jskrzypczak.photovault.core.domain.model.Photo
 
 sealed interface PhotoDetailUiState {
     data object Loading : PhotoDetailUiState

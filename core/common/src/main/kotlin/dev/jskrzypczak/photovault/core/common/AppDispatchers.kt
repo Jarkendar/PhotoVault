@@ -1,4 +1,4 @@
-package dev.jarkendar.photovault.core.common
+package dev.jskrzypczak.photovault.core.common
 
 import kotlinx.coroutines.CoroutineDispatcher
 

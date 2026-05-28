@@ -1,4 +1,4 @@
-package dev.jarkendar.photovault.core.database.converter
+package dev.jskrzypczak.photovault.core.database.converter
 
 import androidx.room.TypeConverter
 import kotlin.time.Instant

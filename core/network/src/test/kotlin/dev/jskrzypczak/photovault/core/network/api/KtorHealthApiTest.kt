@@ -1,7 +1,7 @@
-package dev.jarkendar.photovault.core.network.api
+package dev.jskrzypczak.photovault.core.network.api
 
-import dev.jarkendar.photovault.core.network.auth.StubAuthTokenProvider
-import dev.jarkendar.photovault.core.network.createPhotoVaultHttpClient
+import dev.jskrzypczak.photovault.core.network.auth.StubAuthTokenProvider
+import dev.jskrzypczak.photovault.core.network.createPhotoVaultHttpClient
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.respond
 import io.ktor.http.HttpHeaders

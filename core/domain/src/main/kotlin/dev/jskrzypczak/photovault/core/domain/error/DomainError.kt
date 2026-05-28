@@ -1,4 +1,4 @@
-package dev.jarkendar.photovault.core.domain.error
+package dev.jskrzypczak.photovault.core.domain.error
 
 sealed class DomainError : Throwable() {
     data object NotFound : DomainError()

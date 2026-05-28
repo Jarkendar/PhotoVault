@@ -1,4 +1,4 @@
-package dev.jarkendar.photovault.core.ui.component.gallery
+package dev.jskrzypczak.photovault.core.ui.component.gallery
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
@@ -8,10 +8,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import dev.jarkendar.photovault.core.domain.model.Photo
-import dev.jarkendar.photovault.core.ui.preview.PhonePreview
-import dev.jarkendar.photovault.core.ui.preview.previewStaggeredPhotos
-import dev.jarkendar.photovault.core.ui.theme.PhotoVaultTheme
+import dev.jskrzypczak.photovault.core.domain.model.Photo
+import dev.jskrzypczak.photovault.core.ui.preview.PhonePreview
+import dev.jskrzypczak.photovault.core.ui.preview.previewStaggeredPhotos
+import dev.jskrzypczak.photovault.core.ui.theme.PhotoVaultTheme
 import kotlinx.collections.immutable.ImmutableList
 
 @Composable

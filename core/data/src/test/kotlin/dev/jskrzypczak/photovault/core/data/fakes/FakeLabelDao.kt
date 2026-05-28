@@ -1,7 +1,7 @@
-package dev.jarkendar.photovault.core.data.fakes
+package dev.jskrzypczak.photovault.core.data.fakes
 
-import dev.jarkendar.photovault.core.database.dao.LabelDao
-import dev.jarkendar.photovault.core.database.entity.LabelEntity
+import dev.jskrzypczak.photovault.core.database.dao.LabelDao
+import dev.jskrzypczak.photovault.core.database.entity.LabelEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 

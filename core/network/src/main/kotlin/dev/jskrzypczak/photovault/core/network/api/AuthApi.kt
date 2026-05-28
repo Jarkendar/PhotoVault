@@ -1,9 +1,9 @@
-package dev.jarkendar.photovault.core.network.api
+package dev.jskrzypczak.photovault.core.network.api
 
-import dev.jarkendar.photovault.core.network.dto.auth.AuthResponseDto
-import dev.jarkendar.photovault.core.network.dto.auth.LoginRequestDto
-import dev.jarkendar.photovault.core.network.dto.auth.RefreshRequestDto
-import dev.jarkendar.photovault.core.network.dto.user.UserDto
+import dev.jskrzypczak.photovault.core.network.dto.auth.AuthResponseDto
+import dev.jskrzypczak.photovault.core.network.dto.auth.LoginRequestDto
+import dev.jskrzypczak.photovault.core.network.dto.auth.RefreshRequestDto
+import dev.jskrzypczak.photovault.core.network.dto.user.UserDto
 
 interface AuthApi {
     suspend fun login(request: LoginRequestDto): Result<AuthResponseDto>

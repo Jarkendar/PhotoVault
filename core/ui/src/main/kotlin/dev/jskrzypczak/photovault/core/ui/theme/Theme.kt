@@ -1,4 +1,4 @@
-package dev.jarkendar.photovault.core.ui.theme
+package dev.jskrzypczak.photovault.core.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

@@ -1,9 +1,9 @@
-package dev.jarkendar.photovault.core.network.api
+package dev.jskrzypczak.photovault.core.network.api
 
-import dev.jarkendar.photovault.core.network.dto.tag.TagCreateRequestDto
-import dev.jarkendar.photovault.core.network.dto.tag.TagDto
-import dev.jarkendar.photovault.core.network.dto.tag.TagListDto
-import dev.jarkendar.photovault.core.network.dto.tag.TagUpdateRequestDto
+import dev.jskrzypczak.photovault.core.network.dto.tag.TagCreateRequestDto
+import dev.jskrzypczak.photovault.core.network.dto.tag.TagDto
+import dev.jskrzypczak.photovault.core.network.dto.tag.TagListDto
+import dev.jskrzypczak.photovault.core.network.dto.tag.TagUpdateRequestDto
 
 interface TagsApi {
     suspend fun listTags(usedOnly: Boolean = false): Result<TagListDto>

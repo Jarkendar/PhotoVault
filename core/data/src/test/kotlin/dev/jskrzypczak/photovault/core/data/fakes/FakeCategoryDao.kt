@@ -1,7 +1,7 @@
-package dev.jarkendar.photovault.core.data.fakes
+package dev.jskrzypczak.photovault.core.data.fakes
 
-import dev.jarkendar.photovault.core.database.dao.CategoryDao
-import dev.jarkendar.photovault.core.database.entity.CategoryEntity
+import dev.jskrzypczak.photovault.core.database.dao.CategoryDao
+import dev.jskrzypczak.photovault.core.database.entity.CategoryEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 

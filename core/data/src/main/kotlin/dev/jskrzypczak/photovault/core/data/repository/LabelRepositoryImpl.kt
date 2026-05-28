@@ -1,10 +1,10 @@
-package dev.jarkendar.photovault.core.data.repository
+package dev.jskrzypczak.photovault.core.data.repository
 
-import dev.jarkendar.photovault.core.common.AppDispatchers
-import dev.jarkendar.photovault.core.data.mapper.database.toDomain
-import dev.jarkendar.photovault.core.database.dao.LabelDao
-import dev.jarkendar.photovault.core.domain.model.Label
-import dev.jarkendar.photovault.core.domain.repository.LabelRepository
+import dev.jskrzypczak.photovault.core.common.AppDispatchers
+import dev.jskrzypczak.photovault.core.data.mapper.database.toDomain
+import dev.jskrzypczak.photovault.core.database.dao.LabelDao
+import dev.jskrzypczak.photovault.core.domain.model.Label
+import dev.jskrzypczak.photovault.core.domain.repository.LabelRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map

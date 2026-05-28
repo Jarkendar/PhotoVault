@@ -1,4 +1,4 @@
-package dev.jarkendar.photovault.core.ui.util
+package dev.jskrzypczak.photovault.core.ui.util
 
 import androidx.compose.ui.graphics.Color
 

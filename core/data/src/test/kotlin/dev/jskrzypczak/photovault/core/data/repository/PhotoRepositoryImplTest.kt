@@ -1,21 +1,21 @@
-package dev.jarkendar.photovault.core.data.repository
+package dev.jskrzypczak.photovault.core.data.repository
 
 import app.cash.turbine.test
-import dev.jarkendar.photovault.core.data.fakes.FakeCategoryDao
-import dev.jarkendar.photovault.core.data.fakes.FakeLabelDao
-import dev.jarkendar.photovault.core.data.fakes.FakePhotoDao
-import dev.jarkendar.photovault.core.data.fakes.FakePhotosApi
-import dev.jarkendar.photovault.core.data.fakes.FakeTagDao
-import dev.jarkendar.photovault.core.data.fixtures.PhotoTestFixtures
-import dev.jarkendar.photovault.core.data.fixtures.TestAppDispatchers
-import dev.jarkendar.photovault.core.database.entity.PhotoTagCrossRef
-import dev.jarkendar.photovault.core.domain.error.DomainError
-import dev.jarkendar.photovault.core.domain.id.PhotoId
-import dev.jarkendar.photovault.core.domain.id.TagId
-import dev.jarkendar.photovault.core.domain.query.SearchQuery
-import dev.jarkendar.photovault.core.domain.repository.LoadMoreResult
-import dev.jarkendar.photovault.core.network.dto.photo.PhotoPageDto
-import dev.jarkendar.photovault.core.network.error.NetworkError
+import dev.jskrzypczak.photovault.core.data.fakes.FakeCategoryDao
+import dev.jskrzypczak.photovault.core.data.fakes.FakeLabelDao
+import dev.jskrzypczak.photovault.core.data.fakes.FakePhotoDao
+import dev.jskrzypczak.photovault.core.data.fakes.FakePhotosApi
+import dev.jskrzypczak.photovault.core.data.fakes.FakeTagDao
+import dev.jskrzypczak.photovault.core.data.fixtures.PhotoTestFixtures
+import dev.jskrzypczak.photovault.core.data.fixtures.TestAppDispatchers
+import dev.jskrzypczak.photovault.core.database.entity.PhotoTagCrossRef
+import dev.jskrzypczak.photovault.core.domain.error.DomainError
+import dev.jskrzypczak.photovault.core.domain.id.PhotoId
+import dev.jskrzypczak.photovault.core.domain.id.TagId
+import dev.jskrzypczak.photovault.core.domain.query.SearchQuery
+import dev.jskrzypczak.photovault.core.domain.repository.LoadMoreResult
+import dev.jskrzypczak.photovault.core.network.dto.photo.PhotoPageDto
+import dev.jskrzypczak.photovault.core.network.error.NetworkError
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
@@ -58,10 +58,10 @@ class PhotoRepositoryImplTest {
         photoDao.photos.value = listOf(PhotoTestFixtures.PHOTO_ENTITY)
         photoDao.photoTags.value = listOf(PhotoTagCrossRef(photoId = "photo-abc123", tagId = "tag-001"))
         photoDao.photoCategories.value = listOf(
-            dev.jarkendar.photovault.core.database.entity.PhotoCategoryCrossRef("photo-abc123", "cat-001"),
+            dev.jskrzypczak.photovault.core.database.entity.PhotoCategoryCrossRef("photo-abc123", "cat-001"),
         )
         photoDao.photoLabels.value = listOf(
-            dev.jarkendar.photovault.core.database.entity.PhotoLabelCrossRef("photo-abc123", "label-orange"),
+            dev.jskrzypczak.photovault.core.database.entity.PhotoLabelCrossRef("photo-abc123", "label-orange"),
         )
 
         repository.observePhotos().test {

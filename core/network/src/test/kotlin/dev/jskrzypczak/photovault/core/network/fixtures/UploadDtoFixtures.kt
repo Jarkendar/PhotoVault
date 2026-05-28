@@ -1,7 +1,7 @@
-package dev.jarkendar.photovault.core.network.fixtures
+package dev.jskrzypczak.photovault.core.network.fixtures
 
-import dev.jarkendar.photovault.core.network.dto.upload.UploadDto
-import dev.jarkendar.photovault.core.network.dto.upload.UploadStatus
+import dev.jskrzypczak.photovault.core.network.dto.upload.UploadDto
+import dev.jskrzypczak.photovault.core.network.dto.upload.UploadStatus
 import kotlin.time.Instant
 
 object UploadDtoFixtures {

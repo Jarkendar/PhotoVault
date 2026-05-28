@@ -1,4 +1,4 @@
-package dev.jarkendar.photovault.core.ui.component.detail
+package dev.jskrzypczak.photovault.core.ui.component.detail
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,10 +20,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import dev.jarkendar.photovault.core.domain.model.Photo
-import dev.jarkendar.photovault.core.ui.preview.PhonePreview
-import dev.jarkendar.photovault.core.ui.preview.previewDetailPhoto
-import dev.jarkendar.photovault.core.ui.theme.PhotoVaultTheme
+import dev.jskrzypczak.photovault.core.domain.model.Photo
+import dev.jskrzypczak.photovault.core.ui.preview.PhonePreview
+import dev.jskrzypczak.photovault.core.ui.preview.previewDetailPhoto
+import dev.jskrzypczak.photovault.core.ui.theme.PhotoVaultTheme
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 

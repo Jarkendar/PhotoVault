@@ -1,4 +1,4 @@
-package dev.jarkendar.photovault.core.ui.component.gallery
+package dev.jskrzypczak.photovault.core.ui.component.gallery
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CloudUpload
@@ -13,9 +13,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import dev.jarkendar.photovault.core.ui.R
-import dev.jarkendar.photovault.core.ui.preview.PhonePreview
-import dev.jarkendar.photovault.core.ui.theme.PhotoVaultTheme
+import dev.jskrzypczak.photovault.core.ui.R
+import dev.jskrzypczak.photovault.core.ui.preview.PhonePreview
+import dev.jskrzypczak.photovault.core.ui.theme.PhotoVaultTheme
 
 enum class GalleryDestination {
     GALLERY, SEARCH, UPLOAD, MANAGE, SETTINGS

@@ -1,4 +1,4 @@
-package dev.jarkendar.photovault.core.network.dto.category
+package dev.jskrzypczak.photovault.core.network.dto.category
 
 import kotlinx.serialization.json.Json
 import kotlin.test.Test

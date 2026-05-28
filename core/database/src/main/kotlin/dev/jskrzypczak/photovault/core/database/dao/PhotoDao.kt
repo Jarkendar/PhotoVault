@@ -1,15 +1,15 @@
-package dev.jarkendar.photovault.core.database.dao
+package dev.jskrzypczak.photovault.core.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
-import dev.jarkendar.photovault.core.database.entity.PhotoCategoryCrossRef
-import dev.jarkendar.photovault.core.database.entity.PhotoEntity
-import dev.jarkendar.photovault.core.database.entity.PhotoLabelCrossRef
-import dev.jarkendar.photovault.core.database.entity.PhotoTagCrossRef
-import dev.jarkendar.photovault.core.database.relation.PhotoWithRelations
+import dev.jskrzypczak.photovault.core.database.entity.PhotoCategoryCrossRef
+import dev.jskrzypczak.photovault.core.database.entity.PhotoEntity
+import dev.jskrzypczak.photovault.core.database.entity.PhotoLabelCrossRef
+import dev.jskrzypczak.photovault.core.database.entity.PhotoTagCrossRef
+import dev.jskrzypczak.photovault.core.database.relation.PhotoWithRelations
 import kotlinx.coroutines.flow.Flow
 
 @Dao

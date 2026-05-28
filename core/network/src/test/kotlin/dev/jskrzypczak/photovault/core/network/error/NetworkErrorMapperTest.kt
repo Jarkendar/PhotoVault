@@ -1,6 +1,6 @@
-package dev.jarkendar.photovault.core.network.error
+package dev.jskrzypczak.photovault.core.network.error
 
-import dev.jarkendar.photovault.core.network.fixtures.MockResponses
+import dev.jskrzypczak.photovault.core.network.fixtures.MockResponses
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.respond

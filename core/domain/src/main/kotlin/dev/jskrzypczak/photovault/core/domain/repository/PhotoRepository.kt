@@ -1,8 +1,8 @@
-package dev.jarkendar.photovault.core.domain.repository
+package dev.jskrzypczak.photovault.core.domain.repository
 
-import dev.jarkendar.photovault.core.domain.id.PhotoId
-import dev.jarkendar.photovault.core.domain.model.Photo
-import dev.jarkendar.photovault.core.domain.query.SearchQuery
+import dev.jskrzypczak.photovault.core.domain.id.PhotoId
+import dev.jskrzypczak.photovault.core.domain.model.Photo
+import dev.jskrzypczak.photovault.core.domain.query.SearchQuery
 import kotlinx.coroutines.flow.Flow
 
 interface PhotoRepository {

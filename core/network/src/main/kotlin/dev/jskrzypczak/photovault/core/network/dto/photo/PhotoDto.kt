@@ -1,9 +1,9 @@
-package dev.jarkendar.photovault.core.network.dto.photo
+package dev.jskrzypczak.photovault.core.network.dto.photo
 
-import dev.jarkendar.photovault.core.network.dto.category.CategoryDto
-import dev.jarkendar.photovault.core.network.dto.label.LabelDto
-import dev.jarkendar.photovault.core.network.dto.tag.TagDto
-import dev.jarkendar.photovault.core.network.dto.user.UserRefDto
+import dev.jskrzypczak.photovault.core.network.dto.category.CategoryDto
+import dev.jskrzypczak.photovault.core.network.dto.label.LabelDto
+import dev.jskrzypczak.photovault.core.network.dto.tag.TagDto
+import dev.jskrzypczak.photovault.core.network.dto.user.UserRefDto
 import kotlin.time.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

@@ -1,10 +1,10 @@
-package dev.jarkendar.photovault.core.network.di
+package dev.jskrzypczak.photovault.core.network.di
 
-import dev.jarkendar.photovault.core.network.api.KtorPhotosApi
-import dev.jarkendar.photovault.core.network.api.PhotosApi
-import dev.jarkendar.photovault.core.network.auth.AuthTokenProvider
-import dev.jarkendar.photovault.core.network.auth.StubAuthTokenProvider
-import dev.jarkendar.photovault.core.network.createPhotoVaultHttpClient
+import dev.jskrzypczak.photovault.core.network.api.KtorPhotosApi
+import dev.jskrzypczak.photovault.core.network.api.PhotosApi
+import dev.jskrzypczak.photovault.core.network.auth.AuthTokenProvider
+import dev.jskrzypczak.photovault.core.network.auth.StubAuthTokenProvider
+import dev.jskrzypczak.photovault.core.network.createPhotoVaultHttpClient
 import io.ktor.client.HttpClient
 import org.koin.dsl.module
 

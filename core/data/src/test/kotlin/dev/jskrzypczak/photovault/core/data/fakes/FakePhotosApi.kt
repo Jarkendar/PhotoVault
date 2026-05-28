@@ -1,9 +1,9 @@
-package dev.jarkendar.photovault.core.data.fakes
+package dev.jskrzypczak.photovault.core.data.fakes
 
-import dev.jarkendar.photovault.core.network.api.PhotosApi
-import dev.jarkendar.photovault.core.network.dto.photo.PhotoDto
-import dev.jarkendar.photovault.core.network.dto.photo.PhotoPageDto
-import dev.jarkendar.photovault.core.network.dto.photo.PhotoPatchRequestDto
+import dev.jskrzypczak.photovault.core.network.api.PhotosApi
+import dev.jskrzypczak.photovault.core.network.dto.photo.PhotoDto
+import dev.jskrzypczak.photovault.core.network.dto.photo.PhotoPageDto
+import dev.jskrzypczak.photovault.core.network.dto.photo.PhotoPatchRequestDto
 
 class FakePhotosApi(
     initialList: Result<PhotoPageDto> = Result.success(PhotoPageDto(items = emptyList(), nextCursor = null, hasMore = false)),

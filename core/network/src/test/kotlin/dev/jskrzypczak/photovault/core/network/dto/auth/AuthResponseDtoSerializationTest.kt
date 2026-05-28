@@ -1,6 +1,6 @@
-package dev.jarkendar.photovault.core.network.dto.auth
+package dev.jskrzypczak.photovault.core.network.dto.auth
 
-import dev.jarkendar.photovault.core.network.dto.user.UserDto
+import dev.jskrzypczak.photovault.core.network.dto.user.UserDto
 import kotlinx.serialization.json.Json
 import kotlin.test.Test
 import kotlin.test.assertEquals

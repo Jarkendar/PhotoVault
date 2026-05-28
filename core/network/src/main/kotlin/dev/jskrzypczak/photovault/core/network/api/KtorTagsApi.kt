@@ -1,10 +1,10 @@
-package dev.jarkendar.photovault.core.network.api
+package dev.jskrzypczak.photovault.core.network.api
 
-import dev.jarkendar.photovault.core.network.dto.tag.TagCreateRequestDto
-import dev.jarkendar.photovault.core.network.dto.tag.TagDto
-import dev.jarkendar.photovault.core.network.dto.tag.TagListDto
-import dev.jarkendar.photovault.core.network.dto.tag.TagUpdateRequestDto
-import dev.jarkendar.photovault.core.network.error.mapToNetworkError
+import dev.jskrzypczak.photovault.core.network.dto.tag.TagCreateRequestDto
+import dev.jskrzypczak.photovault.core.network.dto.tag.TagDto
+import dev.jskrzypczak.photovault.core.network.dto.tag.TagListDto
+import dev.jskrzypczak.photovault.core.network.dto.tag.TagUpdateRequestDto
+import dev.jskrzypczak.photovault.core.network.error.mapToNetworkError
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.delete

@@ -1,4 +1,4 @@
-package dev.jarkendar.photovault.core.ui.component.gallery
+package dev.jskrzypczak.photovault.core.ui.component.gallery
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -18,9 +18,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.unit.dp
-import dev.jarkendar.photovault.core.ui.R
-import dev.jarkendar.photovault.core.ui.preview.PhonePreview
-import dev.jarkendar.photovault.core.ui.theme.PhotoVaultTheme
+import dev.jskrzypczak.photovault.core.ui.R
+import dev.jskrzypczak.photovault.core.ui.preview.PhonePreview
+import dev.jskrzypczak.photovault.core.ui.theme.PhotoVaultTheme
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 

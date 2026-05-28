@@ -1,4 +1,4 @@
-package dev.jarkendar.photovault.core.database.entity
+package dev.jskrzypczak.photovault.core.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

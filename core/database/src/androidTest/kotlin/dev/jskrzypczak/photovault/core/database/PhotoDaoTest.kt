@@ -1,11 +1,11 @@
-package dev.jarkendar.photovault.core.database
+package dev.jskrzypczak.photovault.core.database
 
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.cash.turbine.test
-import dev.jarkendar.photovault.core.database.entity.PhotoEntity
-import dev.jarkendar.photovault.core.database.entity.TagEntity
+import dev.jskrzypczak.photovault.core.database.entity.PhotoEntity
+import dev.jskrzypczak.photovault.core.database.entity.TagEntity
 import kotlinx.coroutines.test.runTest
 import kotlin.time.Instant
 import org.junit.After

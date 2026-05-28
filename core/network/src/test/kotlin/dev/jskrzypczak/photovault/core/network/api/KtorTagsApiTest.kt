@@ -1,11 +1,11 @@
-package dev.jarkendar.photovault.core.network.api
+package dev.jskrzypczak.photovault.core.network.api
 
-import dev.jarkendar.photovault.core.network.auth.StubAuthTokenProvider
-import dev.jarkendar.photovault.core.network.createPhotoVaultHttpClient
-import dev.jarkendar.photovault.core.network.dto.tag.TagCreateRequestDto
-import dev.jarkendar.photovault.core.network.dto.tag.TagUpdateRequestDto
-import dev.jarkendar.photovault.core.network.error.NetworkError
-import dev.jarkendar.photovault.core.network.fixtures.MockResponses
+import dev.jskrzypczak.photovault.core.network.auth.StubAuthTokenProvider
+import dev.jskrzypczak.photovault.core.network.createPhotoVaultHttpClient
+import dev.jskrzypczak.photovault.core.network.dto.tag.TagCreateRequestDto
+import dev.jskrzypczak.photovault.core.network.dto.tag.TagUpdateRequestDto
+import dev.jskrzypczak.photovault.core.network.error.NetworkError
+import dev.jskrzypczak.photovault.core.network.fixtures.MockResponses
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.MockRequestHandler
 import io.ktor.client.engine.mock.respond

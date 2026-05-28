@@ -1,7 +1,7 @@
-package dev.jarkendar.photovault.core.database.di
+package dev.jskrzypczak.photovault.core.database.di
 
 import androidx.room.Room
-import dev.jarkendar.photovault.core.database.PhotoVaultDatabase
+import dev.jskrzypczak.photovault.core.database.PhotoVaultDatabase
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 

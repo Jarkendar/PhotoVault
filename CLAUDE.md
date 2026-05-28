@@ -79,7 +79,7 @@ Phase 1 (`:feature:gallery` — stateless UI done; ViewModels and repository wir
 
 ### Code
 - All code comments in English
-- Package naming: `dev.jarkendar.photovault.{layer}.{module}.*`
+- Package naming: `dev.jskrzypczak.photovault.{layer}.{module}.*`
 - Kotlin DSL only in Gradle — never Groovy
 - Compose-first UI — no XML layouts
 - Internationalization: all user-facing strings go in `strings.xml`. Default locale is Polish (`values/strings.xml`), English in `values-en/strings.xml`. Never hardcode user-facing strings in Composables.
@@ -126,11 +126,11 @@ Paparazzi renders Compose composables to PNG on the JVM — no emulator needed.
 
 **Screenshot location:** `core/ui/src/test/snapshots/images/`
 
-**Filename format:** `dev.jarkendar.photovault.core.ui.snapshot_CoreUiSnapshotTest_<testName>.png`
+**Filename format:** `dev.jskrzypczak.photovault.core.ui.snapshot_CoreUiSnapshotTest_<testName>.png`
 
 **Workflow:**
 1. Write the composable in `core/ui/src/main/kotlin/...`
-2. Add a `@Test` in `CoreUiSnapshotTest` (`core/ui/src/test/kotlin/dev/jarkendar/photovault/core/ui/snapshot/CoreUiSnapshotTest.kt`)
+2. Add a `@Test` in `CoreUiSnapshotTest` (`core/ui/src/test/kotlin/dev/jskrzypczak/photovault/core/ui/snapshot/CoreUiSnapshotTest.kt`)
 3. Run `./gradlew :core:ui:recordPaparazziDebug`
 4. Read the generated PNG with the `Read` tool and iterate
 
@@ -138,7 +138,7 @@ Paparazzi renders Compose composables to PNG on the JVM — no emulator needed.
 
 **Screenshot location:** `feature/gallery/src/test/snapshots/images/`
 
-**Filename format:** `dev.jarkendar.photovault.feature.gallery.snapshot_GalleryFeatureSnapshotTest_<testName>.png`
+**Filename format:** `dev.jskrzypczak.photovault.feature.gallery.snapshot_GalleryFeatureSnapshotTest_<testName>.png`
 
 **Workflow:** same pattern — add `@Test` in `GalleryFeatureSnapshotTest`, run `./gradlew :feature:gallery:recordPaparazziDebug`.
 

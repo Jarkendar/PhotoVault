@@ -1,8 +1,8 @@
-package dev.jarkendar.photovault.core.network.api
+package dev.jskrzypczak.photovault.core.network.api
 
-import dev.jarkendar.photovault.core.network.dto.photo.PhotoDto
-import dev.jarkendar.photovault.core.network.dto.photo.PhotoPageDto
-import dev.jarkendar.photovault.core.network.dto.photo.PhotoPatchRequestDto
+import dev.jskrzypczak.photovault.core.network.dto.photo.PhotoDto
+import dev.jskrzypczak.photovault.core.network.dto.photo.PhotoPageDto
+import dev.jskrzypczak.photovault.core.network.dto.photo.PhotoPatchRequestDto
 
 interface PhotosApi {
     suspend fun listPhotos(

@@ -1,7 +1,7 @@
-package dev.jarkendar.photovault.core.data.mapper.network
+package dev.jskrzypczak.photovault.core.data.mapper.network
 
-import dev.jarkendar.photovault.core.domain.id.CategoryId
-import dev.jarkendar.photovault.core.network.dto.category.CategoryDto
+import dev.jskrzypczak.photovault.core.domain.id.CategoryId
+import dev.jskrzypczak.photovault.core.network.dto.category.CategoryDto
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

@@ -1,10 +1,10 @@
-package dev.jarkendar.photovault.core.database.dao
+package dev.jskrzypczak.photovault.core.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import dev.jarkendar.photovault.core.database.entity.CategoryEntity
+import dev.jskrzypczak.photovault.core.database.entity.CategoryEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

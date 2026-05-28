@@ -1,4 +1,4 @@
-package dev.jarkendar.photovault.core.network.dto.label
+package dev.jskrzypczak.photovault.core.network.dto.label
 
 import kotlinx.serialization.json.Json
 import kotlin.test.Test

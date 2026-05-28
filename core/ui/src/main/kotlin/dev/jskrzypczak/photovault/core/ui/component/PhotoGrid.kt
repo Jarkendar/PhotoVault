@@ -1,4 +1,4 @@
-package dev.jarkendar.photovault.core.ui.component
+package dev.jskrzypczak.photovault.core.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -17,7 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import dev.jarkendar.photovault.core.domain.model.Photo
+import dev.jskrzypczak.photovault.core.domain.model.Photo
 import kotlinx.collections.immutable.ImmutableList
 
 @Composable

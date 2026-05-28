@@ -1,10 +1,10 @@
-package dev.jarkendar.photovault.feature.gallery.di
+package dev.jskrzypczak.photovault.feature.gallery.di
 
-import dev.jarkendar.photovault.feature.gallery.GalleryViewModel
-import dev.jarkendar.photovault.feature.gallery.domain.usecase.ObserveCategoriesUseCase
-import dev.jarkendar.photovault.feature.gallery.domain.usecase.ObservePhotosUseCase
-import dev.jarkendar.photovault.feature.gallery.domain.usecase.RefreshGalleryUseCase
-import dev.jarkendar.photovault.feature.gallery.domain.usecase.ToggleFavoriteUseCase
+import dev.jskrzypczak.photovault.feature.gallery.GalleryViewModel
+import dev.jskrzypczak.photovault.feature.gallery.domain.usecase.ObserveCategoriesUseCase
+import dev.jskrzypczak.photovault.feature.gallery.domain.usecase.ObservePhotosUseCase
+import dev.jskrzypczak.photovault.feature.gallery.domain.usecase.RefreshGalleryUseCase
+import dev.jskrzypczak.photovault.feature.gallery.domain.usecase.ToggleFavoriteUseCase
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

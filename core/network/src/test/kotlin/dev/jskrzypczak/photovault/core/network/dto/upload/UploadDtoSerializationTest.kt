@@ -1,6 +1,6 @@
-package dev.jarkendar.photovault.core.network.dto.upload
+package dev.jskrzypczak.photovault.core.network.dto.upload
 
-import dev.jarkendar.photovault.core.network.fixtures.UploadDtoFixtures
+import dev.jskrzypczak.photovault.core.network.fixtures.UploadDtoFixtures
 import kotlinx.serialization.json.Json
 import kotlin.test.Test
 import kotlin.test.assertEquals

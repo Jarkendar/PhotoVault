@@ -1,7 +1,7 @@
-package dev.jarkendar.photovault.core.data.mapper.network
+package dev.jskrzypczak.photovault.core.data.mapper.network
 
-import dev.jarkendar.photovault.core.domain.error.DomainError
-import dev.jarkendar.photovault.core.network.error.NetworkError
+import dev.jskrzypczak.photovault.core.domain.error.DomainError
+import dev.jskrzypczak.photovault.core.network.error.NetworkError
 
 internal fun NetworkError.toDomainError(): DomainError = when (this) {
     is NetworkError.NoConnectivity -> DomainError.NoConnectivity

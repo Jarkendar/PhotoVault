@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "dev.jarkendar.photovault.feature.gallery"
+    namespace = "dev.jskrzypczak.photovault.feature.gallery"
     compileSdk = 36
 
     defaultConfig {

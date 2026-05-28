@@ -1,11 +1,11 @@
-package dev.jarkendar.photovault.core.data.repository
+package dev.jskrzypczak.photovault.core.data.repository
 
 import app.cash.turbine.test
-import dev.jarkendar.photovault.core.data.fakes.FakeTagDao
-import dev.jarkendar.photovault.core.data.fixtures.TestAppDispatchers
-import dev.jarkendar.photovault.core.database.entity.TagEntity
-import dev.jarkendar.photovault.core.domain.id.TagId
-import dev.jarkendar.photovault.core.domain.model.Tag
+import dev.jskrzypczak.photovault.core.data.fakes.FakeTagDao
+import dev.jskrzypczak.photovault.core.data.fixtures.TestAppDispatchers
+import dev.jskrzypczak.photovault.core.database.entity.TagEntity
+import dev.jskrzypczak.photovault.core.domain.id.TagId
+import dev.jskrzypczak.photovault.core.domain.model.Tag
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals

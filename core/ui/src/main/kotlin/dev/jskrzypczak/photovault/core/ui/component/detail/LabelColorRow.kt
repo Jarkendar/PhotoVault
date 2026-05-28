@@ -1,4 +1,4 @@
-package dev.jarkendar.photovault.core.ui.component.detail
+package dev.jskrzypczak.photovault.core.ui.component.detail
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -11,11 +11,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import dev.jarkendar.photovault.core.domain.model.Label
-import dev.jarkendar.photovault.core.ui.preview.PhonePreview
-import dev.jarkendar.photovault.core.ui.preview.previewLabels
-import dev.jarkendar.photovault.core.ui.theme.PhotoVaultTheme
-import dev.jarkendar.photovault.core.ui.util.parseHexColor
+import dev.jskrzypczak.photovault.core.domain.model.Label
+import dev.jskrzypczak.photovault.core.ui.preview.PhonePreview
+import dev.jskrzypczak.photovault.core.ui.preview.previewLabels
+import dev.jskrzypczak.photovault.core.ui.theme.PhotoVaultTheme
+import dev.jskrzypczak.photovault.core.ui.util.parseHexColor
 import kotlinx.collections.immutable.ImmutableList
 
 @Composable

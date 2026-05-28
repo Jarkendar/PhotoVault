@@ -6,9 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import dev.jarkendar.photovault.core.ui.theme.PhotoVaultTheme
-import dev.jarkendar.photovault.feature.gallery.GalleryScreen
-import dev.jarkendar.photovault.feature.gallery.GalleryViewModel
+import dev.jskrzypczak.photovault.core.ui.theme.PhotoVaultTheme
+import dev.jskrzypczak.photovault.feature.gallery.GalleryScreen
+import dev.jskrzypczak.photovault.feature.gallery.GalleryViewModel
 import org.koin.androidx.compose.koinViewModel
 
 class MainActivity : ComponentActivity() {

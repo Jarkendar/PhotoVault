@@ -1,6 +1,6 @@
-package dev.jarkendar.photovault.core.data.fixtures
+package dev.jskrzypczak.photovault.core.data.fixtures
 
-import dev.jarkendar.photovault.core.common.AppDispatchers
+import dev.jskrzypczak.photovault.core.common.AppDispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 

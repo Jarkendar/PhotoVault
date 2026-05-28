@@ -1,7 +1,7 @@
-package dev.jarkendar.photovault.feature.gallery.domain.usecase
+package dev.jskrzypczak.photovault.feature.gallery.domain.usecase
 
-import dev.jarkendar.photovault.core.domain.model.Photo
-import dev.jarkendar.photovault.core.domain.repository.PhotoRepository
+import dev.jskrzypczak.photovault.core.domain.model.Photo
+import dev.jskrzypczak.photovault.core.domain.repository.PhotoRepository
 import kotlinx.coroutines.flow.Flow
 
 class ObservePhotosUseCase(private val repository: PhotoRepository) {

@@ -1,4 +1,4 @@
-package dev.jarkendar.photovault.core.ui.component.detail
+package dev.jskrzypczak.photovault.core.ui.component.detail
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -29,14 +29,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import dev.jarkendar.photovault.core.domain.model.Photo
-import dev.jarkendar.photovault.core.domain.model.Tag
-import dev.jarkendar.photovault.core.ui.R
+import dev.jskrzypczak.photovault.core.domain.model.Photo
+import dev.jskrzypczak.photovault.core.domain.model.Tag
+import dev.jskrzypczak.photovault.core.ui.R
 import kotlinx.collections.immutable.ImmutableList
-import dev.jarkendar.photovault.core.ui.component.TagChip
-import dev.jarkendar.photovault.core.ui.preview.PhonePreview
-import dev.jarkendar.photovault.core.ui.preview.previewDetailPhoto
-import dev.jarkendar.photovault.core.ui.theme.PhotoVaultTheme
+import dev.jskrzypczak.photovault.core.ui.component.TagChip
+import dev.jskrzypczak.photovault.core.ui.preview.PhonePreview
+import dev.jskrzypczak.photovault.core.ui.preview.previewDetailPhoto
+import dev.jskrzypczak.photovault.core.ui.theme.PhotoVaultTheme
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 

@@ -1,4 +1,4 @@
-package dev.jarkendar.photovault.core.network.auth
+package dev.jskrzypczak.photovault.core.network.auth
 
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test

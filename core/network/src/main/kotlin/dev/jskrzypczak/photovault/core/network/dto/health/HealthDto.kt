@@ -1,4 +1,4 @@
-package dev.jarkendar.photovault.core.network.dto.health
+package dev.jskrzypczak.photovault.core.network.dto.health
 
 import kotlinx.serialization.Serializable
 

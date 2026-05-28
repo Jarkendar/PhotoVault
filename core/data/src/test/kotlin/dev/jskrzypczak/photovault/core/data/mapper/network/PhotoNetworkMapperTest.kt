@@ -1,9 +1,9 @@
-package dev.jarkendar.photovault.core.data.mapper.network
+package dev.jskrzypczak.photovault.core.data.mapper.network
 
-import dev.jarkendar.photovault.core.data.fixtures.PhotoTestFixtures
-import dev.jarkendar.photovault.core.domain.id.CategoryId
-import dev.jarkendar.photovault.core.domain.id.LabelId
-import dev.jarkendar.photovault.core.domain.id.TagId
+import dev.jskrzypczak.photovault.core.data.fixtures.PhotoTestFixtures
+import dev.jskrzypczak.photovault.core.domain.id.CategoryId
+import dev.jskrzypczak.photovault.core.domain.id.LabelId
+import dev.jskrzypczak.photovault.core.domain.id.TagId
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNull

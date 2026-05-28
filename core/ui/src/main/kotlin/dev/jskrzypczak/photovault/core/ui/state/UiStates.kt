@@ -1,4 +1,4 @@
-package dev.jarkendar.photovault.core.ui.state
+package dev.jskrzypczak.photovault.core.ui.state
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import dev.jarkendar.photovault.core.ui.R
+import dev.jskrzypczak.photovault.core.ui.R
 
 @Composable
 fun LoadingState(modifier: Modifier = Modifier) {

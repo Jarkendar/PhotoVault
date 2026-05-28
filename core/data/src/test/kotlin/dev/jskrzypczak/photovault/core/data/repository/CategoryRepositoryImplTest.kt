@@ -1,11 +1,11 @@
-package dev.jarkendar.photovault.core.data.repository
+package dev.jskrzypczak.photovault.core.data.repository
 
 import app.cash.turbine.test
-import dev.jarkendar.photovault.core.data.fakes.FakeCategoryDao
-import dev.jarkendar.photovault.core.data.fixtures.TestAppDispatchers
-import dev.jarkendar.photovault.core.database.entity.CategoryEntity
-import dev.jarkendar.photovault.core.domain.id.CategoryId
-import dev.jarkendar.photovault.core.domain.model.Category
+import dev.jskrzypczak.photovault.core.data.fakes.FakeCategoryDao
+import dev.jskrzypczak.photovault.core.data.fixtures.TestAppDispatchers
+import dev.jskrzypczak.photovault.core.database.entity.CategoryEntity
+import dev.jskrzypczak.photovault.core.domain.id.CategoryId
+import dev.jskrzypczak.photovault.core.domain.model.Category
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals

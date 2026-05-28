@@ -1,8 +1,8 @@
-package dev.jarkendar.photovault.core.data.mapper.database
+package dev.jskrzypczak.photovault.core.data.mapper.database
 
-import dev.jarkendar.photovault.core.database.entity.LabelEntity
-import dev.jarkendar.photovault.core.domain.id.LabelId
-import dev.jarkendar.photovault.core.domain.model.Label
+import dev.jskrzypczak.photovault.core.database.entity.LabelEntity
+import dev.jskrzypczak.photovault.core.domain.id.LabelId
+import dev.jskrzypczak.photovault.core.domain.model.Label
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

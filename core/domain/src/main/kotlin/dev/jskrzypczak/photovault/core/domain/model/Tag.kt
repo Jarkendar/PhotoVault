@@ -1,6 +1,6 @@
-package dev.jarkendar.photovault.core.domain.model
+package dev.jskrzypczak.photovault.core.domain.model
 
-import dev.jarkendar.photovault.core.domain.id.TagId
+import dev.jskrzypczak.photovault.core.domain.id.TagId
 
 data class Tag(
     val id: TagId,

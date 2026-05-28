@@ -1,12 +1,12 @@
-package dev.jarkendar.photovault.core.data.mapper.network
+package dev.jskrzypczak.photovault.core.data.mapper.network
 
-import dev.jarkendar.photovault.core.domain.id.PhotoId
-import dev.jarkendar.photovault.core.domain.model.GeoLocation
-import dev.jarkendar.photovault.core.domain.model.Photo
+import dev.jskrzypczak.photovault.core.domain.id.PhotoId
+import dev.jskrzypczak.photovault.core.domain.model.GeoLocation
+import dev.jskrzypczak.photovault.core.domain.model.Photo
 import kotlinx.collections.immutable.toImmutableList
-import dev.jarkendar.photovault.core.network.dto.photo.LocationDto
-import dev.jarkendar.photovault.core.network.dto.photo.PhotoDto
-import dev.jarkendar.photovault.core.network.dto.photo.PhotoPageDto
+import dev.jskrzypczak.photovault.core.network.dto.photo.LocationDto
+import dev.jskrzypczak.photovault.core.network.dto.photo.PhotoDto
+import dev.jskrzypczak.photovault.core.network.dto.photo.PhotoPageDto
 
 internal fun PhotoDto.toDomain(): Photo = Photo(
     id = PhotoId(id),

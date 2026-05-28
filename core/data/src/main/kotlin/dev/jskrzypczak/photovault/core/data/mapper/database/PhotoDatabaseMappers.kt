@@ -1,10 +1,10 @@
-package dev.jarkendar.photovault.core.data.mapper.database
+package dev.jskrzypczak.photovault.core.data.mapper.database
 
-import dev.jarkendar.photovault.core.database.entity.PhotoEntity
-import dev.jarkendar.photovault.core.database.relation.PhotoWithRelations
-import dev.jarkendar.photovault.core.domain.id.PhotoId
-import dev.jarkendar.photovault.core.domain.model.GeoLocation
-import dev.jarkendar.photovault.core.domain.model.Photo
+import dev.jskrzypczak.photovault.core.database.entity.PhotoEntity
+import dev.jskrzypczak.photovault.core.database.relation.PhotoWithRelations
+import dev.jskrzypczak.photovault.core.domain.id.PhotoId
+import dev.jskrzypczak.photovault.core.domain.model.GeoLocation
+import dev.jskrzypczak.photovault.core.domain.model.Photo
 import kotlinx.collections.immutable.toImmutableList
 
 internal fun PhotoWithRelations.toDomain(): Photo = Photo(

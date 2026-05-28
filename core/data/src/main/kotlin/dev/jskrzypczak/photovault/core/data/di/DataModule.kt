@@ -1,13 +1,13 @@
-package dev.jarkendar.photovault.core.data.di
+package dev.jskrzypczak.photovault.core.data.di
 
-import dev.jarkendar.photovault.core.data.repository.CategoryRepositoryImpl
-import dev.jarkendar.photovault.core.data.repository.LabelRepositoryImpl
-import dev.jarkendar.photovault.core.data.repository.PhotoRepositoryImpl
-import dev.jarkendar.photovault.core.data.repository.TagRepositoryImpl
-import dev.jarkendar.photovault.core.domain.repository.CategoryRepository
-import dev.jarkendar.photovault.core.domain.repository.LabelRepository
-import dev.jarkendar.photovault.core.domain.repository.PhotoRepository
-import dev.jarkendar.photovault.core.domain.repository.TagRepository
+import dev.jskrzypczak.photovault.core.data.repository.CategoryRepositoryImpl
+import dev.jskrzypczak.photovault.core.data.repository.LabelRepositoryImpl
+import dev.jskrzypczak.photovault.core.data.repository.PhotoRepositoryImpl
+import dev.jskrzypczak.photovault.core.data.repository.TagRepositoryImpl
+import dev.jskrzypczak.photovault.core.domain.repository.CategoryRepository
+import dev.jskrzypczak.photovault.core.domain.repository.LabelRepository
+import dev.jskrzypczak.photovault.core.domain.repository.PhotoRepository
+import dev.jskrzypczak.photovault.core.domain.repository.TagRepository
 import org.koin.dsl.module
 
 val dataModule = module {

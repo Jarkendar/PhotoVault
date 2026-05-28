@@ -1,6 +1,6 @@
-package dev.jarkendar.photovault.core.domain.model
+package dev.jskrzypczak.photovault.core.domain.model
 
-import dev.jarkendar.photovault.core.domain.id.PhotoId
+import dev.jskrzypczak.photovault.core.domain.id.PhotoId
 import kotlin.time.Instant
 import kotlinx.collections.immutable.ImmutableList
 

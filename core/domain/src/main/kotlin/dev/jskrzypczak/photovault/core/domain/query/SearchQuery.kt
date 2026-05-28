@@ -1,8 +1,8 @@
-package dev.jarkendar.photovault.core.domain.query
+package dev.jskrzypczak.photovault.core.domain.query
 
-import dev.jarkendar.photovault.core.domain.id.CategoryId
-import dev.jarkendar.photovault.core.domain.id.LabelId
-import dev.jarkendar.photovault.core.domain.id.TagId
+import dev.jskrzypczak.photovault.core.domain.id.CategoryId
+import dev.jskrzypczak.photovault.core.domain.id.LabelId
+import dev.jskrzypczak.photovault.core.domain.id.TagId
 
 data class SearchQuery(
     val text: String = "",

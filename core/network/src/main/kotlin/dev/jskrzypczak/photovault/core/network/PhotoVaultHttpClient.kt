@@ -1,6 +1,6 @@
-package dev.jarkendar.photovault.core.network
+package dev.jskrzypczak.photovault.core.network
 
-import dev.jarkendar.photovault.core.network.auth.AuthTokenProvider
+import dev.jskrzypczak.photovault.core.network.auth.AuthTokenProvider
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.engine.okhttp.OkHttp

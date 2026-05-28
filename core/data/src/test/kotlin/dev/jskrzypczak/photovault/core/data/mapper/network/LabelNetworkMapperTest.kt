@@ -1,8 +1,8 @@
-package dev.jarkendar.photovault.core.data.mapper.network
+package dev.jskrzypczak.photovault.core.data.mapper.network
 
-import dev.jarkendar.photovault.core.domain.id.LabelId
-import dev.jarkendar.photovault.core.network.dto.label.LabelDto
-import dev.jarkendar.photovault.core.network.dto.label.LabelName
+import dev.jskrzypczak.photovault.core.domain.id.LabelId
+import dev.jskrzypczak.photovault.core.network.dto.label.LabelDto
+import dev.jskrzypczak.photovault.core.network.dto.label.LabelName
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

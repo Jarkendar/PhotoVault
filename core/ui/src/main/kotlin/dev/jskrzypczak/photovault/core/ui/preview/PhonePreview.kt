@@ -1,4 +1,4 @@
-package dev.jarkendar.photovault.core.ui.preview
+package dev.jskrzypczak.photovault.core.ui.preview
 
 import android.content.res.Configuration
 import androidx.compose.ui.tooling.preview.Preview

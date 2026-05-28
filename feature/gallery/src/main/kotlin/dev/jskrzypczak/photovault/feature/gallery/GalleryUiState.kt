@@ -1,8 +1,8 @@
-package dev.jarkendar.photovault.feature.gallery
+package dev.jskrzypczak.photovault.feature.gallery
 
-import dev.jarkendar.photovault.core.domain.id.CategoryId
-import dev.jarkendar.photovault.core.domain.model.Category
-import dev.jarkendar.photovault.core.domain.model.Photo
+import dev.jskrzypczak.photovault.core.domain.id.CategoryId
+import dev.jskrzypczak.photovault.core.domain.model.Category
+import dev.jskrzypczak.photovault.core.domain.model.Photo
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.ImmutableMap
 

@@ -1,15 +1,15 @@
-package dev.jarkendar.photovault.feature.gallery
+package dev.jskrzypczak.photovault.feature.gallery
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dev.jarkendar.photovault.core.common.AppDispatchers
-import dev.jarkendar.photovault.core.domain.id.CategoryId
-import dev.jarkendar.photovault.core.domain.model.Category
-import dev.jarkendar.photovault.core.domain.model.Photo
-import dev.jarkendar.photovault.feature.gallery.domain.usecase.ObserveCategoriesUseCase
-import dev.jarkendar.photovault.feature.gallery.domain.usecase.ObservePhotosUseCase
-import dev.jarkendar.photovault.feature.gallery.domain.usecase.RefreshGalleryUseCase
-import dev.jarkendar.photovault.feature.gallery.domain.usecase.ToggleFavoriteUseCase
+import dev.jskrzypczak.photovault.core.common.AppDispatchers
+import dev.jskrzypczak.photovault.core.domain.id.CategoryId
+import dev.jskrzypczak.photovault.core.domain.model.Category
+import dev.jskrzypczak.photovault.core.domain.model.Photo
+import dev.jskrzypczak.photovault.feature.gallery.domain.usecase.ObserveCategoriesUseCase
+import dev.jskrzypczak.photovault.feature.gallery.domain.usecase.ObservePhotosUseCase
+import dev.jskrzypczak.photovault.feature.gallery.domain.usecase.RefreshGalleryUseCase
+import dev.jskrzypczak.photovault.feature.gallery.domain.usecase.ToggleFavoriteUseCase
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toImmutableMap
 import kotlinx.coroutines.flow.Flow

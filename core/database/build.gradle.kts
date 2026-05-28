@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "dev.jarkendar.photovault.core.database"
+    namespace = "dev.jskrzypczak.photovault.core.database"
     compileSdk = 36
 
     defaultConfig {

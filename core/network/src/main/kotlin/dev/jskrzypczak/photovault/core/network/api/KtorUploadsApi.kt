@@ -1,9 +1,9 @@
-package dev.jarkendar.photovault.core.network.api
+package dev.jskrzypczak.photovault.core.network.api
 
-import dev.jarkendar.photovault.core.network.dto.upload.UploadDto
-import dev.jarkendar.photovault.core.network.dto.upload.UploadListDto
-import dev.jarkendar.photovault.core.network.dto.upload.UploadStatus
-import dev.jarkendar.photovault.core.network.error.mapToNetworkError
+import dev.jskrzypczak.photovault.core.network.dto.upload.UploadDto
+import dev.jskrzypczak.photovault.core.network.dto.upload.UploadListDto
+import dev.jskrzypczak.photovault.core.network.dto.upload.UploadStatus
+import dev.jskrzypczak.photovault.core.network.error.mapToNetworkError
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.delete

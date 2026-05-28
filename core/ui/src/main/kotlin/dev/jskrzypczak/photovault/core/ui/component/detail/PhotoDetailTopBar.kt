@@ -1,4 +1,4 @@
-package dev.jarkendar.photovault.core.ui.component.detail
+package dev.jskrzypczak.photovault.core.ui.component.detail
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -20,9 +20,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import dev.jarkendar.photovault.core.ui.R
-import dev.jarkendar.photovault.core.ui.preview.PhonePreview
-import dev.jarkendar.photovault.core.ui.theme.PhotoVaultTheme
+import dev.jskrzypczak.photovault.core.ui.R
+import dev.jskrzypczak.photovault.core.ui.preview.PhonePreview
+import dev.jskrzypczak.photovault.core.ui.theme.PhotoVaultTheme
 
 @Composable
 fun PhotoDetailTopBar(

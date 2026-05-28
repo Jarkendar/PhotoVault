@@ -1,4 +1,4 @@
-package dev.jarkendar.photovault.core.network.dto.upload
+package dev.jskrzypczak.photovault.core.network.dto.upload
 
 import kotlin.time.Instant
 import kotlinx.serialization.SerialName

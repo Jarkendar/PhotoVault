@@ -1,4 +1,4 @@
-package dev.jarkendar.photovault.core.network.error
+package dev.jskrzypczak.photovault.core.network.error
 
 import kotlinx.serialization.Serializable
 

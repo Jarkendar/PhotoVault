@@ -1,14 +1,14 @@
-package dev.jarkendar.photovault.core.data.fakes
+package dev.jskrzypczak.photovault.core.data.fakes
 
-import dev.jarkendar.photovault.core.database.dao.PhotoDao
-import dev.jarkendar.photovault.core.database.entity.CategoryEntity
-import dev.jarkendar.photovault.core.database.entity.LabelEntity
-import dev.jarkendar.photovault.core.database.entity.PhotoCategoryCrossRef
-import dev.jarkendar.photovault.core.database.entity.PhotoEntity
-import dev.jarkendar.photovault.core.database.entity.PhotoLabelCrossRef
-import dev.jarkendar.photovault.core.database.entity.PhotoTagCrossRef
-import dev.jarkendar.photovault.core.database.entity.TagEntity
-import dev.jarkendar.photovault.core.database.relation.PhotoWithRelations
+import dev.jskrzypczak.photovault.core.database.dao.PhotoDao
+import dev.jskrzypczak.photovault.core.database.entity.CategoryEntity
+import dev.jskrzypczak.photovault.core.database.entity.LabelEntity
+import dev.jskrzypczak.photovault.core.database.entity.PhotoCategoryCrossRef
+import dev.jskrzypczak.photovault.core.database.entity.PhotoEntity
+import dev.jskrzypczak.photovault.core.database.entity.PhotoLabelCrossRef
+import dev.jskrzypczak.photovault.core.database.entity.PhotoTagCrossRef
+import dev.jskrzypczak.photovault.core.database.entity.TagEntity
+import dev.jskrzypczak.photovault.core.database.relation.PhotoWithRelations
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map

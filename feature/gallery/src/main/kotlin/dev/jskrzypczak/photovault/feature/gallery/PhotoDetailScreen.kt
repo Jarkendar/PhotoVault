@@ -1,4 +1,4 @@
-package dev.jarkendar.photovault.feature.gallery
+package dev.jskrzypczak.photovault.feature.gallery
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -13,22 +13,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import dev.jarkendar.photovault.core.domain.id.CategoryId
-import dev.jarkendar.photovault.core.domain.id.LabelId
-import dev.jarkendar.photovault.core.domain.id.PhotoId
-import dev.jarkendar.photovault.core.domain.id.TagId
-import dev.jarkendar.photovault.core.domain.model.Category
-import dev.jarkendar.photovault.core.domain.model.GeoLocation
-import dev.jarkendar.photovault.core.domain.model.Label
-import dev.jarkendar.photovault.core.domain.model.Photo
-import dev.jarkendar.photovault.core.domain.model.Tag
-import dev.jarkendar.photovault.core.ui.component.detail.PhotoDetailTopBar
-import dev.jarkendar.photovault.core.ui.component.detail.PhotoMetadataSheet
-import dev.jarkendar.photovault.core.ui.preview.PhonePreview
-import dev.jarkendar.photovault.core.ui.state.ErrorState
-import dev.jarkendar.photovault.core.ui.state.LoadingState
-import dev.jarkendar.photovault.core.ui.theme.PhotoVaultTheme
-import dev.jarkendar.photovault.core.ui.util.photoPlaceholderColor
+import dev.jskrzypczak.photovault.core.domain.id.CategoryId
+import dev.jskrzypczak.photovault.core.domain.id.LabelId
+import dev.jskrzypczak.photovault.core.domain.id.PhotoId
+import dev.jskrzypczak.photovault.core.domain.id.TagId
+import dev.jskrzypczak.photovault.core.domain.model.Category
+import dev.jskrzypczak.photovault.core.domain.model.GeoLocation
+import dev.jskrzypczak.photovault.core.domain.model.Label
+import dev.jskrzypczak.photovault.core.domain.model.Photo
+import dev.jskrzypczak.photovault.core.domain.model.Tag
+import dev.jskrzypczak.photovault.core.ui.component.detail.PhotoDetailTopBar
+import dev.jskrzypczak.photovault.core.ui.component.detail.PhotoMetadataSheet
+import dev.jskrzypczak.photovault.core.ui.preview.PhonePreview
+import dev.jskrzypczak.photovault.core.ui.state.ErrorState
+import dev.jskrzypczak.photovault.core.ui.state.LoadingState
+import dev.jskrzypczak.photovault.core.ui.theme.PhotoVaultTheme
+import dev.jskrzypczak.photovault.core.ui.util.photoPlaceholderColor
 import kotlin.time.Instant
 import kotlinx.collections.immutable.persistentListOf
 

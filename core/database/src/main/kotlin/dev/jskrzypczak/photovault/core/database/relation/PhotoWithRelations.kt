@@ -1,15 +1,15 @@
-package dev.jarkendar.photovault.core.database.relation
+package dev.jskrzypczak.photovault.core.database.relation
 
 import androidx.room.Embedded
 import androidx.room.Junction
 import androidx.room.Relation
-import dev.jarkendar.photovault.core.database.entity.CategoryEntity
-import dev.jarkendar.photovault.core.database.entity.LabelEntity
-import dev.jarkendar.photovault.core.database.entity.PhotoCategoryCrossRef
-import dev.jarkendar.photovault.core.database.entity.PhotoEntity
-import dev.jarkendar.photovault.core.database.entity.PhotoLabelCrossRef
-import dev.jarkendar.photovault.core.database.entity.PhotoTagCrossRef
-import dev.jarkendar.photovault.core.database.entity.TagEntity
+import dev.jskrzypczak.photovault.core.database.entity.CategoryEntity
+import dev.jskrzypczak.photovault.core.database.entity.LabelEntity
+import dev.jskrzypczak.photovault.core.database.entity.PhotoCategoryCrossRef
+import dev.jskrzypczak.photovault.core.database.entity.PhotoEntity
+import dev.jskrzypczak.photovault.core.database.entity.PhotoLabelCrossRef
+import dev.jskrzypczak.photovault.core.database.entity.PhotoTagCrossRef
+import dev.jskrzypczak.photovault.core.database.entity.TagEntity
 
 data class PhotoWithRelations(
     @Embedded val photo: PhotoEntity,
