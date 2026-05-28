@@ -5,6 +5,7 @@ import dev.jarkendar.photovault.core.database.relation.PhotoWithRelations
 import dev.jarkendar.photovault.core.domain.id.PhotoId
 import dev.jarkendar.photovault.core.domain.model.GeoLocation
 import dev.jarkendar.photovault.core.domain.model.Photo
+import kotlinx.collections.immutable.toImmutableList
 
 internal fun PhotoWithRelations.toDomain(): Photo = Photo(
     id = PhotoId(photo.id),
@@ -17,9 +18,9 @@ internal fun PhotoWithRelations.toDomain(): Photo = Photo(
     uploadedAt = photo.uploadedAt,
     camera = photo.camera,
     location = photo.toGeoLocation(),
-    tags = tags.map { it.toDomain() },
-    categories = categories.map { it.toDomain() },
-    labels = labels.map { it.toDomain() },
+    tags = tags.map { it.toDomain() }.toImmutableList(),
+    categories = categories.map { it.toDomain() }.toImmutableList(),
+    labels = labels.map { it.toDomain() }.toImmutableList(),
     isFavorite = photo.isFavorite,
 )
 

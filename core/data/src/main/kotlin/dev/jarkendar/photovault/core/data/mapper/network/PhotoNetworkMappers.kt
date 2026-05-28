@@ -3,6 +3,7 @@ package dev.jarkendar.photovault.core.data.mapper.network
 import dev.jarkendar.photovault.core.domain.id.PhotoId
 import dev.jarkendar.photovault.core.domain.model.GeoLocation
 import dev.jarkendar.photovault.core.domain.model.Photo
+import kotlinx.collections.immutable.toImmutableList
 import dev.jarkendar.photovault.core.network.dto.photo.LocationDto
 import dev.jarkendar.photovault.core.network.dto.photo.PhotoDto
 import dev.jarkendar.photovault.core.network.dto.photo.PhotoPageDto
@@ -18,9 +19,9 @@ internal fun PhotoDto.toDomain(): Photo = Photo(
     uploadedAt = uploadedAt,
     camera = camera,
     location = location?.toDomain(),
-    tags = tags.map { it.toDomain() },
-    categories = categories.map { it.toDomain() },
-    labels = labels.map { it.toDomain() },
+    tags = tags.map { it.toDomain() }.toImmutableList(),
+    categories = categories.map { it.toDomain() }.toImmutableList(),
+    labels = labels.map { it.toDomain() }.toImmutableList(),
     isFavorite = isFavorite,
 )
 

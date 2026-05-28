@@ -28,6 +28,7 @@ kotlin {
 
 dependencies {
     implementation(project(":core:common"))
+    implementation(libs.koin.core)
 
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.okhttp)

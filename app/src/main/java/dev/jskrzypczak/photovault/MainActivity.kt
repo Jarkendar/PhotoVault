@@ -4,9 +4,12 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.jarkendar.photovault.core.ui.theme.PhotoVaultTheme
 import dev.jarkendar.photovault.feature.gallery.GalleryScreen
-import dev.jarkendar.photovault.feature.gallery.GalleryUiState
+import dev.jarkendar.photovault.feature.gallery.GalleryViewModel
+import org.koin.androidx.compose.koinViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,8 +17,16 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             PhotoVaultTheme {
+                val viewModel = koinViewModel<GalleryViewModel>()
+                val state by viewModel.uiState.collectAsStateWithLifecycle()
+                val searchQuery by viewModel.searchQuery.collectAsStateWithLifecycle()
                 GalleryScreen(
-                    state = GalleryUiState.Loading,
+                    state = state,
+                    searchQuery = searchQuery,
+                    onSearchQueryChange = viewModel::onSearchQueryChange,
+                    onCategorySelect = viewModel::onCategorySelect,
+                    onPageClick = viewModel::onPageClick,
+                    onFavoriteClick = viewModel::onFavoriteClick,
                 )
             }
         }

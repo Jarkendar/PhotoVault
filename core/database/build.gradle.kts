@@ -30,6 +30,7 @@ ksp {
 dependencies {
     implementation(project(":core:domain"))
     implementation(project(":core:common"))
+    implementation(libs.koin.android)
 
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
