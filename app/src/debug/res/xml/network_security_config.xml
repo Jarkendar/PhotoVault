@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!--
+        DEBUG-only policy — overrides the release config in debuggable builds (src/debug wins over src/main).
+        Never included in release APKs.
+
+        - 10.0.2.2 : standard Android emulator alias for the host machine (public Android docs, not a real
+                     network address).
+        - ts.net    : Tailscale MagicDNS; transport encrypted via WireGuard. Use Tailscale even on LAN
+                     (it makes a direct encrypted connection) to avoid plain-text traffic over shared WiFi.
+
+        Real backend addresses (LAN IP, Tailscale hostname) live in local.properties (gitignored).
+    -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="false">10.0.2.2</domain>
+        <domain includeSubdomains="true">ts.net</domain>
+    </domain-config>
+</network-security-config>

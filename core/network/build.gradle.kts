@@ -1,7 +1,17 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.serialization)
 }
+
+// Read local.properties (gitignored) so real backend URLs stay out of VCS.
+// Safe fallbacks are used when the file is absent (e.g. CI, fresh clone).
+val localProperties = Properties().apply {
+    val file = rootProject.file("local.properties")
+    if (file.exists()) file.inputStream().use { load(it) }
+}
+fun localProp(key: String, default: String): String = localProperties.getProperty(key) ?: default
 
 android {
     namespace = "dev.jskrzypczak.photovault.core.network"
@@ -10,6 +20,25 @@ android {
     defaultConfig {
         minSdk = 31
         consumerProguardFiles("consumer-rules.pro")
+        // BASE_URL must be set in local.properties (gitignored). The file is never committed.
+        // Fallback to empty string — a missing local.properties means no real backend; build still compiles.
+        buildConfigField("String", "BASE_URL",
+            "\"${localProp("BASE_URL_DEBUG", "")}\"")
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField("String", "BASE_URL",
+                "\"${localProp("BASE_URL_DEBUG", "")}\"")
+        }
+        release {
+            buildConfigField("String", "BASE_URL",
+                "\"${localProp("BASE_URL_RELEASE", "")}\"")
+        }
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 
     compileOptions {

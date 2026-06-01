@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!--
+        RELEASE policy — merged into all build types; debug builds override this file via src/debug/res/.
+
+        Cleartext HTTP is permitted ONLY for Tailscale MagicDNS hosts (*.ts.net). These are reachable
+        exclusively through the WireGuard-encrypted Tailscale tunnel, so the app speaks plain HTTP but the
+        transport is always encrypted on the wire.
+
+        Rationale for `ts.net` instead of the specific tailnet name:
+        - network-security-config <domain> cannot match raw 100.x IPs or CIDR ranges.
+        - The tailnet name often derives from the owner's account; keeping it out of this public repo avoids
+          identity leakage.
+
+        All other hosts (plain LAN IPs, public internet) remain HTTPS-only (Android default, targetSdk 36).
+    -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">ts.net</domain>
+    </domain-config>
+</network-security-config>
