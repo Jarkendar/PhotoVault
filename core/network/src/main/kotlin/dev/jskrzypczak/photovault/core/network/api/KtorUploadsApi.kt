@@ -7,11 +7,37 @@ import dev.jskrzypczak.photovault.core.network.error.mapToNetworkError
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.delete
+import io.ktor.client.request.forms.formData
+import io.ktor.client.request.forms.submitFormWithBinaryData
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
+import io.ktor.http.Headers
+import io.ktor.http.HttpHeaders
 import io.ktor.http.isSuccess
 
 class KtorUploadsApi(private val client: HttpClient) : UploadsApi {
+
+    override suspend fun uploadPhoto(
+        bytes: ByteArray,
+        fileName: String,
+        mimeType: String,
+    ): Result<UploadDto> = runCatching {
+        val response = client.submitFormWithBinaryData(
+            url = "uploads",
+            formData = formData {
+                append(
+                    key = "file",
+                    value = bytes,
+                    headers = Headers.build {
+                        append(HttpHeaders.ContentType, mimeType)
+                        append(HttpHeaders.ContentDisposition, "filename=\"$fileName\"")
+                    },
+                )
+            },
+        )
+        if (!response.status.isSuccess()) throw mapToNetworkError(response)
+        response.body<UploadDto>()
+    }.recoverCatching { throw mapToNetworkError(it) }
 
     override suspend fun listUploads(statuses: List<UploadStatus>?): Result<UploadListDto> = runCatching {
         val response = client.get("uploads") {

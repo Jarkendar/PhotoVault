@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_upload_title">Prześlij</string>
+    <string name="feature_upload_refresh">Odśwież</string>
+    <string name="feature_upload_more">Więcej opcji</string>
+    <string name="feature_upload_auto_detect_title">Auto-wykrywanie</string>
+    <string name="feature_upload_auto_detect_subtitle_new">Wykryto %d nowych zdjęć w galerii</string>
+    <string name="feature_upload_auto_detect_subtitle_none">Brak nowych zdjęć w galerii</string>
+    <string name="feature_upload_stat_uploading">Przesyłanie</string>
+    <string name="feature_upload_stat_queued">W kolejce</string>
+    <string name="feature_upload_stat_done">Gotowe</string>
+    <string name="feature_upload_section_review">Przejrzyj</string>
+    <string name="feature_upload_apply_to_all">Zastosuj do wszystkich</string>
+    <string name="feature_upload_add_photos">Dodaj zdjęcia</string>
+    <string name="feature_upload_status_queued">W kolejce</string>
+    <string name="feature_upload_status_done">Gotowe</string>
+    <string name="feature_upload_status_failed">Błąd</string>
+    <string name="feature_upload_status_cancelled">Anulowano</string>
+    <string name="feature_upload_cancel">Anuluj przesyłanie</string>
+    <string name="feature_upload_pause">Wstrzymaj przesyłanie</string>
+    <string name="feature_upload_permission_rationale">Dostęp do galerii jest wymagany do wykrywania nowych zdjęć</string>
+</resources>

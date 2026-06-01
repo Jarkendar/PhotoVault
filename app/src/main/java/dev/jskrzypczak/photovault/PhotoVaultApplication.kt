@@ -6,6 +6,7 @@ import dev.jskrzypczak.photovault.core.data.di.dataModule
 import dev.jskrzypczak.photovault.core.database.di.databaseModule
 import dev.jskrzypczak.photovault.core.network.di.networkModule
 import dev.jskrzypczak.photovault.feature.gallery.di.galleryModule
+import dev.jskrzypczak.photovault.feature.upload.di.uploadModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -20,6 +21,7 @@ class PhotoVaultApplication : Application() {
                 networkModule,
                 dataModule,
                 galleryModule,
+                uploadModule,
             )
         }
     }

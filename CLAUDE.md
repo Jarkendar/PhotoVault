@@ -7,10 +7,21 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```bash
 ./gradlew assembleDebug          # Build debug APK
 ./gradlew assembleRelease        # Build release APK
-./gradlew test                   # Run unit tests
+./gradlew test                   # Run all unit tests (all modules)
 ./gradlew connectedAndroidTest   # Run instrumented tests (requires device/emulator)
-./gradlew :app:test              # Run unit tests for a specific module
 ./gradlew lint                   # Run lint checks
+
+# Per-module test + compile check (no device needed, safe to run freely)
+./gradlew :core:network:test
+./gradlew :core:data:test
+./gradlew :core:domain:test
+./gradlew :core:common:test
+./gradlew :feature:upload:compileDebugKotlin   # compile-only, no tests yet
+
+# Verify compilation of the whole project without producing an APK
+./gradlew compileDebugKotlin                   # compiles all modules in parallel
+
+# Paparazzi snapshot tests (JVM, no emulator)
 ./gradlew :core:ui:recordPaparazziDebug            # Generate/update golden PNGs (core:ui components)
 ./gradlew :core:ui:verifyPaparazziDebug            # Compare against goldens (CI regression check)
 ./gradlew :feature:gallery:recordPaparazziDebug    # Generate/update golden PNGs (full screens)

@@ -10,6 +10,7 @@ import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.MockRequestHandler
 import io.ktor.client.engine.mock.respond
 import io.ktor.http.HttpHeaders
+import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.headersOf
 import kotlinx.coroutines.test.runTest
@@ -83,5 +84,31 @@ class KtorUploadsApiTest {
         }
         val result = api.deleteUpload("upload-done")
         assertIs<NetworkError.Conflict>(result.exceptionOrNull())
+    }
+
+    @Test
+    fun `uploadPhoto sends multipart POST and returns 202 UploadDto`() = runTest {
+        var capturedMethod: HttpMethod? = null
+        val api = api { request ->
+            capturedMethod = request.method
+            respond(UploadDtoFixtures.UPLOAD_PROCESSING_JSON, HttpStatusCode.Accepted, jsonHeaders)
+        }
+        val result = api.uploadPhoto(
+            bytes = byteArrayOf(0x01, 0x02, 0x03),
+            fileName = "IMG_001.jpg",
+            mimeType = "image/jpeg",
+        )
+        assertTrue(result.isSuccess)
+        assertEquals(HttpMethod.Post, capturedMethod)
+        assertEquals("upload-1", result.getOrThrow().id)
+    }
+
+    @Test
+    fun `uploadPhoto returns NotFound on 404`() = runTest {
+        val api = api { _ ->
+            respond(MockResponses.PROBLEM_NOT_FOUND, HttpStatusCode.NotFound, problemHeaders)
+        }
+        val result = api.uploadPhoto(byteArrayOf(), "test.jpg", "image/jpeg")
+        assertIs<NetworkError.NotFound>(result.exceptionOrNull())
     }
 }

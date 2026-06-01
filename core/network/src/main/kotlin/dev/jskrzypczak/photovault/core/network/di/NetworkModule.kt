@@ -2,7 +2,9 @@ package dev.jskrzypczak.photovault.core.network.di
 
 import dev.jskrzypczak.photovault.core.network.BuildConfig
 import dev.jskrzypczak.photovault.core.network.api.KtorPhotosApi
+import dev.jskrzypczak.photovault.core.network.api.KtorUploadsApi
 import dev.jskrzypczak.photovault.core.network.api.PhotosApi
+import dev.jskrzypczak.photovault.core.network.api.UploadsApi
 import dev.jskrzypczak.photovault.core.network.auth.AuthTokenProvider
 import dev.jskrzypczak.photovault.core.network.auth.StubAuthTokenProvider
 import dev.jskrzypczak.photovault.core.network.createPhotoVaultHttpClient
@@ -19,4 +21,5 @@ val networkModule = module {
         )
     }
     single<PhotosApi> { KtorPhotosApi(get()) }
+    single<UploadsApi> { KtorUploadsApi(get()) }
 }

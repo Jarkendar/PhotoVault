@@ -14,6 +14,7 @@ import dev.jskrzypczak.photovault.core.domain.model.GeoLocation
 import dev.jskrzypczak.photovault.core.domain.model.Label
 import dev.jskrzypczak.photovault.core.domain.model.Photo
 import dev.jskrzypczak.photovault.core.domain.model.Tag
+import kotlinx.collections.immutable.persistentListOf
 import dev.jskrzypczak.photovault.core.network.dto.category.CategoryDto
 import dev.jskrzypczak.photovault.core.network.dto.label.LabelDto
 import dev.jskrzypczak.photovault.core.network.dto.label.LabelName
@@ -92,9 +93,9 @@ object PhotoTestFixtures {
         uploadedAt = UPLOADED_AT,
         camera = "Pixel 8 Pro",
         location = LOCATION_DOMAIN,
-        tags = listOf(TAG_DOMAIN),
-        categories = listOf(CATEGORY_DOMAIN),
-        labels = listOf(LABEL_DOMAIN),
+        tags = persistentListOf(TAG_DOMAIN),
+        categories = persistentListOf(CATEGORY_DOMAIN),
+        labels = persistentListOf(LABEL_DOMAIN),
         isFavorite = true,
     )
 

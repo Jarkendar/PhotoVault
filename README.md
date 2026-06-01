@@ -29,7 +29,7 @@ Secondary learning goals that fall out naturally:
 
 ## Current phase
 
-**Phase 3 — Gallery feature (stateless UI complete).** `:feature:gallery` is implemented as stateless Compose screens driven by `GalleryUiState` / `PhotoDetailUiState`. All reusable components live in `:core:ui` (staggered grid, category chips, detail sheet, pagination row, bottom nav). Paparazzi snapshot tests cover all components. ViewModels and repository wiring are the next step.
+**Phase 5 — Upload feature (in progress).** `:feature:upload` is implemented with system photo picker (`PickMultipleVisualMedia`), WorkManager background uploads, per-item progress polling, MediaStore-based auto-detection, and Navigation Compose wiring 5-tab bottom nav. ML auto-tagging (Phase 6) is stubbed. `:feature:gallery` remains stateless UI — ViewModel/repository wiring is the next step for Phase 3 completion.
 
 ## Roadmap
 
@@ -40,7 +40,7 @@ Secondary learning goals that fall out naturally:
 | 2 | REST API contract — OpenAPI-ish spec, mock endpoints on n8n for offline dev | done |
 | 3 | Gallery feature — read-only grid backed by mock data, then by real Room cache | in progress |
 | 4 | Ktor backend — photo upload, storage, metadata DB on Raspberry Pi | in progress |
-| 5 | Upload feature — picker, progress, background work | |
+| 5 | Upload feature — picker, progress, background work | in progress |
 | 6 | On-device ML — auto-tagging during upload | |
 | 7 | Search feature — online query against server | |
 | 8 | Settings, favorites, manage categories/tags | |
