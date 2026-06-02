@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_search_suggestions_header">Suggestions</string>
+    <string name="feature_search_tag_subtitle">Tags</string>
+    <string name="feature_search_filter_by">Filter by</string>
+    <string name="feature_search_filter_title">Filters</string>
+    <string name="feature_search_filter_clear">Clear</string>
+    <string name="feature_search_filter_apply">Apply</string>
+    <string name="feature_search_match_all">All (AND)</string>
+    <string name="feature_search_match_any">Any (OR)</string>
+    <string name="feature_search_categories_header">Categories</string>
+    <string name="feature_search_tags_header">Tags</string>
+    <string name="feature_search_labels_header">Labels</string>
+    <string name="feature_search_date_range_header">Date range</string>
+    <string name="feature_search_date_from_label">From</string>
+    <string name="feature_search_date_to_label">To</string>
+    <string name="feature_search_empty_message">No results for this query</string>
+    <string name="feature_search_error_retry">Try again</string>
+    <string name="feature_search_voice_stub">Voice search – coming soon</string>
+    <string name="feature_search_clear_text">Clear text</string>
+    <string name="feature_search_back">Back</string>
+    <string name="feature_search_filter_open">Open filters</string>
+    <string name="feature_search_counting">Counting…</string>
+
+    <plurals name="feature_search_photo_count">
+        <item quantity="one">%d photo</item>
+        <item quantity="other">%d photos</item>
+    </plurals>
+</resources>

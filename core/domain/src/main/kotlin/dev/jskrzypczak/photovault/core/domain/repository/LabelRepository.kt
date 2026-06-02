@@ -5,4 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface LabelRepository {
     fun observeAll(): Flow<List<Label>>
+    suspend fun refresh(): Result<Unit>
 }

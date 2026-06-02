@@ -5,4 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface TagRepository {
     fun observeAll(): Flow<List<Tag>>
+    suspend fun refresh(): Result<Unit>
 }

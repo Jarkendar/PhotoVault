@@ -11,7 +11,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
@@ -21,6 +20,8 @@ import dev.jskrzypczak.photovault.core.ui.component.gallery.GalleryDestination
 import dev.jskrzypczak.photovault.core.ui.theme.PhotoVaultTheme
 import dev.jskrzypczak.photovault.feature.gallery.GalleryScreen
 import dev.jskrzypczak.photovault.feature.gallery.GalleryViewModel
+import dev.jskrzypczak.photovault.feature.search.SearchScreen
+import dev.jskrzypczak.photovault.feature.search.SearchViewModel
 import dev.jskrzypczak.photovault.feature.upload.UploadScreen
 import dev.jskrzypczak.photovault.feature.upload.UploadViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -63,7 +64,26 @@ class MainActivity : ComponentActivity() {
                             onDestinationSelect = { navController.navigateTab(it.route) },
                         )
                     }
-                    composable(Route.SEARCH) { PlaceholderScreen() }
+                    composable(Route.SEARCH) {
+                        val viewModel = koinViewModel<SearchViewModel>()
+                        val state by viewModel.uiState.collectAsStateWithLifecycle()
+                        val filterPanelState by viewModel.filterPanelState.collectAsStateWithLifecycle()
+                        val searchText by viewModel.searchText.collectAsStateWithLifecycle()
+                        SearchScreen(
+                            state = state,
+                            filterPanelState = filterPanelState,
+                            searchText = searchText,
+                            onSearchTextChange = viewModel::onSearchTextChange,
+                            onBack = { navController.navigateUp() },
+                            onToggleCategory = viewModel::onToggleCategory,
+                            onToggleTag = viewModel::onToggleTag,
+                            onToggleLabel = viewModel::onToggleLabel,
+                            onMatchModeChange = viewModel::onMatchModeChange,
+                            onClearFilters = viewModel::onClearFilters,
+                            onApplyFilters = viewModel::onApplyFilters,
+                            onDestinationSelect = { navController.navigateTab(it.route) },
+                        )
+                    }
                     composable(Route.MANAGE) { PlaceholderScreen() }
                     composable(Route.SETTINGS) { PlaceholderScreen() }
                 }

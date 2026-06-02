@@ -15,9 +15,10 @@ class TagNetworkMapperTest {
     }
 
     @Test
-    fun `toDomain ignores photoCount`() {
+    fun `toDomain preserves photoCount`() {
         val a = TagDto(id = "tag-001", name = "#morze", photoCount = 0).toDomain()
         val b = TagDto(id = "tag-001", name = "#morze", photoCount = 999).toDomain()
-        assertEquals(a, b)
+        assertEquals(0, a.photoCount)
+        assertEquals(999, b.photoCount)
     }
 }

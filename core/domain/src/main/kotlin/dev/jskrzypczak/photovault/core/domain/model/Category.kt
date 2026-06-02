@@ -6,4 +6,5 @@ data class Category(
     val id: CategoryId,
     val name: String,
     val colorHex: String,
+    val photoCount: Int = 0,
 )

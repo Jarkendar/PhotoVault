@@ -53,6 +53,7 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":feature:gallery"))
     implementation(project(":feature:upload"))
+    implementation(project(":feature:search"))
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
     implementation(libs.androidx.navigation.compose)

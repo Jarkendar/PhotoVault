@@ -14,8 +14,8 @@ import org.koin.dsl.module
 
 val dataModule = module {
     single<PhotoRepository> { PhotoRepositoryImpl(get(), get(), get(), get(), get(), get()) }
-    single<CategoryRepository> { CategoryRepositoryImpl(get(), get()) }
-    single<TagRepository> { TagRepositoryImpl(get(), get()) }
-    single<LabelRepository> { LabelRepositoryImpl(get(), get()) }
+    single<CategoryRepository> { CategoryRepositoryImpl(get(), get(), get()) }
+    single<TagRepository> { TagRepositoryImpl(get(), get(), get()) }
+    single<LabelRepository> { LabelRepositoryImpl(get(), get(), get()) }
     single<UploadRepository> { UploadRepositoryImpl(get()) }
 }

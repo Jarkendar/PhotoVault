@@ -8,4 +8,5 @@ data class LabelEntity(
     @PrimaryKey val id: String,
     val name: String,
     val colorHex: String,
+    val photoCount: Int = 0,
 )

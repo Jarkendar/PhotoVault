@@ -7,4 +7,5 @@ import dev.jskrzypczak.photovault.core.network.dto.tag.TagDto
 internal fun TagDto.toDomain(): Tag = Tag(
     id = TagId(id),
     name = name,
+    photoCount = photoCount,
 )

@@ -1,5 +1,6 @@
 package dev.jskrzypczak.photovault.core.network.api
 
+import dev.jskrzypczak.photovault.core.network.dto.photo.PhotoCountDto
 import dev.jskrzypczak.photovault.core.network.dto.photo.PhotoDto
 import dev.jskrzypczak.photovault.core.network.dto.photo.PhotoPageDto
 import dev.jskrzypczak.photovault.core.network.dto.photo.PhotoPatchRequestDto
@@ -26,6 +27,9 @@ class KtorPhotosApi(private val client: HttpClient) : PhotosApi {
         labelIds: List<String>?,
         favoritesOnly: Boolean,
         uploadedBy: String?,
+        matchMode: String?,
+        dateFrom: String?,
+        dateTo: String?,
     ): Result<PhotoPageDto> = runCatching {
         val response = client.get("photos") {
             cursor?.let { parameter("cursor", it) }
@@ -36,9 +40,38 @@ class KtorPhotosApi(private val client: HttpClient) : PhotosApi {
             labelIds?.takeIf { it.isNotEmpty() }?.let { parameter("labelIds", it.joinToString(",")) }
             if (favoritesOnly) parameter("favoritesOnly", true)
             uploadedBy?.let { parameter("uploadedBy", it) }
+            matchMode?.let { parameter("matchMode", it) }
+            dateFrom?.let { parameter("dateFrom", it) }
+            dateTo?.let { parameter("dateTo", it) }
         }
         if (!response.status.isSuccess()) throw mapToNetworkError(response)
         response.body<PhotoPageDto>()
+    }.recoverCatching { throw mapToNetworkError(it) }
+
+    override suspend fun countPhotos(
+        q: String?,
+        tagIds: List<String>?,
+        categoryIds: List<String>?,
+        labelIds: List<String>?,
+        favoritesOnly: Boolean,
+        uploadedBy: String?,
+        matchMode: String?,
+        dateFrom: String?,
+        dateTo: String?,
+    ): Result<PhotoCountDto> = runCatching {
+        val response = client.get("photos/count") {
+            q?.let { parameter("q", it) }
+            tagIds?.takeIf { it.isNotEmpty() }?.let { parameter("tagIds", it.joinToString(",")) }
+            categoryIds?.takeIf { it.isNotEmpty() }?.let { parameter("categoryIds", it.joinToString(",")) }
+            labelIds?.takeIf { it.isNotEmpty() }?.let { parameter("labelIds", it.joinToString(",")) }
+            if (favoritesOnly) parameter("favoritesOnly", true)
+            uploadedBy?.let { parameter("uploadedBy", it) }
+            matchMode?.let { parameter("matchMode", it) }
+            dateFrom?.let { parameter("dateFrom", it) }
+            dateTo?.let { parameter("dateTo", it) }
+        }
+        if (!response.status.isSuccess()) throw mapToNetworkError(response)
+        response.body<PhotoCountDto>()
     }.recoverCatching { throw mapToNetworkError(it) }
 
     override suspend fun getPhoto(id: String): Result<PhotoDto> = runCatching {

@@ -6,4 +6,5 @@ data class Label(
     val id: LabelId,
     val name: String,
     val colorHex: String,
+    val photoCount: Int = 0,
 )

@@ -12,4 +12,5 @@ interface PhotoRepository {
     suspend fun loadMorePhotos(cursor: String): Result<LoadMoreResult>
     suspend fun toggleFavorite(id: PhotoId): Result<Unit>
     suspend fun search(query: SearchQuery): Result<List<Photo>>
+    suspend fun count(query: SearchQuery): Result<Int>
 }

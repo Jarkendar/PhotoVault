@@ -8,4 +8,5 @@ internal fun LabelDto.toDomain(): Label = Label(
     id = LabelId(id),
     name = name.name.lowercase(),
     colorHex = colorHex,
+    photoCount = photoCount,
 )

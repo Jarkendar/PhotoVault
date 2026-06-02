@@ -1,9 +1,15 @@
 package dev.jskrzypczak.photovault.core.network.di
 
 import dev.jskrzypczak.photovault.core.network.BuildConfig
+import dev.jskrzypczak.photovault.core.network.api.CategoriesApi
+import dev.jskrzypczak.photovault.core.network.api.KtorCategoriesApi
+import dev.jskrzypczak.photovault.core.network.api.KtorLabelsApi
 import dev.jskrzypczak.photovault.core.network.api.KtorPhotosApi
+import dev.jskrzypczak.photovault.core.network.api.KtorTagsApi
 import dev.jskrzypczak.photovault.core.network.api.KtorUploadsApi
+import dev.jskrzypczak.photovault.core.network.api.LabelsApi
 import dev.jskrzypczak.photovault.core.network.api.PhotosApi
+import dev.jskrzypczak.photovault.core.network.api.TagsApi
 import dev.jskrzypczak.photovault.core.network.api.UploadsApi
 import dev.jskrzypczak.photovault.core.network.auth.AuthTokenProvider
 import dev.jskrzypczak.photovault.core.network.auth.StubAuthTokenProvider
@@ -22,4 +28,7 @@ val networkModule = module {
     }
     single<PhotosApi> { KtorPhotosApi(get()) }
     single<UploadsApi> { KtorUploadsApi(get()) }
+    single<TagsApi> { KtorTagsApi(get()) }
+    single<CategoriesApi> { KtorCategoriesApi(get()) }
+    single<LabelsApi> { KtorLabelsApi(get()) }
 }

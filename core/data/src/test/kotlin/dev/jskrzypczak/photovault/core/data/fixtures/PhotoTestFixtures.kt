@@ -77,9 +77,9 @@ object PhotoTestFixtures {
         hasMore = false,
     )
 
-    val TAG_DOMAIN = Tag(id = TagId("tag-001"), name = "#morze")
-    val CATEGORY_DOMAIN = Category(id = CategoryId("cat-001"), name = "Natura", colorHex = "#FF8B45")
-    val LABEL_DOMAIN = Label(id = LabelId("label-orange"), name = "orange", colorHex = "#FF8B45")
+    val TAG_DOMAIN = Tag(id = TagId("tag-001"), name = "#morze", photoCount = 48)
+    val CATEGORY_DOMAIN = Category(id = CategoryId("cat-001"), name = "Natura", colorHex = "#FF8B45", photoCount = 48)
+    val LABEL_DOMAIN = Label(id = LabelId("label-orange"), name = "orange", colorHex = "#FF8B45", photoCount = 23)
     val LOCATION_DOMAIN = GeoLocation(latitude = 54.4641, longitude = 18.5734, placeName = "Sopot, PL")
 
     val PHOTO_DOMAIN = Photo(
@@ -99,9 +99,9 @@ object PhotoTestFixtures {
         isFavorite = true,
     )
 
-    val TAG_ENTITY = TagEntity(id = "tag-001", name = "#morze")
-    val CATEGORY_ENTITY = CategoryEntity(id = "cat-001", name = "Natura", colorHex = "#FF8B45")
-    val LABEL_ENTITY = LabelEntity(id = "label-orange", name = "orange", colorHex = "#FF8B45")
+    val TAG_ENTITY = TagEntity(id = "tag-001", name = "#morze", photoCount = 48)
+    val CATEGORY_ENTITY = CategoryEntity(id = "cat-001", name = "Natura", colorHex = "#FF8B45", photoCount = 48)
+    val LABEL_ENTITY = LabelEntity(id = "label-orange", name = "orange", colorHex = "#FF8B45", photoCount = 23)
 
     val PHOTO_ENTITY = PhotoEntity(
         id = "photo-abc123",

@@ -12,6 +12,7 @@ import dev.jskrzypczak.photovault.core.database.dao.TagDao
 import dev.jskrzypczak.photovault.core.domain.error.DomainError
 import dev.jskrzypczak.photovault.core.domain.id.PhotoId
 import dev.jskrzypczak.photovault.core.domain.model.Photo
+import dev.jskrzypczak.photovault.core.domain.query.MatchMode
 import dev.jskrzypczak.photovault.core.domain.query.SearchQuery
 import dev.jskrzypczak.photovault.core.domain.repository.LoadMoreResult
 import dev.jskrzypczak.photovault.core.domain.repository.PhotoRepository
@@ -105,10 +106,34 @@ class PhotoRepositoryImpl(
                 categoryIds = query.categoryIds.map { it.value }.takeIf { it.isNotEmpty() },
                 labelIds = query.labelIds.map { it.value }.takeIf { it.isNotEmpty() },
                 favoritesOnly = query.favoritesOnly,
+                matchMode = query.matchMode.toApiString(),
+                dateFrom = query.dateFrom?.toString(),
+                dateTo = query.dateTo?.toString(),
             ).getOrThrow()
             page.toDomain()
         }.recoverCatching { throw it.toDomain() }
     }
+
+    override suspend fun count(query: SearchQuery): Result<Int> = withContext(dispatchers.io) {
+        runCatching {
+            val dto = photosApi.countPhotos(
+                q = query.text.ifBlank { null },
+                tagIds = query.tagIds.map { it.value }.takeIf { it.isNotEmpty() },
+                categoryIds = query.categoryIds.map { it.value }.takeIf { it.isNotEmpty() },
+                labelIds = query.labelIds.map { it.value }.takeIf { it.isNotEmpty() },
+                favoritesOnly = query.favoritesOnly,
+                matchMode = query.matchMode.toApiString(),
+                dateFrom = query.dateFrom?.toString(),
+                dateTo = query.dateTo?.toString(),
+            ).getOrThrow()
+            dto.count
+        }.recoverCatching { throw it.toDomain() }
+    }
+}
+
+private fun MatchMode.toApiString(): String = when (this) {
+    MatchMode.ALL -> "all"
+    MatchMode.ANY -> "any"
 }
 
 private fun Throwable.toDomain(): DomainError = when (this) {

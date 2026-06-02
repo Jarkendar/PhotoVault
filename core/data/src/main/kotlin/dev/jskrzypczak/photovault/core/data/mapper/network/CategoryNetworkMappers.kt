@@ -8,4 +8,5 @@ internal fun CategoryDto.toDomain(): Category = Category(
     id = CategoryId(id),
     name = name,
     colorHex = colorHex,
+    photoCount = photoCount,
 )

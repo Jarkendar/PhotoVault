@@ -7,7 +7,7 @@ fun photoPlaceholderColor(id: String): Color {
     return Color.hsl(hue, saturation = 0.4f, lightness = 0.6f)
 }
 
-internal fun parseHexColor(hex: String): Color {
+fun parseHexColor(hex: String): Color {
     val cleaned = hex.trimStart('#')
     return try {
         when (cleaned.length) {

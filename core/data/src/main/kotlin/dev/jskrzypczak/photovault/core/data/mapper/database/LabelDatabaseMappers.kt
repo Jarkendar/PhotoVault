@@ -8,10 +8,12 @@ internal fun LabelEntity.toDomain(): Label = Label(
     id = LabelId(id),
     name = name,
     colorHex = colorHex,
+    photoCount = photoCount,
 )
 
 internal fun Label.toEntity(): LabelEntity = LabelEntity(
     id = id.value,
     name = name,
     colorHex = colorHex,
+    photoCount = photoCount,
 )

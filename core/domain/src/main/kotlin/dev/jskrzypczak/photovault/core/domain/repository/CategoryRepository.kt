@@ -5,4 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface CategoryRepository {
     fun observeAll(): Flow<List<Category>>
+    suspend fun refresh(): Result<Unit>
 }

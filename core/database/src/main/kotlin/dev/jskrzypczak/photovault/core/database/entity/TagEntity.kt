@@ -7,4 +7,5 @@ import androidx.room.PrimaryKey
 data class TagEntity(
     @PrimaryKey val id: String,
     val name: String,
+    val photoCount: Int = 0,
 )

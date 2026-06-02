@@ -11,7 +11,9 @@ val databaseModule = module {
             androidApplication(),
             PhotoVaultDatabase::class.java,
             "photovault.db",
-        ).build()
+        )
+            .fallbackToDestructiveMigration(dropAllTables = true)
+            .build()
     }
     single { get<PhotoVaultDatabase>().photoDao() }
     single { get<PhotoVaultDatabase>().tagDao() }

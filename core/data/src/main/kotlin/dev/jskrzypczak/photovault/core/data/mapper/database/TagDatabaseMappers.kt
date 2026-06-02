@@ -7,9 +7,11 @@ import dev.jskrzypczak.photovault.core.domain.model.Tag
 internal fun TagEntity.toDomain(): Tag = Tag(
     id = TagId(id),
     name = name,
+    photoCount = photoCount,
 )
 
 internal fun Tag.toEntity(): TagEntity = TagEntity(
     id = id.value,
     name = name,
+    photoCount = photoCount,
 )

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_search_suggestions_header">Sugestie</string>
+    <string name="feature_search_tag_subtitle">Tagi</string>
+    <string name="feature_search_filter_by">Filtruj według</string>
+    <string name="feature_search_filter_title">Filtry</string>
+    <string name="feature_search_filter_clear">Wyczyść</string>
+    <string name="feature_search_filter_apply">Zastosuj</string>
+    <string name="feature_search_match_all">Wszystkie (AND)</string>
+    <string name="feature_search_match_any">Dowolne (OR)</string>
+    <string name="feature_search_categories_header">Kategorie</string>
+    <string name="feature_search_tags_header">Tagi</string>
+    <string name="feature_search_labels_header">Etykiety</string>
+    <string name="feature_search_date_range_header">Zakres dat</string>
+    <string name="feature_search_date_from_label">Od</string>
+    <string name="feature_search_date_to_label">Do</string>
+    <string name="feature_search_empty_message">Brak wyników dla tego zapytania</string>
+    <string name="feature_search_error_retry">Spróbuj ponownie</string>
+    <string name="feature_search_voice_stub">Wyszukiwanie głosowe – wkrótce</string>
+    <string name="feature_search_clear_text">Wyczyść tekst</string>
+    <string name="feature_search_back">Wstecz</string>
+    <string name="feature_search_filter_open">Otwórz filtry</string>
+    <string name="feature_search_counting">Trwa liczenie…</string>
+
+    <plurals name="feature_search_photo_count">
+        <item quantity="one">%d zdjęcie</item>
+        <item quantity="few">%d zdjęcia</item>
+        <item quantity="many">%d zdjęć</item>
+        <item quantity="other">%d zdjęć</item>
+    </plurals>
+</resources>
