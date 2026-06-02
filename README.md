@@ -29,7 +29,9 @@ Secondary learning goals that fall out naturally:
 
 ## Current phase
 
-**Phase 5 — Upload feature (in progress).** `:feature:upload` is implemented with system photo picker (`PickMultipleVisualMedia`), WorkManager background uploads, per-item progress polling, MediaStore-based auto-detection, and Navigation Compose wiring 5-tab bottom nav. ML auto-tagging (Phase 6) is stubbed. `:feature:gallery` remains stateless UI — ViewModel/repository wiring is the next step for Phase 3 completion.
+**Phase 8 — Zarządzaj + Ustawienia stateless UI (landed).** `:feature:manage` and `:feature:settings` are implemented as stateless Compose screens verified with Paparazzi snapshots. Zarządzaj shows categories/tags/labels lists with color squares, edit pencil, drag handle, and an "Add" FAB. Ustawienia shows server connection, upload toggles (Switch), appearance controls (theme, accent color picker, grid density, language), and app info — all with a large collapsible title and bottom nav.
+
+Pending for Phase 8 continuation: DataStore + SettingsRepository to persist theme/accent/density/language/upload settings; live PhotoVaultTheme parameterisation for accent/density; Category/Tag CRUD wired to repositories; Label management (needs backend); ViewModels (ManageViewModel, SettingsViewModel) + Koin modules; WorkManager Constraints from persisted settings; favorites feature. `:feature:gallery` ViewModel/repository wiring (Phase 3) also remains pending.
 
 ## Roadmap
 
@@ -43,7 +45,7 @@ Secondary learning goals that fall out naturally:
 | 5 | Upload feature — picker, progress, background work | in progress |
 | 6 | On-device ML — auto-tagging during upload | |
 | 7 | Search feature — online query against server | |
-| 8 | Settings, favorites, manage categories/tags | |
+| 8 | Settings, favorites, manage categories/tags | in progress (Zarządzaj + Ustawienia UI done; CRUD + persistence pending) |
 | 9 | Desktop client — Compose for Desktop app reusing KMP shared modules (gallery, search, settings) | |
 
 Phases are iterative, not sequential — Gallery will get revisited when Search lands, API contract will evolve as features go in.
@@ -104,7 +106,8 @@ The `:core:domain` and `:core:common` modules are pure Kotlin and shared via KMP
 :feature:gallery        — grid of photos + photo detail screen
 :feature:upload         — picker, auto-detection, upload progress
 :feature:search         — free-text search, filters modal
-:feature:settings       — tweaks (theme/accent/density/language) + manage categories/tags
+:feature:manage         — manage categories, tags, and labels (list, add, edit, reorder)
+:feature:settings       — tweaks (theme/accent/density/language), server config, upload preferences
 
 :core:data              — PhotoRepository implementation, sync/cache orchestration
 :core:network           — Ktor client, API contract, DTOs, network error handling  [KMP: Android + Desktop]

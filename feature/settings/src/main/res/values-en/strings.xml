@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_settings_title">Settings</string>
+
+    <!-- Section headers -->
+    <string name="feature_settings_section_server">SERVER</string>
+    <string name="feature_settings_section_upload">UPLOAD</string>
+    <string name="feature_settings_section_appearance">APPEARANCE</string>
+    <string name="feature_settings_section_info">INFO</string>
+
+    <!-- Server section -->
+    <string name="feature_settings_connected">Connected · %d photos</string>
+    <string name="feature_settings_disconnected">Disconnected</string>
+    <string name="feature_settings_auth_title">Authentication</string>
+    <string name="feature_settings_auth_summary">Token · expires in 24h</string>
+    <string name="feature_settings_target_folder">Target folder</string>
+    <string name="feature_settings_edit_server">Edit server address</string>
+
+    <!-- Upload section -->
+    <string name="feature_settings_auto_upload_title">Auto-upload on start</string>
+    <string name="feature_settings_auto_upload_subtitle">Detect new photos automatically</string>
+    <string name="feature_settings_wifi_only_title">Wi-Fi only</string>
+    <string name="feature_settings_wifi_only_subtitle">Do not use mobile data</string>
+    <string name="feature_settings_auto_tagging_title">AI auto-tagging</string>
+    <string name="feature_settings_auto_tagging_subtitle">On-device processing</string>
+
+    <!-- Appearance section -->
+    <string name="feature_settings_theme">Theme</string>
+    <string name="feature_settings_theme_light">Light</string>
+    <string name="feature_settings_theme_dark">Dark</string>
+    <string name="feature_settings_accent">Accent color</string>
+    <string name="feature_settings_accent_purple">Purple</string>
+    <string name="feature_settings_accent_teal">Teal</string>
+    <string name="feature_settings_accent_green">Green</string>
+    <string name="feature_settings_density">View density</string>
+    <string name="feature_settings_density_columns">%d columns</string>
+    <string name="feature_settings_language">Language</string>
+    <string name="feature_settings_lang_pl">PL</string>
+    <string name="feature_settings_lang_en">EN</string>
+
+    <!-- Info section -->
+    <string name="feature_settings_app_name">PhotoVault</string>
+    <string name="feature_settings_version">v%s</string>
+
+    <!-- Content descriptions -->
+    <string name="feature_settings_back">Back</string>
+</resources>

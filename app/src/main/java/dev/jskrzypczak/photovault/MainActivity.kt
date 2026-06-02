@@ -4,26 +4,31 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import dev.jskrzypczak.photovault.core.domain.id.CategoryId
+import dev.jskrzypczak.photovault.core.domain.id.TagId
+import dev.jskrzypczak.photovault.core.domain.model.Category
+import dev.jskrzypczak.photovault.core.domain.model.Tag
 import dev.jskrzypczak.photovault.core.ui.component.gallery.GalleryDestination
 import dev.jskrzypczak.photovault.core.ui.theme.PhotoVaultTheme
 import dev.jskrzypczak.photovault.feature.gallery.GalleryScreen
 import dev.jskrzypczak.photovault.feature.gallery.GalleryViewModel
+import dev.jskrzypczak.photovault.feature.manage.ManageScreen
+import dev.jskrzypczak.photovault.feature.manage.ManageTab
+import dev.jskrzypczak.photovault.feature.manage.ManageUiState
 import dev.jskrzypczak.photovault.feature.search.SearchScreen
 import dev.jskrzypczak.photovault.feature.search.SearchViewModel
+import dev.jskrzypczak.photovault.feature.settings.SettingsScreen
+import dev.jskrzypczak.photovault.feature.settings.SettingsUiState
 import dev.jskrzypczak.photovault.feature.upload.UploadScreen
 import dev.jskrzypczak.photovault.feature.upload.UploadViewModel
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
 import org.koin.androidx.compose.koinViewModel
 
 class MainActivity : ComponentActivity() {
@@ -84,8 +89,33 @@ class MainActivity : ComponentActivity() {
                             onDestinationSelect = { navController.navigateTab(it.route) },
                         )
                     }
-                    composable(Route.MANAGE) { PlaceholderScreen() }
-                    composable(Route.SETTINGS) { PlaceholderScreen() }
+                    composable(Route.MANAGE) {
+                        // TODO(etap-8+): replace static state with koinViewModel + repository wiring
+                        ManageScreen(
+                            state = ManageUiState.Content(
+                                selectedTab = ManageTab.CATEGORIES,
+                                categories = listOf(
+                                    Category(id = CategoryId("c1"), name = "Natura", colorHex = "#4CAF50", photoCount = 48),
+                                    Category(id = CategoryId("c2"), name = "Ludzie", colorHex = "#E91E63", photoCount = 73),
+                                    Category(id = CategoryId("c3"), name = "Podróże", colorHex = "#2196F3", photoCount = 124),
+                                ).toImmutableList(),
+                                tags = listOf(
+                                    Tag(id = TagId("t1"), name = "#morze", photoCount = 48),
+                                ).toImmutableList(),
+                                labels = persistentListOf(),
+                            ),
+                            onBack = { navController.navigateUp() },
+                            onDestinationSelect = { navController.navigateTab(it.route) },
+                        )
+                    }
+                    composable(Route.SETTINGS) {
+                        // TODO(etap-8+): replace static state with koinViewModel + repository wiring
+                        SettingsScreen(
+                            state = SettingsUiState(),
+                            onBack = { navController.navigateUp() },
+                            onDestinationSelect = { navController.navigateTab(it.route) },
+                        )
+                    }
                 }
             }
         }
@@ -117,12 +147,3 @@ private fun NavController.navigateTab(route: String) {
     }
 }
 
-@Composable
-private fun PlaceholderScreen() {
-    Surface(modifier = Modifier.fillMaxSize()) {
-        Text(
-            text = "Coming soon",
-            style = MaterialTheme.typography.headlineMedium,
-        )
-    }
-}

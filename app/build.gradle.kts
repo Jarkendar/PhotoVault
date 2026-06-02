@@ -54,6 +54,8 @@ dependencies {
     implementation(project(":feature:gallery"))
     implementation(project(":feature:upload"))
     implementation(project(":feature:search"))
+    implementation(project(":feature:manage"))
+    implementation(project(":feature:settings"))
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
     implementation(libs.androidx.navigation.compose)

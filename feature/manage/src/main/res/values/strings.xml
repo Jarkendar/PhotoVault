@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_manage_title">Zarządzaj</string>
+    <string name="feature_manage_tab_categories">Kategorie</string>
+    <string name="feature_manage_tab_tags">Tagi</string>
+    <string name="feature_manage_tab_labels">Etykiety</string>
+    <string name="feature_manage_add_category">Dodaj kategorię</string>
+    <string name="feature_manage_add_tag">Dodaj tag</string>
+    <string name="feature_manage_add_label">Dodaj etykietę</string>
+    <string name="feature_manage_edit">Edytuj</string>
+    <string name="feature_manage_reorder">Zmień kolejność</string>
+    <string name="feature_manage_search">Szukaj</string>
+    <string name="feature_manage_back">Wstecz</string>
+    <string name="feature_manage_empty">Brak elementów</string>
+</resources>
