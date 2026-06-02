@@ -29,9 +29,15 @@ Secondary learning goals that fall out naturally:
 
 ## Current phase
 
-**Phase 8 — Zarządzaj + Ustawienia stateless UI (landed).** `:feature:manage` and `:feature:settings` are implemented as stateless Compose screens verified with Paparazzi snapshots. Zarządzaj shows categories/tags/labels lists with color squares, edit pencil, drag handle, and an "Add" FAB. Ustawienia shows server connection, upload toggles (Switch), appearance controls (theme, accent color picker, grid density, language), and app info — all with a large collapsible title and bottom nav.
+**All 5 tabs have real screens — stateless UI complete.** `:feature:gallery`, `:feature:upload`, `:feature:search`, `:feature:manage`, and `:feature:settings` are all implemented as stateless Compose screens, verified with Paparazzi snapshots and running on-device. Bottom-nav routing and back navigation work end-to-end.
 
-Pending for Phase 8 continuation: DataStore + SettingsRepository to persist theme/accent/density/language/upload settings; live PhotoVaultTheme parameterisation for accent/density; Category/Tag CRUD wired to repositories; Label management (needs backend); ViewModels (ManageViewModel, SettingsViewModel) + Koin modules; WorkManager Constraints from persisted settings; favorites feature. `:feature:gallery` ViewModel/repository wiring (Phase 3) also remains pending.
+**What's wired up:** Gallery grid (stateless), Upload with WorkManager + MediaStore auto-detection, Search with server queries + filters, Manage categories/tags/labels list, Settings with server config + upload toggles + appearance controls.
+
+**What's pending across phases:**
+- `:feature:gallery` — ViewModel + Room/network repository wiring (Phase 3)
+- `:feature:manage` — ManageViewModel + Koin module; Category/Tag CRUD against repositories; Label management (needs backend endpoint)
+- `:feature:settings` — SettingsViewModel + DataStore + SettingsRepository; live theme/accent/density/language application via parameterised `PhotoVaultTheme`; WorkManager Constraints driven by persisted wifi-only setting
+- Phase 6 — on-device ML auto-tagging (MediaPipe) during upload
 
 ## Roadmap
 
