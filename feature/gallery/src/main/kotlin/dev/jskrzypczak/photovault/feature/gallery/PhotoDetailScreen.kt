@@ -1,18 +1,34 @@
 package dev.jskrzypczak.photovault.feature.gallery
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.gestures.rememberTransformableState
+import androidx.compose.foundation.gestures.transformable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.BottomSheetScaffold
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
 import dev.jskrzypczak.photovault.core.domain.id.CategoryId
 import dev.jskrzypczak.photovault.core.domain.id.LabelId
 import dev.jskrzypczak.photovault.core.domain.id.PhotoId
@@ -38,58 +54,109 @@ fun PhotoDetailScreen(
     onBack: () -> Unit = {},
     onShare: () -> Unit = {},
     onFavoriteToggle: () -> Unit = {},
-    onMore: () -> Unit = {},
+    onOpenInBrowser: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     when (state) {
         PhotoDetailUiState.Loading -> LoadingState(modifier = modifier.fillMaxSize())
-        is PhotoDetailUiState.Error -> ErrorState(message = state.message, modifier = modifier.fillMaxSize())
+        is PhotoDetailUiState.Error -> ErrorState(
+            message = state.message.ifBlank { stringResource(R.string.feature_gallery_detail_not_found) },
+            modifier = modifier.fillMaxSize(),
+        )
         is PhotoDetailUiState.Content -> PhotoDetailContent(
             photo = state.photo,
             onBack = onBack,
             onShare = onShare,
             onFavoriteToggle = onFavoriteToggle,
-            onMore = onMore,
+            onOpenInBrowser = onOpenInBrowser,
             modifier = modifier,
         )
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun PhotoDetailContent(
     photo: Photo,
     onBack: () -> Unit,
     onShare: () -> Unit,
     onFavoriteToggle: () -> Unit,
-    onMore: () -> Unit,
+    onOpenInBrowser: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background),
-    ) {
+    var moreMenuExpanded by remember { mutableStateOf(false) }
+    var scale by remember { mutableFloatStateOf(1f) }
+    var offset by remember { mutableStateOf(Offset.Zero) }
+    @Suppress("DEPRECATION")
+    val transformableState = rememberTransformableState { zoomChange, panChange, _ ->
+        val newScale = (scale * zoomChange).coerceIn(1f, 5f)
+        scale = newScale
+        offset = if (newScale <= 1f) Offset.Zero else offset + panChange
+    }
+
+    BottomSheetScaffold(
+        modifier = modifier,
+        sheetPeekHeight = 200.dp,
+        sheetDragHandle = null,
+        sheetShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
+        sheetContent = {
+            PhotoMetadataSheet(
+                photo = photo,
+                modifier = Modifier.verticalScroll(rememberScrollState()),
+            )
+        },
+    ) { _ ->
         Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .height(280.dp)
+                .fillMaxSize()
                 .background(photoPlaceholderColor(photo.id.value)),
         ) {
+            val imageUrl = photo.mediumUrl.ifEmpty { photo.originalUrl.ifEmpty { photo.thumbnailUrl } }
+            if (imageUrl.isNotEmpty()) {
+                AsyncImage(
+                    model = imageUrl,
+                    contentDescription = photo.name,
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .transformable(state = transformableState)
+                        .pointerInput(Unit) {
+                            detectTapGestures(onDoubleTap = {
+                                scale = 1f
+                                offset = Offset.Zero
+                            })
+                        }
+                        .graphicsLayer {
+                            scaleX = scale
+                            scaleY = scale
+                            translationX = offset.x
+                            translationY = offset.y
+                        },
+                )
+            }
+
             PhotoDetailTopBar(
                 isFavorite = photo.isFavorite,
                 onBack = onBack,
                 onShare = onShare,
                 onFavoriteToggle = onFavoriteToggle,
-                onMore = onMore,
+                onMore = { moreMenuExpanded = true },
                 modifier = Modifier.align(Alignment.TopStart),
             )
+
+            DropdownMenu(
+                expanded = moreMenuExpanded,
+                onDismissRequest = { moreMenuExpanded = false },
+            ) {
+                DropdownMenuItem(
+                    text = { Text(stringResource(R.string.feature_gallery_detail_open_in_browser)) },
+                    onClick = {
+                        moreMenuExpanded = false
+                        onOpenInBrowser()
+                    },
+                )
+            }
         }
-        PhotoMetadataSheet(
-            photo = photo,
-            modifier = Modifier
-                .weight(1f)
-                .verticalScroll(rememberScrollState()),
-        )
     }
 }
 

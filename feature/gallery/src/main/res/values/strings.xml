@@ -6,4 +6,7 @@
     <string name="feature_gallery_error_unauthenticated">Sesja wygasła – zaloguj się ponownie</string>
     <string name="feature_gallery_error_server">Błąd serwera</string>
     <string name="feature_gallery_error_unknown">Nie można wczytać galerii</string>
+    <string name="feature_gallery_detail_not_found">Nie znaleziono zdjęcia</string>
+    <string name="feature_gallery_detail_share_chooser">Udostępnij zdjęcie</string>
+    <string name="feature_gallery_detail_open_in_browser">Otwórz oryginał w przeglądarce</string>
 </resources>

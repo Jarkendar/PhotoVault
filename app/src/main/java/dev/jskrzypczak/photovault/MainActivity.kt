@@ -1,5 +1,6 @@
 package dev.jskrzypczak.photovault
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -10,16 +11,22 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.core.net.toUri
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import android.content.Context
+import androidx.compose.ui.platform.LocalContext
 import dev.jskrzypczak.photovault.core.domain.id.CategoryId
 import dev.jskrzypczak.photovault.core.domain.id.TagId
 import dev.jskrzypczak.photovault.core.domain.model.AuthState
 import dev.jskrzypczak.photovault.core.domain.model.Category
+import dev.jskrzypczak.photovault.core.domain.model.Photo
 import dev.jskrzypczak.photovault.core.domain.model.Tag
 import dev.jskrzypczak.photovault.core.ui.component.gallery.GalleryDestination
 import dev.jskrzypczak.photovault.core.ui.theme.PhotoVaultTheme
@@ -27,6 +34,9 @@ import dev.jskrzypczak.photovault.feature.auth.LoginScreen
 import dev.jskrzypczak.photovault.feature.auth.LoginViewModel
 import dev.jskrzypczak.photovault.feature.gallery.GalleryScreen
 import dev.jskrzypczak.photovault.feature.gallery.GalleryViewModel
+import dev.jskrzypczak.photovault.feature.gallery.PhotoDetailScreen
+import dev.jskrzypczak.photovault.feature.gallery.PhotoDetailUiState
+import dev.jskrzypczak.photovault.feature.gallery.PhotoDetailViewModel
 import dev.jskrzypczak.photovault.feature.manage.ManageScreen
 import dev.jskrzypczak.photovault.feature.manage.ManageTab
 import dev.jskrzypczak.photovault.feature.manage.ManageUiState
@@ -95,6 +105,7 @@ class MainActivity : ComponentActivity() {
                                     onCategorySelect = viewModel::onCategorySelect,
                                     onPageClick = viewModel::onPageClick,
                                     onFavoriteClick = viewModel::onFavoriteClick,
+                                    onPhotoClick = { photo -> navController.navigate(Route.detail(photo.id.value)) },
                                     onRefresh = viewModel::onRefresh,
                                     onUploadClick = { navController.navigateTab(Route.UPLOAD) },
                                     onDestinationSelect = { navController.navigateTab(it.route) },
@@ -162,6 +173,29 @@ class MainActivity : ComponentActivity() {
                                     onDestinationSelect = { navController.navigateTab(it.route) },
                                 )
                             }
+                            composable(
+                                route = Route.DETAIL,
+                                arguments = listOf(navArgument("photoId") { type = NavType.StringType }),
+                            ) {
+                                val viewModel = koinViewModel<PhotoDetailViewModel>()
+                                val state by viewModel.uiState.collectAsStateWithLifecycle()
+                                val context = LocalContext.current
+                                PhotoDetailScreen(
+                                    state = state,
+                                    onBack = { navController.navigateUp() },
+                                    onFavoriteToggle = viewModel::onFavoriteToggle,
+                                    onShare = {
+                                        (state as? PhotoDetailUiState.Content)
+                                            ?.photo
+                                            ?.let { sharePhoto(context, it) }
+                                    },
+                                    onOpenInBrowser = {
+                                        (state as? PhotoDetailUiState.Content)
+                                            ?.photo
+                                            ?.let { openInBrowser(context, it) }
+                                    },
+                                )
+                            }
                         }
                     }
                 }
@@ -176,6 +210,8 @@ private object Route {
     const val UPLOAD = "upload"
     const val MANAGE = "manage"
     const val SETTINGS = "settings"
+    const val DETAIL = "gallery_detail/{photoId}"
+    fun detail(photoId: String) = "gallery_detail/$photoId"
 }
 
 private val GalleryDestination.route: String
@@ -192,5 +228,26 @@ private fun NavController.navigateTab(route: String) {
         popUpTo(Route.GALLERY) { saveState = true }
         launchSingleTop = true
         restoreState = true
+    }
+}
+
+private fun sharePhoto(context: Context, photo: Photo) {
+    val url = photo.originalUrl.ifEmpty { photo.mediumUrl }
+    val intent = Intent(Intent.ACTION_SEND).apply {
+        type = "text/plain"
+        putExtra(Intent.EXTRA_TEXT, url)
+    }
+    context.startActivity(
+        Intent.createChooser(
+            intent,
+            context.getString(dev.jskrzypczak.photovault.feature.gallery.R.string.feature_gallery_detail_share_chooser),
+        ),
+    )
+}
+
+private fun openInBrowser(context: Context, photo: Photo) {
+    val url = photo.originalUrl.ifEmpty { photo.mediumUrl }
+    if (url.isNotEmpty()) {
+        context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
     }
 }

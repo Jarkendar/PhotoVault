@@ -31,6 +31,7 @@ dependencies {
     implementation(project(":core:domain"))
     implementation(project(":core:common"))
 
+    implementation(libs.coil.compose)
     implementation(libs.koin.android)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.kotlinx.coroutines.core)

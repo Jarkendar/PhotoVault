@@ -6,4 +6,7 @@
     <string name="feature_gallery_error_unauthenticated">Session expired – please log in again</string>
     <string name="feature_gallery_error_server">Server error</string>
     <string name="feature_gallery_error_unknown">Could not load gallery</string>
+    <string name="feature_gallery_detail_not_found">Photo not found</string>
+    <string name="feature_gallery_detail_share_chooser">Share photo</string>
+    <string name="feature_gallery_detail_open_in_browser">Open original in browser</string>
 </resources>
