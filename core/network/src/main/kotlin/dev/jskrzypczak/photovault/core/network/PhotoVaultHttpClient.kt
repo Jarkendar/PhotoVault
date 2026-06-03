@@ -47,6 +47,9 @@ fun createPhotoVaultHttpClient(
                     ignoreUnknownKeys = true
                     explicitNulls = false
                     isLenient = true
+                    // Coerce unknown enum values to the field default instead of throwing.
+                    // Required because the server may add new processingStatus values in future.
+                    coerceInputValues = true
                 },
             )
         }

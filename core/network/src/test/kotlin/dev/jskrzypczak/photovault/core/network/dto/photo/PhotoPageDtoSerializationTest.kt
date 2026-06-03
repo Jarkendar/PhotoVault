@@ -14,6 +14,7 @@ class PhotoPageDtoSerializationTest {
         ignoreUnknownKeys = true
         explicitNulls = false
         isLenient = true
+        coerceInputValues = true
     }
 
     @Test
