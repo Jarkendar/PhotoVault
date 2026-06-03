@@ -97,6 +97,9 @@ object PhotoTestFixtures {
         categories = persistentListOf(CATEGORY_DOMAIN),
         labels = persistentListOf(LABEL_DOMAIN),
         isFavorite = true,
+        thumbnailUrl = "/v1/photos/photo-abc123/thumbnail",
+        mediumUrl = "/v1/photos/photo-abc123/medium",
+        originalUrl = "/v1/photos/photo-abc123/original",
     )
 
     val TAG_ENTITY = TagEntity(id = "tag-001", name = "#morze", photoCount = 48)
@@ -117,6 +120,9 @@ object PhotoTestFixtures {
         longitude = 18.5734,
         placeName = "Sopot, PL",
         isFavorite = true,
+        thumbnailUrl = "/v1/photos/photo-abc123/thumbnail",
+        mediumUrl = "/v1/photos/photo-abc123/medium",
+        originalUrl = "/v1/photos/photo-abc123/original",
     )
 
     val PHOTO_ENTITY_NO_OPTIONALS = PhotoEntity(
@@ -133,6 +139,9 @@ object PhotoTestFixtures {
         longitude = null,
         placeName = null,
         isFavorite = false,
+        thumbnailUrl = "/v1/photos/photo-min/thumbnail",
+        mediumUrl = "/v1/photos/photo-min/medium",
+        originalUrl = "/v1/photos/photo-min/original",
     )
 
     val PHOTO_WITH_RELATIONS = PhotoWithRelations(

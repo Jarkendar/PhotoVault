@@ -86,5 +86,8 @@ class PhotoWithRelationsTest {
         longitude = null,
         placeName = null,
         isFavorite = false,
+        thumbnailUrl = "",
+        mediumUrl = "",
+        originalUrl = "",
     )
 }

@@ -19,4 +19,7 @@ data class PhotoEntity(
     val longitude: Double?,
     val placeName: String?,
     val isFavorite: Boolean,
+    val thumbnailUrl: String,
+    val mediumUrl: String,
+    val originalUrl: String,
 )

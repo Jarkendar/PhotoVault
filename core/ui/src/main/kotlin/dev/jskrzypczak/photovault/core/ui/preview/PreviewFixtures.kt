@@ -38,6 +38,9 @@ internal fun previewPhotos(): ImmutableList<Photo> = List(6) { i ->
         categories = persistentListOf(),
         labels = persistentListOf(),
         isFavorite = i % 3 == 0,
+        thumbnailUrl = "",
+        mediumUrl = "",
+        originalUrl = "",
     )
 }.toImmutableList()
 
@@ -64,6 +67,9 @@ internal fun previewStaggeredPhotos(): ImmutableList<Photo> {
             categories = persistentListOf(),
             labels = if (i % 3 == 0) persistentListOf(previewLabels().first()) else persistentListOf(),
             isFavorite = i % 4 == 0,
+            thumbnailUrl = "",
+            mediumUrl = "",
+            originalUrl = "",
         )
     }.toImmutableList()
 }
@@ -86,6 +92,9 @@ internal fun previewDetailPhoto(): Photo = Photo(
     categories = previewCategories().take(2).toImmutableList(),
     labels = previewLabels(),
     isFavorite = true,
+    thumbnailUrl = "",
+    mediumUrl = "",
+    originalUrl = "",
 )
 
 internal fun previewTags(): ImmutableList<Tag> = persistentListOf(

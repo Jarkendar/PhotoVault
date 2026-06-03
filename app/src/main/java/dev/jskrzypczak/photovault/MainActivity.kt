@@ -10,6 +10,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
@@ -78,13 +79,23 @@ class MainActivity : ComponentActivity() {
                                 val viewModel = koinViewModel<GalleryViewModel>()
                                 val state by viewModel.uiState.collectAsStateWithLifecycle()
                                 val searchQuery by viewModel.searchQuery.collectAsStateWithLifecycle()
+                                val isRefreshing by viewModel.isRefreshing.collectAsStateWithLifecycle()
+
+                                // Refresh whenever the user returns to this tab (e.g. after uploading).
+                                LifecycleResumeEffect(Unit) {
+                                    viewModel.onRefresh()
+                                    onPauseOrDispose { }
+                                }
+
                                 GalleryScreen(
                                     state = state,
                                     searchQuery = searchQuery,
+                                    isRefreshing = isRefreshing,
                                     onSearchQueryChange = viewModel::onSearchQueryChange,
                                     onCategorySelect = viewModel::onCategorySelect,
                                     onPageClick = viewModel::onPageClick,
                                     onFavoriteClick = viewModel::onFavoriteClick,
+                                    onRefresh = viewModel::onRefresh,
                                     onUploadClick = { navController.navigateTab(Route.UPLOAD) },
                                     onDestinationSelect = { navController.navigateTab(it.route) },
                                 )

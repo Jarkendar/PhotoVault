@@ -28,6 +28,7 @@ kotlin {
 
 dependencies {
     implementation(project(":core:domain"))
+    implementation(libs.coil.compose)
 
     testImplementation(libs.junit)
 

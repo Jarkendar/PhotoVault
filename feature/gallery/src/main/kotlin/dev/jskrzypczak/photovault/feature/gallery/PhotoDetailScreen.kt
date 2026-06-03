@@ -138,4 +138,5 @@ private fun previewDetailPhoto() = Photo(
         Label(LabelId("l6"), "Fioletowy", "#9C27B0"),
     ),
     isFavorite = true,
+    thumbnailUrl = "", mediumUrl = "", originalUrl = "",
 )

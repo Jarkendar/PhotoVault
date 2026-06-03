@@ -22,6 +22,9 @@ internal fun PhotoWithRelations.toDomain(): Photo = Photo(
     categories = categories.map { it.toDomain() }.toImmutableList(),
     labels = labels.map { it.toDomain() }.toImmutableList(),
     isFavorite = photo.isFavorite,
+    thumbnailUrl = photo.thumbnailUrl,
+    mediumUrl = photo.mediumUrl,
+    originalUrl = photo.originalUrl,
 )
 
 internal fun Photo.toEntity(): PhotoEntity = PhotoEntity(
@@ -38,6 +41,9 @@ internal fun Photo.toEntity(): PhotoEntity = PhotoEntity(
     longitude = location?.longitude,
     placeName = location?.placeName,
     isFavorite = isFavorite,
+    thumbnailUrl = thumbnailUrl,
+    mediumUrl = mediumUrl,
+    originalUrl = originalUrl,
 )
 
 private fun PhotoEntity.toGeoLocation(): GeoLocation? {

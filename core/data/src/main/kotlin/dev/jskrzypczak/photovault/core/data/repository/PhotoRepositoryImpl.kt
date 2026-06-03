@@ -16,6 +16,7 @@ import dev.jskrzypczak.photovault.core.domain.query.MatchMode
 import dev.jskrzypczak.photovault.core.domain.query.SearchQuery
 import dev.jskrzypczak.photovault.core.domain.repository.LoadMoreResult
 import dev.jskrzypczak.photovault.core.domain.repository.PhotoRepository
+import dev.jskrzypczak.photovault.core.network.BaseUrlProvider
 import dev.jskrzypczak.photovault.core.network.api.PhotosApi
 import dev.jskrzypczak.photovault.core.network.dto.photo.PhotoPageDto
 import dev.jskrzypczak.photovault.core.network.dto.photo.PhotoPatchRequestDto
@@ -33,6 +34,7 @@ class PhotoRepositoryImpl(
     private val labelDao: LabelDao,
     private val photosApi: PhotosApi,
     private val dispatchers: AppDispatchers,
+    private val baseUrlProvider: BaseUrlProvider,
 ) : PhotoRepository {
 
     override fun observePhotos(): Flow<List<Photo>> =
@@ -63,7 +65,16 @@ class PhotoRepositoryImpl(
         }
 
     private suspend fun persistPage(page: PhotoPageDto) {
-        val photos = page.items.map { it.toDomain() }
+        val baseUrl = baseUrlProvider.current()
+        val photos = page.items
+            .map { it.toDomain() }
+            .map { photo ->
+                photo.copy(
+                    thumbnailUrl = resolveUrl(photo.thumbnailUrl, baseUrl),
+                    mediumUrl = resolveUrl(photo.mediumUrl, baseUrl),
+                    originalUrl = resolveUrl(photo.originalUrl, baseUrl),
+                )
+            }
         val tags = photos.flatMap { it.tags }.distinctBy { it.id.value }
         val categories = photos.flatMap { it.categories }.distinctBy { it.id.value }
         val labels = photos.flatMap { it.labels }.distinctBy { it.id.value }
@@ -134,6 +145,23 @@ class PhotoRepositoryImpl(
 private fun MatchMode.toApiString(): String = when (this) {
     MatchMode.ALL -> "all"
     MatchMode.ANY -> "any"
+}
+
+/**
+ * Resolves a photo URL path returned by the server into an absolute URL.
+ *
+ * The server may return either a full URL (already usable by Coil) or an
+ * absolute path like `/v1/photos/abc/thumbnail`. In the latter case we
+ * reconstruct the full URL using the server origin from [baseUrl].
+ * If URL parsing fails the original [path] is returned unchanged.
+ */
+private fun resolveUrl(path: String, baseUrl: String): String {
+    if (path.startsWith("http://") || path.startsWith("https://")) return path
+    return try {
+        java.net.URI(baseUrl).resolve(path).toString()
+    } catch (_: Exception) {
+        path
+    }
 }
 
 private fun Throwable.toDomain(): DomainError = when (this) {

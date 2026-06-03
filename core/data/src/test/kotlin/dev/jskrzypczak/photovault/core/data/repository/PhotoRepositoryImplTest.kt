@@ -8,6 +8,7 @@ import dev.jskrzypczak.photovault.core.data.fakes.FakePhotosApi
 import dev.jskrzypczak.photovault.core.data.fakes.FakeTagDao
 import dev.jskrzypczak.photovault.core.data.fixtures.PhotoTestFixtures
 import dev.jskrzypczak.photovault.core.data.fixtures.TestAppDispatchers
+import dev.jskrzypczak.photovault.core.network.BaseUrlProvider
 import dev.jskrzypczak.photovault.core.database.entity.PhotoTagCrossRef
 import dev.jskrzypczak.photovault.core.domain.error.DomainError
 import dev.jskrzypczak.photovault.core.domain.id.PhotoId
@@ -40,6 +41,9 @@ class PhotoRepositoryImplTest {
     )
     private val fakePhotosApi = FakePhotosApi()
     private val dispatchers = TestAppDispatchers()
+    private val baseUrlProvider = object : BaseUrlProvider {
+        override fun current(): String = "http://localhost:8080/v1/"
+    }
 
     private val repository = PhotoRepositoryImpl(
         photoDao = photoDao,
@@ -48,6 +52,7 @@ class PhotoRepositoryImplTest {
         labelDao = labelDao,
         photosApi = fakePhotosApi,
         dispatchers = dispatchers,
+        baseUrlProvider = baseUrlProvider,
     )
 
     @Test

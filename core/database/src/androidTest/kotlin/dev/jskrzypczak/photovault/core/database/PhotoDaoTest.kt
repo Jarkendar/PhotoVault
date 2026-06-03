@@ -118,5 +118,8 @@ class PhotoDaoTest {
         longitude = null,
         placeName = null,
         isFavorite = isFavorite,
+        thumbnailUrl = "",
+        mediumUrl = "",
+        originalUrl = "",
     )
 }

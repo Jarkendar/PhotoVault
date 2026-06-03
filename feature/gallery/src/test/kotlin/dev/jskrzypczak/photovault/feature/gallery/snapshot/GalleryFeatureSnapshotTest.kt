@@ -91,6 +91,9 @@ private fun galleryContentState(): GalleryUiState.Content {
             categories = persistentListOf(),
             labels = if (i % 3 == 0) persistentListOf(Label(LabelId("l$i"), "lbl", "#FF9800")) else persistentListOf(),
             isFavorite = i % 4 == 0,
+            thumbnailUrl = "",
+            mediumUrl = "",
+            originalUrl = "",
         )
     }
     return GalleryUiState.Content(
@@ -132,4 +135,7 @@ private fun detailPhoto(): Photo = Photo(
         Label(LabelId("l6"), "Fioletowy", "#9C27B0"),
     ),
     isFavorite = true,
+    thumbnailUrl = "",
+    mediumUrl = "",
+    originalUrl = "",
 )

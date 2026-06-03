@@ -23,6 +23,9 @@ internal fun PhotoDto.toDomain(): Photo = Photo(
     categories = categories.map { it.toDomain() }.toImmutableList(),
     labels = labels.map { it.toDomain() }.toImmutableList(),
     isFavorite = isFavorite,
+    thumbnailUrl = thumbnailUrl,
+    mediumUrl = mediumUrl,
+    originalUrl = originalUrl,
 )
 
 internal fun LocationDto.toDomain(): GeoLocation = GeoLocation(

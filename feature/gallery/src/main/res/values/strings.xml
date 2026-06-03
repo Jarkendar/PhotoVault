@@ -2,4 +2,8 @@
 <resources>
     <string name="feature_gallery_upload">Prześlij</string>
     <string name="feature_gallery_empty">Brak zdjęć w galerii</string>
+    <string name="feature_gallery_error_no_connectivity">Brak połączenia z siecią</string>
+    <string name="feature_gallery_error_unauthenticated">Sesja wygasła – zaloguj się ponownie</string>
+    <string name="feature_gallery_error_server">Błąd serwera</string>
+    <string name="feature_gallery_error_unknown">Nie można wczytać galerii</string>
 </resources>

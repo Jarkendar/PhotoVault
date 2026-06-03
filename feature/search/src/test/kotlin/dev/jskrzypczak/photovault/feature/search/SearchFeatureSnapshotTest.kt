@@ -150,6 +150,7 @@ class SearchFeatureSnapshotTest {
             categories = persistentListOf(),
             labels = persistentListOf(),
             isFavorite = i % 2 == 0,
+            thumbnailUrl = "", mediumUrl = "", originalUrl = "",
         )
     }.toImmutableList()
 }

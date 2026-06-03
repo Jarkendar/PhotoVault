@@ -1,5 +1,6 @@
 package dev.jskrzypczak.photovault.feature.gallery
 
+import androidx.annotation.StringRes
 import dev.jskrzypczak.photovault.core.domain.id.CategoryId
 import dev.jskrzypczak.photovault.core.domain.model.Category
 import dev.jskrzypczak.photovault.core.domain.model.Photo
@@ -9,7 +10,7 @@ import kotlinx.collections.immutable.ImmutableMap
 sealed interface GalleryUiState {
     data object Loading : GalleryUiState
     data object Empty : GalleryUiState
-    data class Error(val message: String) : GalleryUiState
+    data class Error(@StringRes val messageResId: Int) : GalleryUiState
     data class Content(
         val photos: ImmutableList<Photo>,
         val categories: ImmutableList<Category>,

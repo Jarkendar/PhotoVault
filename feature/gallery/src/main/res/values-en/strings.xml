@@ -2,4 +2,8 @@
 <resources>
     <string name="feature_gallery_upload">Upload</string>
     <string name="feature_gallery_empty">No photos in gallery</string>
+    <string name="feature_gallery_error_no_connectivity">No network connection</string>
+    <string name="feature_gallery_error_unauthenticated">Session expired – please log in again</string>
+    <string name="feature_gallery_error_server">Server error</string>
+    <string name="feature_gallery_error_unknown">Could not load gallery</string>
 </resources>

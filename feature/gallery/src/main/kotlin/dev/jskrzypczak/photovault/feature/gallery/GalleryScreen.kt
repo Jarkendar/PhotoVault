@@ -5,10 +5,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CloudUpload
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -35,11 +37,13 @@ import kotlin.time.Instant
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.persistentMapOf
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GalleryScreen(
     state: GalleryUiState,
     serverIp: String? = null,
     isServerConnected: Boolean = false,
+    isRefreshing: Boolean = false,
     searchQuery: String = "",
     onSearchQueryChange: (String) -> Unit = {},
     onFilterClick: () -> Unit = {},
@@ -50,6 +54,7 @@ fun GalleryScreen(
     onCategorySelect: (CategoryId?) -> Unit = {},
     onPageClick: (Int) -> Unit = {},
     onUploadClick: () -> Unit = {},
+    onRefresh: () -> Unit = {},
     onDestinationSelect: (GalleryDestination) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
@@ -77,47 +82,52 @@ fun GalleryScreen(
             )
         },
     ) { paddingValues ->
-        Column(
+        PullToRefreshBox(
+            isRefreshing = isRefreshing,
+            onRefresh = onRefresh,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues),
         ) {
-            PhotoSearchBar(
-                query = searchQuery,
-                onQueryChange = onSearchQueryChange,
-                onFilterClick = onFilterClick,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-            )
-            when (state) {
-                is GalleryUiState.Content -> {
-                    CategoryFilterRow(
-                        categories = state.categories,
-                        counts = state.counts,
-                        selectedCategoryId = state.selectedCategoryId,
-                        onCategorySelect = onCategorySelect,
+            Column(modifier = Modifier.fillMaxSize()) {
+                PhotoSearchBar(
+                    query = searchQuery,
+                    onQueryChange = onSearchQueryChange,
+                    onFilterClick = onFilterClick,
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                )
+                when (state) {
+                    is GalleryUiState.Content -> {
+                        CategoryFilterRow(
+                            categories = state.categories,
+                            counts = state.counts,
+                            selectedCategoryId = state.selectedCategoryId,
+                            onCategorySelect = onCategorySelect,
+                        )
+                        GalleryPaginationRow(
+                            totalCount = state.totalCount,
+                            pages = state.pages,
+                            currentPage = state.currentPage,
+                            onPageClick = onPageClick,
+                        )
+                        StaggeredPhotoGrid(
+                            photos = state.photos,
+                            onPhotoClick = onPhotoClick,
+                            onFavoriteClick = onFavoriteClick,
+                            modifier = Modifier.weight(1f),
+                        )
+                    }
+                    GalleryUiState.Loading -> LoadingState(modifier = Modifier.weight(1f))
+                    GalleryUiState.Empty -> EmptyState(
+                        message = stringResource(R.string.feature_gallery_empty),
+                        modifier = Modifier.weight(1f),
                     )
-                    GalleryPaginationRow(
-                        totalCount = state.totalCount,
-                        pages = state.pages,
-                        currentPage = state.currentPage,
-                        onPageClick = onPageClick,
-                    )
-                    StaggeredPhotoGrid(
-                        photos = state.photos,
-                        onPhotoClick = onPhotoClick,
-                        onFavoriteClick = onFavoriteClick,
+                    is GalleryUiState.Error -> ErrorState(
+                        message = stringResource(state.messageResId),
+                        onRetry = onRefresh,
                         modifier = Modifier.weight(1f),
                     )
                 }
-                GalleryUiState.Loading -> LoadingState(modifier = Modifier.weight(1f))
-                GalleryUiState.Empty -> EmptyState(
-                    message = stringResource(R.string.feature_gallery_empty),
-                    modifier = Modifier.weight(1f),
-                )
-                is GalleryUiState.Error -> ErrorState(
-                    message = state.message,
-                    modifier = Modifier.weight(1f),
-                )
             }
         }
     }
@@ -151,7 +161,7 @@ private fun GalleryScreenEmptyPreview() {
 @Composable
 private fun GalleryScreenErrorPreview() {
     PhotoVaultTheme(dynamicColor = false) {
-        GalleryScreen(state = GalleryUiState.Error("Nie można połączyć się z serwerem"))
+        GalleryScreen(state = GalleryUiState.Error(R.string.feature_gallery_error_no_connectivity))
     }
 }
 
@@ -172,6 +182,7 @@ private fun previewGalleryContentState(): GalleryUiState.Content {
             camera = null, location = null, tags = persistentListOf(), categories = persistentListOf(),
             labels = if (i % 3 == 0) persistentListOf(Label(LabelId("l$i"), "lbl", "#FF9800")) else persistentListOf(),
             isFavorite = i % 4 == 0,
+            thumbnailUrl = "", mediumUrl = "", originalUrl = "",
         )
     }
     return GalleryUiState.Content(

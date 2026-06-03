@@ -580,6 +580,7 @@ private fun buildPreviewPhotos(): kotlinx.collections.immutable.ImmutableList<Ph
             categories = emptyCategories,
             labels = emptyLabels,
             isFavorite = i % 2 == 0,
+            thumbnailUrl = "", mediumUrl = "", originalUrl = "",
         )
     }.toImmutableList()
 }

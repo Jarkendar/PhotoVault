@@ -3,6 +3,7 @@ package dev.jskrzypczak.photovault.feature.gallery
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dev.jskrzypczak.photovault.core.common.AppDispatchers
+import dev.jskrzypczak.photovault.core.domain.error.DomainError
 import dev.jskrzypczak.photovault.core.domain.id.CategoryId
 import dev.jskrzypczak.photovault.core.domain.model.Category
 import dev.jskrzypczak.photovault.core.domain.model.Photo
@@ -42,8 +43,13 @@ class GalleryViewModel(
     private val _selectedCategoryId = MutableStateFlow<CategoryId?>(null)
     private val _searchQuery = MutableStateFlow("")
     private val _currentPage = MutableStateFlow(1)
+    private val _isRefreshing = MutableStateFlow(false)
+
+    /** Non-null while there is a pending refresh error and Room is empty. */
+    private val _refreshError = MutableStateFlow<DomainError?>(null)
 
     val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
+    val isRefreshing: StateFlow<Boolean> = _isRefreshing.asStateFlow()
 
     private val filterFlow: Flow<GalleryFilter> = combine(
         _selectedCategoryId,
@@ -55,8 +61,9 @@ class GalleryViewModel(
         observePhotosUseCase(),
         observeCategoriesUseCase(),
         filterFlow,
-    ) { photos, categories, filter ->
-        buildUiState(photos, categories, filter)
+        _refreshError,
+    ) { photos, categories, filter, refreshError ->
+        buildUiState(photos, categories, filter, refreshError)
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
@@ -65,7 +72,7 @@ class GalleryViewModel(
 
     init {
         viewModelScope.launch(dispatchers.io) {
-            refreshGalleryUseCase()
+            doRefresh()
         }
     }
 
@@ -91,14 +98,28 @@ class GalleryViewModel(
 
     fun onRefresh() {
         viewModelScope.launch(dispatchers.io) {
-            refreshGalleryUseCase()
+            doRefresh()
         }
+    }
+
+    private suspend fun doRefresh() {
+        _isRefreshing.value = true
+        refreshGalleryUseCase()
+            .onSuccess { _refreshError.value = null }
+            .onFailure { e ->
+                _refreshError.value = when (e) {
+                    is DomainError -> e
+                    else -> DomainError.Unknown(e)
+                }
+            }
+        _isRefreshing.value = false
     }
 
     private fun buildUiState(
         photos: List<Photo>,
         categories: List<Category>,
         filter: GalleryFilter,
+        refreshError: DomainError?,
     ): GalleryUiState {
         val filtered = photos.filter { photo ->
             val matchesCategory = filter.selectedCategoryId == null ||
@@ -108,7 +129,12 @@ class GalleryViewModel(
             matchesCategory && matchesQuery
         }
 
-        if (filtered.isEmpty()) return GalleryUiState.Empty
+        // Show error state only when Room is empty and a refresh error is pending.
+        // If Room already has cached photos keep showing them (offline-first).
+        if (filtered.isEmpty()) {
+            if (refreshError != null) return GalleryUiState.Error(refreshError.toMessageResId())
+            return GalleryUiState.Empty
+        }
 
         val counts = photos
             .flatMap { it.categories }
@@ -134,5 +160,12 @@ class GalleryViewModel(
             currentPage = currentPage,
             pages = pages,
         )
+    }
+
+    private fun DomainError.toMessageResId(): Int = when (this) {
+        DomainError.NoConnectivity -> R.string.feature_gallery_error_no_connectivity
+        DomainError.Unauthenticated -> R.string.feature_gallery_error_unauthenticated
+        is DomainError.ServerError -> R.string.feature_gallery_error_server
+        else -> R.string.feature_gallery_error_unknown
     }
 }

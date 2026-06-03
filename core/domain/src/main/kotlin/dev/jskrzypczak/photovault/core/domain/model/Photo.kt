@@ -19,4 +19,10 @@ data class Photo(
     val categories: ImmutableList<Category>,
     val labels: ImmutableList<Label>,
     val isFavorite: Boolean,
+    /** Absolute URL for the small thumbnail used in grid tiles. */
+    val thumbnailUrl: String,
+    /** Absolute URL for the medium-resolution version used in detail view. */
+    val mediumUrl: String,
+    /** Absolute URL for the original full-resolution file. */
+    val originalUrl: String,
 )
