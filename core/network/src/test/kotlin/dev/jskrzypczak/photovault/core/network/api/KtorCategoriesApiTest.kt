@@ -1,6 +1,6 @@
 package dev.jskrzypczak.photovault.core.network.api
 
-import dev.jskrzypczak.photovault.core.network.auth.StubAuthTokenProvider
+import dev.jskrzypczak.photovault.core.network.auth.StubTokenStore
 import dev.jskrzypczak.photovault.core.network.createPhotoVaultHttpClient
 import dev.jskrzypczak.photovault.core.network.dto.category.CategoryCreateRequestDto
 import dev.jskrzypczak.photovault.core.network.dto.category.CategoryUpdateRequestDto
@@ -20,7 +20,7 @@ class KtorCategoriesApiTest {
     private fun api(handler: MockRequestHandler) = KtorCategoriesApi(
         createPhotoVaultHttpClient(
             baseUrl = "http://test/v1",
-            tokenProvider = StubAuthTokenProvider(),
+            tokenStore = StubTokenStore(),
             engine = MockEngine(handler),
         ),
     )

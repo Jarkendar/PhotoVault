@@ -56,6 +56,8 @@ dependencies {
     implementation(project(":feature:search"))
     implementation(project(":feature:manage"))
     implementation(project(":feature:settings"))
+    implementation(project(":feature:auth"))
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
     implementation(libs.androidx.navigation.compose)

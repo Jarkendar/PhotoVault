@@ -2,6 +2,8 @@ package dev.jskrzypczak.photovault.feature.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dev.jskrzypczak.photovault.core.domain.model.AuthState
+import dev.jskrzypczak.photovault.core.domain.repository.AuthRepository
 import dev.jskrzypczak.photovault.core.domain.repository.ServerSettingsRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -11,6 +13,7 @@ import kotlinx.coroutines.launch
 
 class SettingsViewModel(
     private val serverSettingsRepository: ServerSettingsRepository,
+    private val authRepository: AuthRepository,
 ) : ViewModel() {
 
     private val _isConnected = MutableStateFlow(false)
@@ -18,8 +21,14 @@ class SettingsViewModel(
     val uiState = combine(
         serverSettingsRepository.serverUrl,
         _isConnected,
-    ) { url, connected ->
-        SettingsUiState(serverAddress = url, isConnected = connected)
+        authRepository.authState,
+    ) { url, connected, authState ->
+        val summary = when (authState) {
+            is AuthState.Authenticated -> authState.user.displayName
+            AuthState.Unauthenticated -> ""
+            AuthState.Unknown -> ""
+        }
+        SettingsUiState(serverAddress = url, isConnected = connected, authSummary = summary)
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
@@ -38,8 +47,13 @@ class SettingsViewModel(
     fun onServerUrlChange(url: String) {
         viewModelScope.launch {
             serverSettingsRepository.setServerUrl(url)
-            // URL change triggers collect above, but checkHealth() after setServerUrl needs
-            // the new URL to be cached first — the DataStore flow handles the ordering.
+        }
+    }
+
+    fun onLogout() {
+        viewModelScope.launch {
+            authRepository.logout()
+            // authState transitions to Unauthenticated; MainActivity observes and shows LoginScreen.
         }
     }
 }

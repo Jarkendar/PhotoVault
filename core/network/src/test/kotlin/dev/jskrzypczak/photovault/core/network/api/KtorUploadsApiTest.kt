@@ -1,6 +1,6 @@
 package dev.jskrzypczak.photovault.core.network.api
 
-import dev.jskrzypczak.photovault.core.network.auth.StubAuthTokenProvider
+import dev.jskrzypczak.photovault.core.network.auth.StubTokenStore
 import dev.jskrzypczak.photovault.core.network.createPhotoVaultHttpClient
 import dev.jskrzypczak.photovault.core.network.dto.upload.UploadStatus
 import dev.jskrzypczak.photovault.core.network.error.NetworkError
@@ -24,7 +24,7 @@ class KtorUploadsApiTest {
     private fun api(handler: MockRequestHandler) = KtorUploadsApi(
         createPhotoVaultHttpClient(
             baseUrl = "http://test/v1",
-            tokenProvider = StubAuthTokenProvider(),
+            tokenStore = StubTokenStore(),
             engine = MockEngine(handler),
         ),
     )

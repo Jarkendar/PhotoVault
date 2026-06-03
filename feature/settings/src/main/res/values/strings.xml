@@ -13,6 +13,7 @@
     <string name="feature_settings_disconnected">Rozłączono</string>
     <string name="feature_settings_auth_title">Uwierzytelnianie</string>
     <string name="feature_settings_auth_summary">Token · wygasa za 24h</string>
+    <string name="feature_settings_logout">Wyloguj</string>
     <string name="feature_settings_target_folder">Folder docelowy</string>
     <string name="feature_settings_edit_server">Edytuj adres serwera</string>
 

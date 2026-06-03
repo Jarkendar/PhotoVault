@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="auth_login_title">PhotoVault</string>
+    <string name="auth_login_subtitle">Zaloguj się, aby kontynuować</string>
+    <string name="auth_username_label">Nazwa użytkownika</string>
+    <string name="auth_password_label">Hasło</string>
+    <string name="auth_login_button">Zaloguj się</string>
+    <string name="auth_error_invalid_credentials">Nieprawidłowa nazwa użytkownika lub hasło</string>
+    <string name="auth_error_network">Brak połączenia z serwerem. Sprawdź adres w Ustawieniach.</string>
+    <string name="auth_error_unknown">Nieoczekiwany błąd. Spróbuj ponownie.</string>
+</resources>

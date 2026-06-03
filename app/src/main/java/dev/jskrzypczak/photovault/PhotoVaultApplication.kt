@@ -5,6 +5,7 @@ import dev.jskrzypczak.photovault.core.common.di.commonModule
 import dev.jskrzypczak.photovault.core.data.di.dataModule
 import dev.jskrzypczak.photovault.core.database.di.databaseModule
 import dev.jskrzypczak.photovault.core.network.di.networkModule
+import dev.jskrzypczak.photovault.feature.auth.di.authModule
 import dev.jskrzypczak.photovault.feature.gallery.di.galleryModule
 import dev.jskrzypczak.photovault.feature.search.di.searchModule
 import dev.jskrzypczak.photovault.feature.settings.di.settingsModule
@@ -20,8 +21,10 @@ class PhotoVaultApplication : Application() {
             modules(
                 commonModule,
                 databaseModule,
-                networkModule,
-                dataModule,
+                dataModule,       // provides TokenStore, BaseUrlProvider, AuthRepository
+                networkModule,    // provides HttpClient, all Ktor API impls (uses TokenStore from dataModule)
+                appModule,        // provides AuthGateViewModel
+                authModule,
                 galleryModule,
                 uploadModule,
                 searchModule,

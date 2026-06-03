@@ -1,6 +1,6 @@
 package dev.jskrzypczak.photovault.core.network.api
 
-import dev.jskrzypczak.photovault.core.network.auth.StubAuthTokenProvider
+import dev.jskrzypczak.photovault.core.network.auth.StubTokenStore
 import dev.jskrzypczak.photovault.core.network.createPhotoVaultHttpClient
 import dev.jskrzypczak.photovault.core.network.dto.tag.TagCreateRequestDto
 import dev.jskrzypczak.photovault.core.network.dto.tag.TagUpdateRequestDto
@@ -23,7 +23,7 @@ class KtorTagsApiTest {
     private fun api(handler: MockRequestHandler) = KtorTagsApi(
         createPhotoVaultHttpClient(
             baseUrl = "http://test/v1",
-            tokenProvider = StubAuthTokenProvider(),
+            tokenStore = StubTokenStore(),
             engine = MockEngine(handler),
         ),
     )

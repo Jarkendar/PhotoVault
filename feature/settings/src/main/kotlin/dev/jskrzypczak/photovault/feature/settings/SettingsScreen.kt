@@ -34,6 +34,7 @@ import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
@@ -66,6 +67,7 @@ import dev.jskrzypczak.photovault.feature.settings.component.SettingsToggleRow
 fun SettingsScreen(
     state: SettingsUiState,
     onBack: () -> Unit = {},
+    onLogout: () -> Unit = {},
     onServerUrlChange: (String) -> Unit = {},
     onToggleAutoUpload: (Boolean) -> Unit = {},
     onToggleWifiOnly: (Boolean) -> Unit = {},
@@ -132,12 +134,35 @@ fun SettingsScreen(
                     onEditClick = { showEditServerDialog = true },
                 )
                 HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
-                // Auth row
-                SimpleInfoRow(
-                    icon = Icons.Default.Lock,
-                    title = stringResource(R.string.feature_settings_auth_title),
-                    subtitle = state.authSummary,
-                )
+                // Auth row with logout action
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 4.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Lock,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.size(20.dp),
+                    )
+                    Spacer(Modifier.width(16.dp))
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = stringResource(R.string.feature_settings_auth_title),
+                            style = MaterialTheme.typography.bodyLarge,
+                        )
+                        Text(
+                            text = state.authSummary,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
+                    TextButton(onClick = onLogout) {
+                        Text(stringResource(R.string.feature_settings_logout))
+                    }
+                }
                 HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
                 // Target folder row
                 SimpleInfoRow(

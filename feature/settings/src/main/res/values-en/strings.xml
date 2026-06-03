@@ -13,6 +13,7 @@
     <string name="feature_settings_disconnected">Disconnected</string>
     <string name="feature_settings_auth_title">Authentication</string>
     <string name="feature_settings_auth_summary">Token · expires in 24h</string>
+    <string name="feature_settings_logout">Log out</string>
     <string name="feature_settings_target_folder">Target folder</string>
     <string name="feature_settings_edit_server">Edit server address</string>
 

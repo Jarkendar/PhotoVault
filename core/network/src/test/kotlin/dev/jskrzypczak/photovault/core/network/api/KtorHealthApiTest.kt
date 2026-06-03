@@ -1,6 +1,6 @@
 package dev.jskrzypczak.photovault.core.network.api
 
-import dev.jskrzypczak.photovault.core.network.auth.StubAuthTokenProvider
+import dev.jskrzypczak.photovault.core.network.auth.StubTokenStore
 import dev.jskrzypczak.photovault.core.network.createPhotoVaultHttpClient
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.respond
@@ -26,7 +26,7 @@ class KtorHealthApiTest {
         }
         val client = createPhotoVaultHttpClient(
             baseUrl = "http://test/v1",
-            tokenProvider = StubAuthTokenProvider(),
+            tokenStore = StubTokenStore(),
             engine = engine,
         )
         val api = KtorHealthApi(client)
@@ -51,7 +51,7 @@ class KtorHealthApiTest {
         }
         val client = createPhotoVaultHttpClient(
             baseUrl = "http://test/v1",
-            tokenProvider = StubAuthTokenProvider(),
+            tokenStore = StubTokenStore(),
             engine = engine,
         )
         val api = KtorHealthApi(client)

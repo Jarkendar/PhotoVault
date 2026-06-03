@@ -38,11 +38,9 @@ class ErrorNetworkMapperTest {
     }
 
     @Test
-    fun `Unauthenticated maps to Unknown wrapping the network error`() {
+    fun `Unauthenticated maps to DomainError Unauthenticated`() {
         val source = NetworkError.Unauthenticated("invalid-token")
-        val error = source.toDomainError()
-        val unknown = assertIs<DomainError.Unknown>(error)
-        assertSame(source, unknown.cause)
+        assertSame(DomainError.Unauthenticated, source.toDomainError())
     }
 
     @Test

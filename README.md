@@ -34,6 +34,7 @@ Secondary learning goals that fall out naturally:
 **What's wired up:** Gallery grid (stateless), Upload with WorkManager + MediaStore auto-detection, Search with server queries + filters, Manage categories/tags/labels list, Settings with server config + upload toggles + appearance controls.
 
 **What's pending across phases:**
+- Authentication end-to-end wired — JWT login, secure token storage (DataStore + Android Keystore), auto-refresh on 401, session gating in `MainActivity` — done.
 - `:feature:gallery` — ViewModel + Room/network repository wiring (Phase 3)
 - `:feature:manage` — ManageViewModel + Koin module; Category/Tag CRUD against repositories; Label management (needs backend endpoint)
 - `:feature:settings` — SettingsViewModel + DataStore + SettingsRepository; live theme/accent/density/language application via parameterised `PhotoVaultTheme`; WorkManager Constraints driven by persisted wifi-only setting
@@ -109,6 +110,7 @@ The `:core:domain` and `:core:common` modules are pure Kotlin and shared via KMP
 :app                    — sticks everything together, owns navigation and DI graph (Android)
 :app-desktop            — Desktop entry point, owns navigation and DI graph (JVM) [phase 9]
 
+:feature:auth           — login screen; JWT session gating
 :feature:gallery        — grid of photos + photo detail screen
 :feature:upload         — picker, auto-detection, upload progress
 :feature:search         — free-text search, filters modal
