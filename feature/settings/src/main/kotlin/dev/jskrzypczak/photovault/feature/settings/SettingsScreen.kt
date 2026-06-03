@@ -37,6 +37,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -48,6 +52,7 @@ import dev.jskrzypczak.photovault.core.ui.component.gallery.GalleryDestination
 import dev.jskrzypczak.photovault.core.ui.preview.PhonePreview
 import dev.jskrzypczak.photovault.core.ui.theme.PhotoVaultTheme
 import dev.jskrzypczak.photovault.feature.settings.component.AccentColorPicker
+import dev.jskrzypczak.photovault.feature.settings.component.EditServerDialog
 import dev.jskrzypczak.photovault.feature.settings.component.SectionHeader
 import dev.jskrzypczak.photovault.feature.settings.component.SettingsCard
 import dev.jskrzypczak.photovault.feature.settings.component.SettingsToggleRow
@@ -61,7 +66,7 @@ import dev.jskrzypczak.photovault.feature.settings.component.SettingsToggleRow
 fun SettingsScreen(
     state: SettingsUiState,
     onBack: () -> Unit = {},
-    onEditServer: () -> Unit = {},
+    onServerUrlChange: (String) -> Unit = {},
     onToggleAutoUpload: (Boolean) -> Unit = {},
     onToggleWifiOnly: (Boolean) -> Unit = {},
     onToggleAutoTagging: (Boolean) -> Unit = {},
@@ -72,6 +77,19 @@ fun SettingsScreen(
     onDestinationSelect: (GalleryDestination) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
+    var showEditServerDialog by remember { mutableStateOf(false) }
+
+    if (showEditServerDialog) {
+        EditServerDialog(
+            currentUrl = state.serverAddress,
+            onConfirm = { newUrl ->
+                onServerUrlChange(newUrl)
+                showEditServerDialog = false
+            },
+            onDismiss = { showEditServerDialog = false },
+        )
+    }
+
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
 
     Scaffold(
@@ -111,7 +129,7 @@ fun SettingsScreen(
                     address = state.serverAddress,
                     isConnected = state.isConnected,
                     photoCount = state.photoCount,
-                    onEditClick = onEditServer,
+                    onEditClick = { showEditServerDialog = true },
                 )
                 HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
                 // Auth row
@@ -380,7 +398,6 @@ private fun ServerAddressRow(
                 }
             }
         }
-        // TODO(etap-8+): replace static state with koinViewModel + repository wiring
         IconButton(onClick = onEditClick) {
             Icon(
                 imageVector = Icons.Default.Edit,

@@ -4,13 +4,14 @@
         DEBUG-only policy — overrides the release config in debuggable builds (src/debug wins over src/main).
         Never included in release APKs.
 
-        - 10.0.2.2 : standard Android emulator alias for the host machine (public Android docs, not a real
-                     network address).
-        - ts.net    : Tailscale MagicDNS; transport encrypted via WireGuard. Use Tailscale even on LAN
-                     (it makes a direct encrypted connection) to avoid plain-text traffic over shared WiFi.
+        base-config: allow cleartext to any host in debug. This is intentional:
+          - Tailscale raw IPs (100.x.x.x) cannot be matched by <domain> elements (CIDR not supported).
+          - Traffic over Tailscale is always WireGuard-encrypted at the network level regardless.
+          - This config is never shipped in release APKs.
 
-        Real backend addresses (LAN IP, Tailscale hostname) live in local.properties (gitignored).
+        domain-config entries are kept for documentation (emulator alias, MagicDNS domain).
     -->
+    <base-config cleartextTrafficPermitted="true" />
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="false">10.0.2.2</domain>
         <domain includeSubdomains="true">ts.net</domain>

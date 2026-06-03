@@ -23,12 +23,11 @@ private val publicEndpointSuffixes = setOf(
 )
 
 fun createPhotoVaultHttpClient(
-    baseUrl: String,
+    baseUrlProvider: BaseUrlProvider,
     tokenProvider: AuthTokenProvider,
     enableLogging: Boolean = false,
     engine: HttpClientEngine? = null,
 ): HttpClient {
-    val normalizedBaseUrl = if (baseUrl.endsWith("/")) baseUrl else "$baseUrl/"
     val configure: io.ktor.client.HttpClientConfig<*>.() -> Unit = {
         expectSuccess = false
 
@@ -43,7 +42,9 @@ fun createPhotoVaultHttpClient(
         }
 
         install(DefaultRequest) {
-            url(normalizedBaseUrl)
+            val rawUrl = baseUrlProvider.current()
+            val normalizedUrl = if (rawUrl.endsWith("/")) rawUrl else "$rawUrl/"
+            url(normalizedUrl)
             header(HttpHeaders.ContentType, "application/json")
         }
 

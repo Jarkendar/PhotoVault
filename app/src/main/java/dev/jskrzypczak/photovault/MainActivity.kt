@@ -24,7 +24,7 @@ import dev.jskrzypczak.photovault.feature.manage.ManageUiState
 import dev.jskrzypczak.photovault.feature.search.SearchScreen
 import dev.jskrzypczak.photovault.feature.search.SearchViewModel
 import dev.jskrzypczak.photovault.feature.settings.SettingsScreen
-import dev.jskrzypczak.photovault.feature.settings.SettingsUiState
+import dev.jskrzypczak.photovault.feature.settings.SettingsViewModel
 import dev.jskrzypczak.photovault.feature.upload.UploadScreen
 import dev.jskrzypczak.photovault.feature.upload.UploadViewModel
 import kotlinx.collections.immutable.persistentListOf
@@ -109,10 +109,12 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                     composable(Route.SETTINGS) {
-                        // TODO(etap-8+): replace static state with koinViewModel + repository wiring
+                        val viewModel = koinViewModel<SettingsViewModel>()
+                        val state by viewModel.uiState.collectAsStateWithLifecycle()
                         SettingsScreen(
-                            state = SettingsUiState(),
+                            state = state,
                             onBack = { navController.navigateUp() },
+                            onServerUrlChange = viewModel::onServerUrlChange,
                             onDestinationSelect = { navController.navigateTab(it.route) },
                         )
                     }

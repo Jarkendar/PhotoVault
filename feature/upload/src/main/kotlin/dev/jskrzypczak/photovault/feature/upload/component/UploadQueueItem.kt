@@ -190,7 +190,11 @@ private fun buildStatusLine(item: UploadItemUiState): String {
         UploadItemStatus.UPLOADING, UploadItemStatus.PROCESSING ->
             "$size · ${(item.progress * 100).roundToInt()}%"
         UploadItemStatus.DONE -> "$size · ${stringResource(R.string.feature_upload_status_done)}"
-        UploadItemStatus.FAILED -> "$size · ${stringResource(R.string.feature_upload_status_failed)}"
+        UploadItemStatus.FAILED -> buildString {
+            append("$size · ${stringResource(R.string.feature_upload_status_failed)}")
+            val err = item.errorMessage?.take(60)
+            if (!err.isNullOrEmpty()) append(" · $err")
+        }
         UploadItemStatus.CANCELLED -> "$size · ${stringResource(R.string.feature_upload_status_cancelled)}"
     }
 }

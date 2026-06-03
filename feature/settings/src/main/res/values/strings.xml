@@ -42,6 +42,14 @@
     <string name="feature_settings_app_name">PhotoVault</string>
     <string name="feature_settings_version">v%s</string>
 
+    <!-- Edit server dialog -->
+    <string name="feature_settings_dialog_server_title">Adres serwera</string>
+    <string name="feature_settings_dialog_server_label">Adres bazowy (z /v1/)</string>
+    <string name="feature_settings_dialog_server_hint">http://nazwa-pi.tailnet.ts.net:8080/v1/</string>
+    <string name="feature_settings_dialog_server_error">Adres musi zaczynać się od http:// lub https://</string>
+    <string name="feature_settings_dialog_save">Zapisz</string>
+    <string name="feature_settings_dialog_cancel">Anuluj</string>
+
     <!-- Content descriptions -->
     <string name="feature_settings_back">Wstecz</string>
 </resources>

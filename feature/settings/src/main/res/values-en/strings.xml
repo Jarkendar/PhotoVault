@@ -42,6 +42,14 @@
     <string name="feature_settings_app_name">PhotoVault</string>
     <string name="feature_settings_version">v%s</string>
 
+    <!-- Edit server dialog -->
+    <string name="feature_settings_dialog_server_title">Server address</string>
+    <string name="feature_settings_dialog_server_label">Base URL (including /v1/)</string>
+    <string name="feature_settings_dialog_server_hint">http://pi-name.tailnet.ts.net:8080/v1/</string>
+    <string name="feature_settings_dialog_server_error">Address must start with http:// or https://</string>
+    <string name="feature_settings_dialog_save">Save</string>
+    <string name="feature_settings_dialog_cancel">Cancel</string>
+
     <!-- Content descriptions -->
     <string name="feature_settings_back">Back</string>
 </resources>

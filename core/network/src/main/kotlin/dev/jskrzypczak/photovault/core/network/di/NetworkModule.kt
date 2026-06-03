@@ -1,8 +1,10 @@
 package dev.jskrzypczak.photovault.core.network.di
 
-import dev.jskrzypczak.photovault.core.network.BuildConfig
+import dev.jskrzypczak.photovault.core.network.BaseUrlProvider
 import dev.jskrzypczak.photovault.core.network.api.CategoriesApi
+import dev.jskrzypczak.photovault.core.network.api.HealthApi
 import dev.jskrzypczak.photovault.core.network.api.KtorCategoriesApi
+import dev.jskrzypczak.photovault.core.network.api.KtorHealthApi
 import dev.jskrzypczak.photovault.core.network.api.KtorLabelsApi
 import dev.jskrzypczak.photovault.core.network.api.KtorPhotosApi
 import dev.jskrzypczak.photovault.core.network.api.KtorTagsApi
@@ -21,11 +23,12 @@ val networkModule = module {
     single<AuthTokenProvider> { StubAuthTokenProvider() }
     single<HttpClient> {
         createPhotoVaultHttpClient(
-            baseUrl = BuildConfig.BASE_URL,
+            baseUrlProvider = get(),
             tokenProvider = get(),
             enableLogging = true,
         )
     }
+    single<HealthApi> { KtorHealthApi(get()) }
     single<PhotosApi> { KtorPhotosApi(get()) }
     single<UploadsApi> { KtorUploadsApi(get()) }
     single<TagsApi> { KtorTagsApi(get()) }

@@ -14,6 +14,8 @@ data class UploadItemUiState(
     val status: UploadItemStatus,
     val progress: Float,
     val mlTags: ImmutableList<String>,
+    /** Non-null only when [status] is [UploadItemStatus.FAILED]; contains the raw error message. */
+    val errorMessage: String? = null,
 )
 
 data class ActiveUploadState(

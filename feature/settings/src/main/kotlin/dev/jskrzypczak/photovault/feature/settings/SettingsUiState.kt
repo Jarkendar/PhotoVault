@@ -7,11 +7,11 @@ enum class AccentColor { PURPLE, TEAL, GREEN }
 enum class AppLanguage { PL, EN }
 
 data class SettingsUiState(
-    val serverAddress: String = "192.168.1.42:8080",
-    val isConnected: Boolean = true,
-    val photoCount: Int = 847,
-    val authSummary: String = "Token · wygasa za 24h",
-    val targetFolder: String = "/storage/photos/2026",
+    val serverAddress: String = "",
+    val isConnected: Boolean = false,
+    val photoCount: Int = 0,
+    val authSummary: String = "",
+    val targetFolder: String = "",
     val autoUpload: Boolean = true,
     val wifiOnly: Boolean = true,
     val autoTagging: Boolean = true,

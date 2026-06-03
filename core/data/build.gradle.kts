@@ -31,9 +31,12 @@ dependencies {
     implementation(project(":core:database"))
     implementation(project(":core:common"))
     implementation(libs.koin.core)
+    implementation(libs.koin.android)
 
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.datetime)
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.ktor.client.core)
 
     testImplementation(libs.kotlin.test)
     testImplementation(libs.kotlin.test.junit)

@@ -148,6 +148,10 @@ class UploadViewModel(
             WorkInfo.State.CANCELLED -> UploadItemStatus.CANCELLED
         }
 
+        val errorMsg = if (state == WorkInfo.State.FAILED) {
+            outputData.getString(UploadWorker.KEY_ERROR)
+        } else null
+
         return UploadItemUiState(
             workId = id,
             contentUri = meta.contentUri,
@@ -156,6 +160,7 @@ class UploadViewModel(
             status = itemStatus,
             progress = progressFloat,
             mlTags = persistentListOf(),
+            errorMessage = errorMsg,
         )
     }
 
