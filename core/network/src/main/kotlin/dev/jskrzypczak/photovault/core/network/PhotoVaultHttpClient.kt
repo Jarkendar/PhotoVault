@@ -1,5 +1,6 @@
 package dev.jskrzypczak.photovault.core.network
 
+import android.util.Log
 import dev.jskrzypczak.photovault.core.network.auth.TokenStore
 import dev.jskrzypczak.photovault.core.network.dto.auth.AuthResponseDto
 import dev.jskrzypczak.photovault.core.network.dto.auth.RefreshRequestDto
@@ -13,6 +14,7 @@ import io.ktor.client.plugins.auth.providers.BearerTokens
 import io.ktor.client.plugins.auth.providers.bearer
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.request.header
 import io.ktor.client.request.post
@@ -90,7 +92,13 @@ fun createPhotoVaultHttpClient(
 
         if (enableLogging) {
             install(Logging) {
-                level = LogLevel.HEADERS
+                logger = object : Logger {
+                    override fun log(message: String) {
+                        Log.d("PhotoVaultHttp", message)
+                    }
+                }
+                level = LogLevel.ALL
+                sanitizeHeader { header -> header == HttpHeaders.Authorization }
             }
         }
     }

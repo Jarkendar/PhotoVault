@@ -1,5 +1,6 @@
 package dev.jskrzypczak.photovault.core.network.di
 
+import dev.jskrzypczak.photovault.core.network.BuildConfig
 import dev.jskrzypczak.photovault.core.network.BaseUrlProvider
 import dev.jskrzypczak.photovault.core.network.api.AuthApi
 import dev.jskrzypczak.photovault.core.network.api.CategoriesApi
@@ -27,7 +28,7 @@ val networkModule = module {
         createPhotoVaultHttpClient(
             baseUrlProvider = get<BaseUrlProvider>(),
             tokenStore = get<TokenStore>(),
-            enableLogging = true,
+            enableLogging = BuildConfig.DEBUG,
         )
     }
     single<AuthApi> { KtorAuthApi(get()) }
