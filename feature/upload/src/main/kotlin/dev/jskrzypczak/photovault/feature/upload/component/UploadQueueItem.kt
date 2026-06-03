@@ -74,6 +74,16 @@ fun UploadQueueItem(
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
+                val exifLine = listOfNotNull(item.camera, item.capturedAt).joinToString(" · ")
+                if (exifLine.isNotEmpty()) {
+                    Text(
+                        text = exifLine,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                }
                 if (item.mlTags.isNotEmpty()) {
                     FlowRow(
                         horizontalArrangement = Arrangement.spacedBy(4.dp),

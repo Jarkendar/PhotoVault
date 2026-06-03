@@ -16,6 +16,10 @@ data class UploadItemUiState(
     val mlTags: ImmutableList<String>,
     /** Non-null only when [status] is [UploadItemStatus.FAILED]; contains the raw error message. */
     val errorMessage: String? = null,
+    /** Camera make+model from EXIF, e.g. "Google Pixel 8 Pro". */
+    val camera: String? = null,
+    /** Capture datetime from EXIF, formatted as "YYYY-MM-DD HH:MM". */
+    val capturedAt: String? = null,
 )
 
 data class ActiveUploadState(

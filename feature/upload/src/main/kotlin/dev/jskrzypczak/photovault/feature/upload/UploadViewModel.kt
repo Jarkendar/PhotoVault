@@ -3,6 +3,7 @@ package dev.jskrzypczak.photovault.feature.upload
 import android.content.ContentResolver
 import android.net.Uri
 import android.provider.MediaStore
+import androidx.exifinterface.media.ExifInterface
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.work.OneTimeWorkRequestBuilder
@@ -32,6 +33,8 @@ class UploadViewModel(
         val contentUri: String,
         val fileName: String,
         val sizeBytes: Long,
+        val camera: String? = null,
+        val capturedAt: String? = null,
     )
 
     private val _autoDetectEnabled = MutableStateFlow(false)
@@ -52,23 +55,26 @@ class UploadViewModel(
     )
 
     fun onPhotosSelected(uris: List<Uri>) {
-        val newMeta = mutableMapOf<UUID, UploadMeta>()
-        uris.forEach { uri ->
-            val fileName = resolveFileName(uri)
-            val mimeType = contentResolver.getType(uri) ?: "image/jpeg"
-            val sizeBytes = resolveFileSize(uri)
-            val request = OneTimeWorkRequestBuilder<UploadWorker>()
-                .setInputData(workDataOf(
-                    UploadWorker.KEY_CONTENT_URI to uri.toString(),
-                    UploadWorker.KEY_FILE_NAME to fileName,
-                    UploadWorker.KEY_MIME_TYPE to mimeType,
-                ))
-                .addTag(UploadWorker.TAG)
-                .build()
-            newMeta[request.id] = UploadMeta(uri.toString(), fileName, sizeBytes)
-            workManager.enqueue(request)
+        viewModelScope.launch(dispatchers.io) {
+            val newMeta = mutableMapOf<UUID, UploadMeta>()
+            uris.forEach { uri ->
+                val fileName = resolveFileName(uri)
+                val mimeType = contentResolver.getType(uri) ?: "image/jpeg"
+                val sizeBytes = resolveFileSize(uri)
+                val (camera, capturedAt) = readExif(uri)
+                val request = OneTimeWorkRequestBuilder<UploadWorker>()
+                    .setInputData(workDataOf(
+                        UploadWorker.KEY_CONTENT_URI to uri.toString(),
+                        UploadWorker.KEY_FILE_NAME to fileName,
+                        UploadWorker.KEY_MIME_TYPE to mimeType,
+                    ))
+                    .addTag(UploadWorker.TAG)
+                    .build()
+                newMeta[request.id] = UploadMeta(uri.toString(), fileName, sizeBytes, camera, capturedAt)
+                workManager.enqueue(request)
+            }
+            _uploadMeta.update { it + newMeta }
         }
-        _uploadMeta.update { it + newMeta }
     }
 
     fun onToggleAutoDetect(enabled: Boolean) {
@@ -161,6 +167,8 @@ class UploadViewModel(
             progress = progressFloat,
             mlTags = persistentListOf(),
             errorMessage = errorMsg,
+            camera = meta.camera,
+            capturedAt = meta.capturedAt,
         )
     }
 
@@ -174,4 +182,28 @@ class UploadViewModel(
         contentResolver.query(uri, arrayOf(MediaStore.Images.Media.SIZE), null, null, null)
             ?.use { cursor -> if (cursor.moveToFirst()) cursor.getLong(0) else 0L }
             ?: 0L
+
+    private fun readExif(uri: Uri): Pair<String?, String?> = try {
+        contentResolver.openInputStream(uri)?.use { stream ->
+            val exif = ExifInterface(stream)
+
+            val make = exif.getAttribute(ExifInterface.TAG_MAKE)?.trim()
+            val model = exif.getAttribute(ExifInterface.TAG_MODEL)?.trim()
+            val camera = when {
+                make != null && model != null ->
+                    if (model.startsWith(make, ignoreCase = true)) model else "$make $model"
+                else -> model ?: make
+            }
+
+            val rawDate = exif.getAttribute(ExifInterface.TAG_DATETIME_ORIGINAL)
+            // EXIF format: "YYYY:MM:DD HH:MM:SS"
+            val capturedAt = rawDate?.takeIf { it.length >= 16 }?.let {
+                "${it.substring(0, 4)}-${it.substring(5, 7)}-${it.substring(8, 10)} ${it.substring(11, 16)}"
+            }
+
+            Pair(camera, capturedAt)
+        } ?: Pair(null, null)
+    } catch (_: Exception) {
+        Pair(null, null)
+    }
 }
