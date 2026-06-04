@@ -11,6 +11,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material.icons.outlined.HourglassEmpty
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -25,6 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import dev.jskrzypczak.photovault.core.domain.model.Photo
+import dev.jskrzypczak.photovault.core.domain.model.ProcessingStatus
 import dev.jskrzypczak.photovault.core.ui.R
 import dev.jskrzypczak.photovault.core.ui.preview.PhonePreview
 import dev.jskrzypczak.photovault.core.ui.preview.previewStaggeredPhotos
@@ -71,6 +73,17 @@ fun PhotoGridTile(
                 .clip(CircleShape)
                 .background(dotColor),
         )
+        if (photo.processingStatus == ProcessingStatus.PENDING_CATEGORIZATION) {
+            Icon(
+                imageVector = Icons.Outlined.HourglassEmpty,
+                contentDescription = stringResource(R.string.core_ui_pending_categorization),
+                tint = Color.White,
+                modifier = Modifier
+                    .align(Alignment.TopStart)
+                    .padding(4.dp)
+                    .size(16.dp),
+            )
+        }
         IconButton(
             onClick = onFavoriteClick,
             modifier = Modifier

@@ -8,6 +8,7 @@ import androidx.compose.material.icons.filled.CloudUpload
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
@@ -19,6 +20,7 @@ import dev.jskrzypczak.photovault.core.domain.id.CategoryId
 import dev.jskrzypczak.photovault.core.domain.model.Category
 import dev.jskrzypczak.photovault.core.domain.model.Label
 import dev.jskrzypczak.photovault.core.domain.model.Photo
+import dev.jskrzypczak.photovault.core.domain.model.ProcessingStatus
 import dev.jskrzypczak.photovault.core.ui.component.gallery.AppBottomNavBar
 import dev.jskrzypczak.photovault.core.ui.component.gallery.CategoryFilterRow
 import dev.jskrzypczak.photovault.core.ui.component.gallery.GalleryDestination
@@ -104,6 +106,16 @@ fun GalleryScreen(
                             selectedCategoryId = state.selectedCategoryId,
                             onCategorySelect = onCategorySelect,
                         )
+                        Text(
+                            text = stringResource(
+                                R.string.feature_gallery_categorization_status,
+                                state.categorizedCount,
+                                state.pendingCategorizationCount,
+                            ),
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 2.dp),
+                        )
                         GalleryPaginationRow(
                             totalCount = state.totalCount,
                             pages = state.pages,
@@ -182,13 +194,18 @@ private fun previewGalleryContentState(): GalleryUiState.Content {
             camera = null, location = null, tags = persistentListOf(), categories = persistentListOf(),
             labels = if (i % 3 == 0) persistentListOf(Label(LabelId("l$i"), "lbl", "#FF9800")) else persistentListOf(),
             isFavorite = i % 4 == 0,
+            processingStatus = if (i % 5 == 0) ProcessingStatus.PENDING_CATEGORIZATION else ProcessingStatus.READY,
             thumbnailUrl = "", mediumUrl = "", originalUrl = "",
         )
     }
+    val pendingCount = photos.count { it.processingStatus == ProcessingStatus.PENDING_CATEGORIZATION }
+    val readyCount = photos.count { it.processingStatus == ProcessingStatus.READY }
     return GalleryUiState.Content(
         photos = persistentListOf(*photos.toTypedArray()),
         categories = persistentListOf(cat1, cat2),
         counts = persistentMapOf(cat1.id to 48, cat2.id to 73),
         selectedCategoryId = null, totalCount = 12, currentPage = 3, pages = persistentListOf(2, 3, 4),
+        pendingCategorizationCount = pendingCount,
+        categorizedCount = readyCount,
     )
 }

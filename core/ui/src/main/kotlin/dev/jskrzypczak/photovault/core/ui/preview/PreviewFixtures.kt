@@ -10,6 +10,7 @@ import dev.jskrzypczak.photovault.core.domain.model.Category
 import dev.jskrzypczak.photovault.core.domain.model.GeoLocation
 import dev.jskrzypczak.photovault.core.domain.model.Label
 import dev.jskrzypczak.photovault.core.domain.model.Photo
+import dev.jskrzypczak.photovault.core.domain.model.ProcessingStatus
 import dev.jskrzypczak.photovault.core.domain.model.Tag
 import dev.jskrzypczak.photovault.core.ui.component.PhotoGrid
 import dev.jskrzypczak.photovault.core.ui.component.TagChip
@@ -38,6 +39,7 @@ internal fun previewPhotos(): ImmutableList<Photo> = List(6) { i ->
         categories = persistentListOf(),
         labels = persistentListOf(),
         isFavorite = i % 3 == 0,
+        processingStatus = ProcessingStatus.READY,
         thumbnailUrl = "",
         mediumUrl = "",
         originalUrl = "",
@@ -67,6 +69,7 @@ internal fun previewStaggeredPhotos(): ImmutableList<Photo> {
             categories = persistentListOf(),
             labels = if (i % 3 == 0) persistentListOf(previewLabels().first()) else persistentListOf(),
             isFavorite = i % 4 == 0,
+            processingStatus = if (i % 5 == 0) ProcessingStatus.PENDING_CATEGORIZATION else ProcessingStatus.READY,
             thumbnailUrl = "",
             mediumUrl = "",
             originalUrl = "",
@@ -92,6 +95,7 @@ internal fun previewDetailPhoto(): Photo = Photo(
     categories = previewCategories().take(2).toImmutableList(),
     labels = previewLabels(),
     isFavorite = true,
+    processingStatus = ProcessingStatus.PENDING_CATEGORIZATION,
     thumbnailUrl = "",
     mediumUrl = "",
     originalUrl = "",

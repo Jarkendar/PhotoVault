@@ -28,8 +28,8 @@ class UploadWorker(
         const val KEY_UPLOAD_ID = "upload_id"
         const val KEY_ERROR = "error"
         const val TAG = "upload"
-        private const val POLL_INTERVAL_MS = 2_000L
-        private const val MAX_POLLS = 60
+        private const val POLL_INTERVAL_MS = 1_000L
+        private const val MAX_POLLS = 120
     }
 
     override suspend fun doWork(): Result {

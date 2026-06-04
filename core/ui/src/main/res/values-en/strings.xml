@@ -11,6 +11,7 @@
     <string name="core_ui_share">Share</string>
     <string name="core_ui_add_favorite">Add to favorites</string>
     <string name="core_ui_remove_favorite">Remove from favorites</string>
+    <string name="core_ui_pending_categorization">Pending categorization</string>
     <string name="core_ui_more">More options</string>
     <string name="core_ui_section_categories">CATEGORIES</string>
     <string name="core_ui_section_tags">TAGS</string>

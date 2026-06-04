@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.core.net.toUri
 import androidx.lifecycle.compose.LifecycleResumeEffect
+import androidx.lifecycle.compose.LifecycleStartEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavType
@@ -91,10 +92,15 @@ class MainActivity : ComponentActivity() {
                                 val searchQuery by viewModel.searchQuery.collectAsStateWithLifecycle()
                                 val isRefreshing by viewModel.isRefreshing.collectAsStateWithLifecycle()
 
-                                // Refresh whenever the user returns to this tab (e.g. after uploading).
+                                // Silently refresh whenever the user returns to this tab (e.g. after uploading).
                                 LifecycleResumeEffect(Unit) {
-                                    viewModel.onRefresh()
+                                    viewModel.onAutoRefresh()
                                     onPauseOrDispose { }
+                                }
+                                // Start/stop periodic categorisation refresh based on app visibility.
+                                LifecycleStartEffect(Unit) {
+                                    viewModel.onScreenVisible()
+                                    onStopOrDispose { viewModel.onScreenHidden() }
                                 }
 
                                 GalleryScreen(

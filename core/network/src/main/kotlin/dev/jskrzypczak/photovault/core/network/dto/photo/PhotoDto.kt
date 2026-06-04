@@ -25,9 +25,7 @@ data class PhotoDto(
     val categories: List<CategoryDto>,
     val labels: List<LabelDto>,
     val isFavorite: Boolean,
-    // TODO: processingStatus is absorbed here only to prevent deserialization crashes;
-    //  the domain Photo model does not expose it. Decide whether to surface it or drop it.
-    val processingStatus: ProcessingStatus = ProcessingStatus.DONE,
+    val processingStatus: ProcessingStatus = ProcessingStatus.READY,
     val thumbnailUrl: String,
     val mediumUrl: String,
     val originalUrl: String,
@@ -50,6 +48,6 @@ data class LocationDto(
 @Serializable
 enum class ProcessingStatus {
     @SerialName("processing") PROCESSING,
-    @SerialName("done") DONE,
-    @SerialName("failed") FAILED,
+    @SerialName("pending_categorization") PENDING_CATEGORIZATION,
+    @SerialName("ready") READY,
 }

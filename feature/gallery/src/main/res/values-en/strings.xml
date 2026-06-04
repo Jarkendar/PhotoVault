@@ -9,4 +9,6 @@
     <string name="feature_gallery_detail_not_found">Photo not found</string>
     <string name="feature_gallery_detail_share_chooser">Share photo</string>
     <string name="feature_gallery_detail_open_in_browser">Open original in browser</string>
+    <string name="feature_gallery_detail_pending_categorization">Pending categorization</string>
+    <string name="feature_gallery_categorization_status">Categorization: %1$d categorized, %2$d pending</string>
 </resources>

@@ -10,6 +10,7 @@ import dev.jskrzypczak.photovault.core.domain.model.Category
 import dev.jskrzypczak.photovault.core.domain.model.GeoLocation
 import dev.jskrzypczak.photovault.core.domain.model.Label
 import dev.jskrzypczak.photovault.core.domain.model.Photo
+import dev.jskrzypczak.photovault.core.domain.model.ProcessingStatus
 import dev.jskrzypczak.photovault.core.domain.model.Tag
 import dev.jskrzypczak.photovault.core.ui.theme.PhotoVaultTheme
 import dev.jskrzypczak.photovault.feature.gallery.GalleryScreen
@@ -91,11 +92,14 @@ private fun galleryContentState(): GalleryUiState.Content {
             categories = persistentListOf(),
             labels = if (i % 3 == 0) persistentListOf(Label(LabelId("l$i"), "lbl", "#FF9800")) else persistentListOf(),
             isFavorite = i % 4 == 0,
+            processingStatus = if (i % 5 == 0) ProcessingStatus.PENDING_CATEGORIZATION else ProcessingStatus.READY,
             thumbnailUrl = "",
             mediumUrl = "",
             originalUrl = "",
         )
     }
+    val pendingCount = photos.count { it.processingStatus == ProcessingStatus.PENDING_CATEGORIZATION }
+    val readyCount = photos.count { it.processingStatus == ProcessingStatus.READY }
     return GalleryUiState.Content(
         photos = persistentListOf(*photos.toTypedArray()),
         categories = persistentListOf(*categories.toTypedArray()),
@@ -104,6 +108,8 @@ private fun galleryContentState(): GalleryUiState.Content {
         totalCount = 12,
         currentPage = 3,
         pages = persistentListOf(2, 3, 4),
+        pendingCategorizationCount = pendingCount,
+        categorizedCount = readyCount,
     )
 }
 
@@ -135,6 +141,7 @@ private fun detailPhoto(): Photo = Photo(
         Label(LabelId("l6"), "Fioletowy", "#9C27B0"),
     ),
     isFavorite = true,
+    processingStatus = ProcessingStatus.PENDING_CATEGORIZATION,
     thumbnailUrl = "",
     mediumUrl = "",
     originalUrl = "",

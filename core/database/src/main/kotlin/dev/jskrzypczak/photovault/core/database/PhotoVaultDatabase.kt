@@ -26,7 +26,7 @@ import dev.jskrzypczak.photovault.core.database.entity.TagEntity
         PhotoCategoryCrossRef::class,
         PhotoLabelCrossRef::class,
     ],
-    version = 3,
+    version = 4,
     exportSchema = true,
 )
 @TypeConverters(InstantConverter::class)

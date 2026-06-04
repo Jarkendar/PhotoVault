@@ -5,6 +5,7 @@ import dev.jskrzypczak.photovault.core.database.relation.PhotoWithRelations
 import dev.jskrzypczak.photovault.core.domain.id.PhotoId
 import dev.jskrzypczak.photovault.core.domain.model.GeoLocation
 import dev.jskrzypczak.photovault.core.domain.model.Photo
+import dev.jskrzypczak.photovault.core.domain.model.ProcessingStatus
 import kotlinx.collections.immutable.toImmutableList
 
 internal fun PhotoWithRelations.toDomain(): Photo = Photo(
@@ -22,6 +23,8 @@ internal fun PhotoWithRelations.toDomain(): Photo = Photo(
     categories = categories.map { it.toDomain() }.toImmutableList(),
     labels = labels.map { it.toDomain() }.toImmutableList(),
     isFavorite = photo.isFavorite,
+    processingStatus = runCatching { ProcessingStatus.valueOf(photo.processingStatus) }
+        .getOrDefault(ProcessingStatus.READY),
     thumbnailUrl = photo.thumbnailUrl,
     mediumUrl = photo.mediumUrl,
     originalUrl = photo.originalUrl,
@@ -41,6 +44,7 @@ internal fun Photo.toEntity(): PhotoEntity = PhotoEntity(
     longitude = location?.longitude,
     placeName = location?.placeName,
     isFavorite = isFavorite,
+    processingStatus = processingStatus.name,
     thumbnailUrl = thumbnailUrl,
     mediumUrl = mediumUrl,
     originalUrl = originalUrl,

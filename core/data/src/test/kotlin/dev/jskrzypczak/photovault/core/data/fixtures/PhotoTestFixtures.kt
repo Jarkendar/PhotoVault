@@ -13,6 +13,7 @@ import dev.jskrzypczak.photovault.core.domain.model.Category
 import dev.jskrzypczak.photovault.core.domain.model.GeoLocation
 import dev.jskrzypczak.photovault.core.domain.model.Label
 import dev.jskrzypczak.photovault.core.domain.model.Photo
+import dev.jskrzypczak.photovault.core.domain.model.ProcessingStatus as DomainProcessingStatus
 import dev.jskrzypczak.photovault.core.domain.model.Tag
 import kotlinx.collections.immutable.persistentListOf
 import dev.jskrzypczak.photovault.core.network.dto.category.CategoryDto
@@ -97,6 +98,7 @@ object PhotoTestFixtures {
         categories = persistentListOf(CATEGORY_DOMAIN),
         labels = persistentListOf(LABEL_DOMAIN),
         isFavorite = true,
+        processingStatus = DomainProcessingStatus.READY,
         thumbnailUrl = "/v1/photos/photo-abc123/thumbnail",
         mediumUrl = "/v1/photos/photo-abc123/medium",
         originalUrl = "/v1/photos/photo-abc123/original",
@@ -120,6 +122,7 @@ object PhotoTestFixtures {
         longitude = 18.5734,
         placeName = "Sopot, PL",
         isFavorite = true,
+        processingStatus = "READY",
         thumbnailUrl = "/v1/photos/photo-abc123/thumbnail",
         mediumUrl = "/v1/photos/photo-abc123/medium",
         originalUrl = "/v1/photos/photo-abc123/original",
@@ -139,6 +142,7 @@ object PhotoTestFixtures {
         longitude = null,
         placeName = null,
         isFavorite = false,
+        processingStatus = "PROCESSING",
         thumbnailUrl = "/v1/photos/photo-min/thumbnail",
         mediumUrl = "/v1/photos/photo-min/medium",
         originalUrl = "/v1/photos/photo-min/original",

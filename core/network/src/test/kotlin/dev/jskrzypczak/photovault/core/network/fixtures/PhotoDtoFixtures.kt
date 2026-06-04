@@ -37,7 +37,7 @@ object PhotoDtoFixtures {
         categories = listOf(SAMPLE_CATEGORY),
         labels = listOf(SAMPLE_LABEL),
         isFavorite = true,
-        processingStatus = ProcessingStatus.DONE,
+        processingStatus = ProcessingStatus.READY,
         thumbnailUrl = "/v1/photos/photo-abc123/thumbnail",
         mediumUrl = "/v1/photos/photo-abc123/medium",
         originalUrl = "/v1/photos/photo-abc123/original",
@@ -64,7 +64,7 @@ object PhotoDtoFixtures {
           "categories": [{ "id": "cat-001", "name": "Natura", "colorHex": "#FF8B45", "photoCount": 48 }],
           "labels": [{ "id": "label-orange", "name": "orange", "colorHex": "#FF8B45", "photoCount": 23 }],
           "isFavorite": true,
-          "processingStatus": "done",
+          "processingStatus": "ready",
           "thumbnailUrl": "/v1/photos/photo-abc123/thumbnail",
           "mediumUrl": "/v1/photos/photo-abc123/medium",
           "originalUrl": "/v1/photos/photo-abc123/original"

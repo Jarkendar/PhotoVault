@@ -7,12 +7,15 @@ import dev.jskrzypczak.photovault.core.domain.error.DomainError
 import dev.jskrzypczak.photovault.core.domain.id.CategoryId
 import dev.jskrzypczak.photovault.core.domain.model.Category
 import dev.jskrzypczak.photovault.core.domain.model.Photo
+import dev.jskrzypczak.photovault.core.domain.model.ProcessingStatus
 import dev.jskrzypczak.photovault.feature.gallery.domain.usecase.ObserveCategoriesUseCase
 import dev.jskrzypczak.photovault.feature.gallery.domain.usecase.ObservePhotosUseCase
 import dev.jskrzypczak.photovault.feature.gallery.domain.usecase.RefreshGalleryUseCase
 import dev.jskrzypczak.photovault.feature.gallery.domain.usecase.ToggleFavoriteUseCase
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toImmutableMap
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -32,6 +35,8 @@ class GalleryViewModel(
 
     companion object {
         private const val PAGE_SIZE = 30
+        /** Interval between background gallery refreshes to pick up categorisation changes. */
+        private const val REFRESH_INTERVAL_MS = 5 * 60_000L
     }
 
     private data class GalleryFilter(
@@ -47,6 +52,8 @@ class GalleryViewModel(
 
     /** Non-null while there is a pending refresh error and Room is empty. */
     private val _refreshError = MutableStateFlow<DomainError?>(null)
+
+    private var periodicRefreshJob: Job? = null
 
     val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
     val isRefreshing: StateFlow<Boolean> = _isRefreshing.asStateFlow()
@@ -76,6 +83,21 @@ class GalleryViewModel(
         }
     }
 
+    fun onScreenVisible() {
+        periodicRefreshJob?.cancel()
+        periodicRefreshJob = viewModelScope.launch(dispatchers.io) {
+            while (true) {
+                delay(REFRESH_INTERVAL_MS)
+                doRefresh()
+            }
+        }
+    }
+
+    fun onScreenHidden() {
+        periodicRefreshJob?.cancel()
+        periodicRefreshJob = null
+    }
+
     fun onCategorySelect(categoryId: CategoryId?) {
         _selectedCategoryId.value = categoryId
         _currentPage.value = 1
@@ -98,12 +120,18 @@ class GalleryViewModel(
 
     fun onRefresh() {
         viewModelScope.launch(dispatchers.io) {
-            doRefresh()
+            doRefresh(showSpinner = true)
         }
     }
 
-    private suspend fun doRefresh() {
-        _isRefreshing.value = true
+    fun onAutoRefresh() {
+        viewModelScope.launch(dispatchers.io) {
+            doRefresh(showSpinner = false)
+        }
+    }
+
+    private suspend fun doRefresh(showSpinner: Boolean = false) {
+        if (showSpinner) _isRefreshing.value = true
         refreshGalleryUseCase()
             .onSuccess { _refreshError.value = null }
             .onFailure { e ->
@@ -112,7 +140,7 @@ class GalleryViewModel(
                     else -> DomainError.Unknown(e)
                 }
             }
-        _isRefreshing.value = false
+        if (showSpinner) _isRefreshing.value = false
     }
 
     private fun buildUiState(
@@ -142,6 +170,13 @@ class GalleryViewModel(
             .mapValues { (_, cats) -> cats.size }
             .toImmutableMap()
 
+        val pendingCategorizationCount = photos.count {
+            it.processingStatus == ProcessingStatus.PENDING_CATEGORIZATION
+        }
+        val categorizedCount = photos.count {
+            it.processingStatus == ProcessingStatus.READY
+        }
+
         val totalCount = filtered.size
         val pageCount = (totalCount + PAGE_SIZE - 1) / PAGE_SIZE
         val currentPage = filter.currentPage.coerceIn(1, pageCount)
@@ -159,6 +194,8 @@ class GalleryViewModel(
             totalCount = totalCount,
             currentPage = currentPage,
             pages = pages,
+            pendingCategorizationCount = pendingCategorizationCount,
+            categorizedCount = categorizedCount,
         )
     }
 

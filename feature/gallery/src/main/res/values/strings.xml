@@ -9,4 +9,6 @@
     <string name="feature_gallery_detail_not_found">Nie znaleziono zdjęcia</string>
     <string name="feature_gallery_detail_share_chooser">Udostępnij zdjęcie</string>
     <string name="feature_gallery_detail_open_in_browser">Otwórz oryginał w przeglądarce</string>
+    <string name="feature_gallery_detail_pending_categorization">Czeka na kategoryzację</string>
+    <string name="feature_gallery_categorization_status">Kategoryzacja: %1$d skategoryzowane, %2$d w kolejce</string>
 </resources>

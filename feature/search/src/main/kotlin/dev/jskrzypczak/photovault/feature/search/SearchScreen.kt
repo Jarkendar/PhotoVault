@@ -56,6 +56,7 @@ import dev.jskrzypczak.photovault.core.domain.id.TagId
 import dev.jskrzypczak.photovault.core.domain.model.Category
 import dev.jskrzypczak.photovault.core.domain.model.Label
 import dev.jskrzypczak.photovault.core.domain.model.Photo
+import dev.jskrzypczak.photovault.core.domain.model.ProcessingStatus
 import dev.jskrzypczak.photovault.core.domain.model.Tag
 import dev.jskrzypczak.photovault.core.domain.query.MatchMode
 import dev.jskrzypczak.photovault.core.ui.component.TagChip
@@ -580,6 +581,7 @@ private fun buildPreviewPhotos(): kotlinx.collections.immutable.ImmutableList<Ph
             categories = emptyCategories,
             labels = emptyLabels,
             isFavorite = i % 2 == 0,
+            processingStatus = ProcessingStatus.READY,
             thumbnailUrl = "", mediumUrl = "", originalUrl = "",
         )
     }.toImmutableList()
