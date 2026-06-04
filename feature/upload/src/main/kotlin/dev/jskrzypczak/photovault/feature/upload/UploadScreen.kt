@@ -26,10 +26,15 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -52,8 +57,25 @@ fun UploadScreen(
     onCancelUpload: (UUID) -> Unit = {},
     onApplyTagsToAll: () -> Unit = {},
     onDestinationSelect: (GalleryDestination) -> Unit = {},
+    onSkippedDuplicatesShown: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    val skipped = state.skippedDuplicates
+    val skippedMessage = if (skipped.size == 1) {
+        stringResource(R.string.feature_upload_skipped_one_duplicate)
+    } else if (skipped.isNotEmpty()) {
+        stringResource(R.string.feature_upload_skipped_duplicates, skipped.size)
+    } else null
+
+    if (skippedMessage != null) {
+        LaunchedEffect(skippedMessage) {
+            snackbarHostState.showSnackbar(skippedMessage)
+            onSkippedDuplicatesShown()
+        }
+    }
+
     val pickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickMultipleVisualMedia(),
         onResult = { uris -> if (uris.isNotEmpty()) onPhotosSelected(uris) },
@@ -68,6 +90,11 @@ fun UploadScreen(
 
     Scaffold(
         modifier = modifier,
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState) { data ->
+                Snackbar(snackbarData = data)
+            }
+        },
         topBar = {
             TopAppBar(
                 title = { Text(stringResource(R.string.feature_upload_title)) },

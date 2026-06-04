@@ -12,6 +12,7 @@ val uploadModule = module {
             workManager = WorkManager.getInstance(androidContext()),
             contentResolver = androidContext().contentResolver,
             dispatchers = get(),
+            uploadRepository = get(),
         )
     }
 }

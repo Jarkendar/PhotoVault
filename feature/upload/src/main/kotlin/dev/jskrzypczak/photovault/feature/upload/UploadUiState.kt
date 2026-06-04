@@ -35,4 +35,10 @@ data class UploadUiState(
     val doneCount: Int = 0,
     val activeUpload: ActiveUploadState? = null,
     val uploads: ImmutableList<UploadItemUiState> = persistentListOf(),
+    /**
+     * Names of photos skipped in the last [UploadViewModel.onPhotosSelected] call because
+     * they were detected as already uploaded. Cleared once the UI has shown the message
+     * via [UploadViewModel.onSkippedDuplicatesShown].
+     */
+    val skippedDuplicates: ImmutableList<String> = persistentListOf(),
 )

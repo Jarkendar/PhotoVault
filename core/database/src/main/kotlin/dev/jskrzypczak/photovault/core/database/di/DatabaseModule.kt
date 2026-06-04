@@ -19,4 +19,5 @@ val databaseModule = module {
     single { get<PhotoVaultDatabase>().tagDao() }
     single { get<PhotoVaultDatabase>().categoryDao() }
     single { get<PhotoVaultDatabase>().labelDao() }
+    single { get<PhotoVaultDatabase>().uploadedFileDao() }
 }

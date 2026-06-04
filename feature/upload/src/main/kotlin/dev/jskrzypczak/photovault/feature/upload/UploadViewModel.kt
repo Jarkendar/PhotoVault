@@ -11,6 +11,8 @@ import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import androidx.work.workDataOf
 import dev.jskrzypczak.photovault.core.common.AppDispatchers
+import dev.jskrzypczak.photovault.core.domain.model.UploadFileKey
+import dev.jskrzypczak.photovault.core.domain.repository.UploadRepository
 import dev.jskrzypczak.photovault.feature.upload.worker.UploadWorker
 import java.util.UUID
 import kotlinx.collections.immutable.persistentListOf
@@ -27,6 +29,7 @@ class UploadViewModel(
     private val workManager: WorkManager,
     private val contentResolver: ContentResolver,
     private val dispatchers: AppDispatchers,
+    private val uploadRepository: UploadRepository,
 ) : ViewModel() {
 
     private data class UploadMeta(
@@ -40,14 +43,16 @@ class UploadViewModel(
     private val _autoDetectEnabled = MutableStateFlow(false)
     private val _newPhotosDetected = MutableStateFlow(0)
     private val _uploadMeta = MutableStateFlow<Map<UUID, UploadMeta>>(emptyMap())
+    private val _skippedDuplicates = MutableStateFlow<List<String>>(emptyList())
 
     val uiState = combine(
         _autoDetectEnabled,
         _newPhotosDetected,
         workManager.getWorkInfosByTagFlow(UploadWorker.TAG),
         _uploadMeta,
-    ) { autoDetect, newPhotos, workInfos, meta ->
-        buildUiState(autoDetect, newPhotos, workInfos, meta)
+        _skippedDuplicates,
+    ) { autoDetect, newPhotos, workInfos, meta, skipped ->
+        buildUiState(autoDetect, newPhotos, workInfos, meta, skipped)
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
@@ -56,25 +61,69 @@ class UploadViewModel(
 
     fun onPhotosSelected(uris: List<Uri>) {
         viewModelScope.launch(dispatchers.io) {
-            val newMeta = mutableMapOf<UUID, UploadMeta>()
-            uris.forEach { uri ->
+            // Resolve metadata for all selected URIs first.
+            val candidates = uris.map { uri ->
                 val fileName = resolveFileName(uri)
                 val mimeType = contentResolver.getType(uri) ?: "image/jpeg"
                 val sizeBytes = resolveFileSize(uri)
+                Triple(UploadCandidate(UploadFileKey(fileName, sizeBytes), uri.toString(), mimeType), uri, sizeBytes)
+            }
+
+            // Collect keys already in-session (currently queued/running/done this session).
+            val inSessionKeys = _uploadMeta.value.values
+                .map { UploadFileKey(it.fileName, it.sizeBytes) }
+                .toSet()
+
+            // Query ledger for previously uploaded files.
+            val candidateKeys = candidates.map { it.first.key }
+            val alreadyUploaded = uploadRepository.findAlreadyUploaded(candidateKeys)
+
+            val (toEnqueue, skipped) = partitionCandidates(
+                candidates = candidates.map { it.first },
+                inSessionKeys = inSessionKeys,
+                alreadyUploadedKeys = alreadyUploaded,
+            )
+
+            if (skipped.isNotEmpty()) {
+                _skippedDuplicates.value = skipped
+            }
+
+            if (toEnqueue.isEmpty()) return@launch
+
+            // Build metadata lookup to retrieve sizeBytes / EXIF per candidate.
+            val metaByUri = candidates.associate { (candidate, uri, sizeBytes) ->
+                candidate.contentUri to Pair(sizeBytes, uri)
+            }
+
+            val newMeta = mutableMapOf<UUID, UploadMeta>()
+            toEnqueue.forEach { candidate ->
+                val (sizeBytes, uri) = metaByUri[candidate.contentUri] ?: return@forEach
                 val (camera, capturedAt) = readExif(uri)
                 val request = OneTimeWorkRequestBuilder<UploadWorker>()
                     .setInputData(workDataOf(
-                        UploadWorker.KEY_CONTENT_URI to uri.toString(),
-                        UploadWorker.KEY_FILE_NAME to fileName,
-                        UploadWorker.KEY_MIME_TYPE to mimeType,
+                        UploadWorker.KEY_CONTENT_URI to candidate.contentUri,
+                        UploadWorker.KEY_FILE_NAME to candidate.key.fileName,
+                        UploadWorker.KEY_MIME_TYPE to candidate.mimeType,
+                        UploadWorker.KEY_FILE_SIZE to sizeBytes,
                     ))
                     .addTag(UploadWorker.TAG)
                     .build()
-                newMeta[request.id] = UploadMeta(uri.toString(), fileName, sizeBytes, camera, capturedAt)
+                newMeta[request.id] = UploadMeta(
+                    contentUri = candidate.contentUri,
+                    fileName = candidate.key.fileName,
+                    sizeBytes = sizeBytes,
+                    camera = camera,
+                    capturedAt = capturedAt,
+                )
                 workManager.enqueue(request)
             }
             _uploadMeta.update { it + newMeta }
         }
+    }
+
+    /** Call this after the UI has displayed the "skipped duplicates" message. */
+    fun onSkippedDuplicatesShown() {
+        _skippedDuplicates.value = emptyList()
     }
 
     fun onToggleAutoDetect(enabled: Boolean) {
@@ -112,6 +161,7 @@ class UploadViewModel(
         newPhotos: Int,
         workInfos: List<WorkInfo>,
         meta: Map<UUID, UploadMeta>,
+        skipped: List<String>,
     ): UploadUiState {
         val items = workInfos.mapNotNull { info ->
             val m = meta[info.id] ?: return@mapNotNull null
@@ -135,6 +185,7 @@ class UploadViewModel(
             doneCount = doneCount,
             activeUpload = activeUpload,
             uploads = items,
+            skippedDuplicates = skipped.toImmutableList(),
         )
     }
 

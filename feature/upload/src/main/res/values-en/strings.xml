@@ -19,4 +19,6 @@
     <string name="feature_upload_cancel">Cancel upload</string>
     <string name="feature_upload_pause">Pause upload</string>
     <string name="feature_upload_permission_rationale">Gallery access is required to detect new photos</string>
+    <string name="feature_upload_skipped_duplicates">Skipped %d photos (already uploaded)</string>
+    <string name="feature_upload_skipped_one_duplicate">Skipped 1 photo (already uploaded)</string>
 </resources>

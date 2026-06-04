@@ -70,7 +70,11 @@ class UploadWorker(
             ))
 
             when (status.status) {
-                UploadJobStatus.DONE -> return Result.success(workDataOf(KEY_UPLOAD_ID to uploadId))
+                UploadJobStatus.DONE -> {
+                    val sizeBytes = inputData.getLong(KEY_FILE_SIZE, -1L)
+                    if (sizeBytes >= 0) uploadRepository.rememberUploaded(fileName, sizeBytes)
+                    return Result.success(workDataOf(KEY_UPLOAD_ID to uploadId))
+                }
                 UploadJobStatus.FAILED, UploadJobStatus.CANCELLED ->
                     return Result.failure(workDataOf(KEY_ERROR to (status.error ?: "Upload failed")))
                 else -> Unit

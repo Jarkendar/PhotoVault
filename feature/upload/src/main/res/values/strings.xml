@@ -19,4 +19,6 @@
     <string name="feature_upload_cancel">Anuluj przesyłanie</string>
     <string name="feature_upload_pause">Wstrzymaj przesyłanie</string>
     <string name="feature_upload_permission_rationale">Dostęp do galerii jest wymagany do wykrywania nowych zdjęć</string>
+    <string name="feature_upload_skipped_duplicates">Pominięto %d zdjęć (już przesłane)</string>
+    <string name="feature_upload_skipped_one_duplicate">Pominięto 1 zdjęcie (już przesłane)</string>
 </resources>
