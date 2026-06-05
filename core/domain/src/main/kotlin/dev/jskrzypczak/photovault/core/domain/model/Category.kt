@@ -7,4 +7,6 @@ data class Category(
     val name: String,
     val colorHex: String,
     val photoCount: Int = 0,
+    val autoEnabled: Boolean = false,
+    val rolledOut: Boolean = true,
 )

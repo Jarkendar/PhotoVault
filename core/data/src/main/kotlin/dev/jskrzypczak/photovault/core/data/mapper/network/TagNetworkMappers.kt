@@ -8,4 +8,6 @@ internal fun TagDto.toDomain(): Tag = Tag(
     id = TagId(id),
     name = name,
     photoCount = photoCount,
+    autoEnabled = autoEnabled,
+    rolledOut = rolledOut,
 )

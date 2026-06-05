@@ -8,10 +8,14 @@ internal fun TagEntity.toDomain(): Tag = Tag(
     id = TagId(id),
     name = name,
     photoCount = photoCount,
+    autoEnabled = autoEnabled,
+    rolledOut = rolledOut,
 )
 
 internal fun Tag.toEntity(): TagEntity = TagEntity(
     id = id.value,
     name = name,
     photoCount = photoCount,
+    autoEnabled = autoEnabled,
+    rolledOut = rolledOut,
 )

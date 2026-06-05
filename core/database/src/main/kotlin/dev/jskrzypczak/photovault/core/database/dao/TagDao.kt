@@ -18,4 +18,7 @@ interface TagDao {
 
     @Query("DELETE FROM tags WHERE id = :id")
     suspend fun deleteById(id: String)
+
+    @Query("UPDATE tags SET autoEnabled = :enabled WHERE id = :id")
+    suspend fun setAutoEnabled(id: String, enabled: Boolean)
 }

@@ -10,6 +10,9 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.SmartToy
+import androidx.compose.material.icons.outlined.HourglassEmpty
+import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Text
@@ -30,6 +33,7 @@ import kotlinx.collections.immutable.ImmutableList
 fun CategoryChipRow(
     categories: ImmutableList<Category>,
     onAddClick: () -> Unit,
+    onToggleAutoEnabled: (Category) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     LazyRow(
@@ -38,16 +42,38 @@ fun CategoryChipRow(
         contentPadding = PaddingValues(horizontal = 16.dp),
     ) {
         items(categories, key = { it.id.value }) { category ->
-            SuggestionChip(
-                onClick = {},
+            FilterChip(
+                selected = category.autoEnabled,
+                onClick = { onToggleAutoEnabled(category) },
                 label = { Text(category.name) },
-                icon = {
+                leadingIcon = {
                     Box(
                         modifier = Modifier
                             .size(8.dp)
                             .clip(CircleShape)
                             .background(parseHexColor(category.colorHex)),
                     )
+                },
+                trailingIcon = when {
+                    category.autoEnabled -> {
+                        {
+                            Icon(
+                                imageVector = Icons.Default.SmartToy,
+                                contentDescription = stringResource(R.string.core_ui_auto_tag_enabled),
+                                modifier = Modifier.size(16.dp),
+                            )
+                        }
+                    }
+                    !category.rolledOut -> {
+                        {
+                            Icon(
+                                imageVector = Icons.Outlined.HourglassEmpty,
+                                contentDescription = stringResource(R.string.core_ui_tag_processing),
+                                modifier = Modifier.size(14.dp),
+                            )
+                        }
+                    }
+                    else -> null
                 },
             )
         }

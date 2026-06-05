@@ -9,6 +9,8 @@ internal fun CategoryEntity.toDomain(): Category = Category(
     name = name,
     colorHex = colorHex,
     photoCount = photoCount,
+    autoEnabled = autoEnabled,
+    rolledOut = rolledOut,
 )
 
 internal fun Category.toEntity(): CategoryEntity = CategoryEntity(
@@ -16,4 +18,6 @@ internal fun Category.toEntity(): CategoryEntity = CategoryEntity(
     name = name,
     colorHex = colorHex,
     photoCount = photoCount,
+    autoEnabled = autoEnabled,
+    rolledOut = rolledOut,
 )

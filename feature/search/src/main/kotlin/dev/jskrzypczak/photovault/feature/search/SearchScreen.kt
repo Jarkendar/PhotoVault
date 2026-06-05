@@ -59,7 +59,6 @@ import dev.jskrzypczak.photovault.core.domain.model.Photo
 import dev.jskrzypczak.photovault.core.domain.model.ProcessingStatus
 import dev.jskrzypczak.photovault.core.domain.model.Tag
 import dev.jskrzypczak.photovault.core.domain.query.MatchMode
-import dev.jskrzypczak.photovault.core.ui.component.TagChip
 import dev.jskrzypczak.photovault.core.ui.component.gallery.AppBottomNavBar
 import dev.jskrzypczak.photovault.core.ui.component.gallery.GalleryDestination
 import dev.jskrzypczak.photovault.core.ui.component.gallery.StaggeredPhotoGrid
@@ -372,10 +371,10 @@ private fun FilterSheet(
                     verticalArrangement = Arrangement.spacedBy(4.dp),
                 ) {
                     filterPanelState.availableTags.forEach { tag ->
-                        TagChip(
-                            tag = tag,
+                        FilterChip(
                             selected = tag.id in draftQuery.tagIds,
                             onClick = { onToggleTag(tag.id) },
+                            label = { Text(text = tag.name) },
                         )
                     }
                 }

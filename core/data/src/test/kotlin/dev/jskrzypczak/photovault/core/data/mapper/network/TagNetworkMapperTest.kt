@@ -21,4 +21,22 @@ class TagNetworkMapperTest {
         assertEquals(0, a.photoCount)
         assertEquals(999, b.photoCount)
     }
+
+    @Test
+    fun `toDomain maps autoEnabled and rolledOut`() {
+        val enabled = TagDto(id = "t1", name = "#bot", photoCount = 1, autoEnabled = true, rolledOut = true).toDomain()
+        assertEquals(true, enabled.autoEnabled)
+        assertEquals(true, enabled.rolledOut)
+
+        val processing = TagDto(id = "t2", name = "#new", photoCount = 0, autoEnabled = false, rolledOut = false).toDomain()
+        assertEquals(false, processing.autoEnabled)
+        assertEquals(false, processing.rolledOut)
+    }
+
+    @Test
+    fun `toDomain uses defaults when autoEnabled and rolledOut absent`() {
+        val tag = TagDto(id = "t1", name = "#morze", photoCount = 5).toDomain()
+        assertEquals(false, tag.autoEnabled)
+        assertEquals(true, tag.rolledOut)
+    }
 }

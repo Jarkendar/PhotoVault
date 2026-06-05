@@ -13,6 +13,8 @@
     <string name="core_ui_remove_favorite">Remove from favorites</string>
     <string name="core_ui_pending_categorization">Pending categorization</string>
     <string name="core_ui_more">More options</string>
+    <string name="core_ui_auto_tag_enabled">Auto-tagging enabled</string>
+    <string name="core_ui_tag_processing">Processing</string>
     <string name="core_ui_section_categories">CATEGORIES</string>
     <string name="core_ui_section_tags">TAGS</string>
     <string name="core_ui_section_labels">LABELS</string>

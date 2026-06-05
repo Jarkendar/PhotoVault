@@ -30,6 +30,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import dev.jskrzypczak.photovault.core.domain.model.Category
 import dev.jskrzypczak.photovault.core.domain.model.Photo
 import dev.jskrzypczak.photovault.core.domain.model.Tag
 import dev.jskrzypczak.photovault.core.ui.R
@@ -44,6 +45,8 @@ import kotlinx.datetime.toLocalDateTime
 @Composable
 fun PhotoMetadataSheet(
     photo: Photo,
+    onToggleTagAutoEnabled: (Tag) -> Unit = {},
+    onToggleCategoryAutoEnabled: (Category) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     Surface(
@@ -96,12 +99,16 @@ fun PhotoMetadataSheet(
         Spacer(modifier = Modifier.height(8.dp))
         if (photo.categories.isNotEmpty()) {
             PhotoDetailSection(title = stringResource(R.string.core_ui_section_categories)) {
-                CategoryChipRow(categories = photo.categories, onAddClick = {})
+                CategoryChipRow(
+                    categories = photo.categories,
+                    onAddClick = {},
+                    onToggleAutoEnabled = onToggleCategoryAutoEnabled,
+                )
             }
         }
         if (photo.tags.isNotEmpty()) {
             PhotoDetailSection(title = stringResource(R.string.core_ui_section_tags)) {
-                TagsRow(tags = photo.tags)
+                TagsRow(tags = photo.tags, onToggleAutoEnabled = onToggleTagAutoEnabled)
             }
         }
         if (photo.labels.isNotEmpty()) {
@@ -144,13 +151,16 @@ private fun PhotoDetailSection(
 }
 
 @Composable
-private fun TagsRow(tags: ImmutableList<Tag>) {
+private fun TagsRow(
+    tags: ImmutableList<Tag>,
+    onToggleAutoEnabled: (Tag) -> Unit = {},
+) {
     LazyRow(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         contentPadding = PaddingValues(horizontal = 16.dp),
     ) {
         items(tags, key = { it.id.value }) { tag ->
-            TagChip(tag = tag)
+            TagChip(tag = tag, onToggleAutoEnabled = { onToggleAutoEnabled(tag) })
         }
         item {
             SuggestionChip(

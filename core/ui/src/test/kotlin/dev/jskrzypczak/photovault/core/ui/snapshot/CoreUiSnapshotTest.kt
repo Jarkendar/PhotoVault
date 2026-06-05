@@ -44,13 +44,21 @@ class CoreUiSnapshotTest {
     }
 
     @Test
-    fun tagChipUnselected() = paparazzi.snapshot {
-        PhotoVaultTheme { TagChip(tag = previewTags().first()) }
+    fun tagChipAutoDisabled() = paparazzi.snapshot {
+        // autoEnabled = false, rolledOut = true — plain chip, no icons
+        PhotoVaultTheme { TagChip(tag = previewTags()[0]) }
     }
 
     @Test
-    fun tagChipSelected() = paparazzi.snapshot {
-        PhotoVaultTheme { TagChip(tag = previewTags().first(), selected = true) }
+    fun tagChipAutoEnabled() = paparazzi.snapshot {
+        // autoEnabled = true — selected chip with SmartToy leading icon
+        PhotoVaultTheme { TagChip(tag = previewTags()[1]) }
+    }
+
+    @Test
+    fun tagChipProcessing() = paparazzi.snapshot {
+        // rolledOut = false — chip with HourglassEmpty trailing icon
+        PhotoVaultTheme { TagChip(tag = previewTags()[2]) }
     }
 
     @Test

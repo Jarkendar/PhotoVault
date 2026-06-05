@@ -9,4 +9,6 @@ internal fun CategoryDto.toDomain(): Category = Category(
     name = name,
     colorHex = colorHex,
     photoCount = photoCount,
+    autoEnabled = autoEnabled,
+    rolledOut = rolledOut,
 )

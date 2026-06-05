@@ -15,8 +15,8 @@ object PhotoDtoFixtures {
 
     val SAMPLE_USER_REF = UserRefDto(id = "user-jarek", displayName = "Jarek")
 
-    val SAMPLE_TAG = TagDto(id = "tag-001", name = "#morze", photoCount = 48)
-    val SAMPLE_CATEGORY = CategoryDto(id = "cat-001", name = "Natura", colorHex = "#FF8B45", photoCount = 48)
+    val SAMPLE_TAG = TagDto(id = "tag-001", name = "#morze", photoCount = 48, autoEnabled = false, rolledOut = true)
+    val SAMPLE_CATEGORY = CategoryDto(id = "cat-001", name = "Natura", colorHex = "#FF8B45", photoCount = 48, autoEnabled = false, rolledOut = true)
     val SAMPLE_LABEL = LabelDto(id = "label-orange", name = LabelName.ORANGE, colorHex = "#FF8B45", photoCount = 23)
 
     val SAMPLE_LOCATION = LocationDto(latitude = 54.4641, longitude = 18.5734, placeName = "Sopot, PL")
@@ -60,8 +60,8 @@ object PhotoDtoFixtures {
             "placeName": "Sopot, PL"
           },
           "uploadedBy": { "id": "user-jarek", "displayName": "Jarek" },
-          "tags": [{ "id": "tag-001", "name": "#morze", "photoCount": 48 }],
-          "categories": [{ "id": "cat-001", "name": "Natura", "colorHex": "#FF8B45", "photoCount": 48 }],
+          "tags": [{ "id": "tag-001", "name": "#morze", "photoCount": 48, "autoEnabled": false, "rolledOut": true }],
+          "categories": [{ "id": "cat-001", "name": "Natura", "colorHex": "#FF8B45", "photoCount": 48, "autoEnabled": false, "rolledOut": true }],
           "labels": [{ "id": "label-orange", "name": "orange", "colorHex": "#FF8B45", "photoCount": 23 }],
           "isFavorite": true,
           "processingStatus": "ready",

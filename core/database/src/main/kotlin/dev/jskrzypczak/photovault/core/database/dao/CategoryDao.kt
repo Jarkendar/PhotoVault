@@ -18,4 +18,7 @@ interface CategoryDao {
 
     @Query("DELETE FROM categories WHERE id = :id")
     suspend fun deleteById(id: String)
+
+    @Query("UPDATE categories SET autoEnabled = :enabled WHERE id = :id")
+    suspend fun setAutoEnabled(id: String, enabled: Boolean)
 }

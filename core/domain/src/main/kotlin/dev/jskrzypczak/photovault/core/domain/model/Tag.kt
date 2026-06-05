@@ -6,4 +6,6 @@ data class Tag(
     val id: TagId,
     val name: String,
     val photoCount: Int = 0,
+    val autoEnabled: Boolean = false,
+    val rolledOut: Boolean = true,
 )

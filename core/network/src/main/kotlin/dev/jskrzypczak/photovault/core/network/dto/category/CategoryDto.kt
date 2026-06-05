@@ -8,6 +8,8 @@ data class CategoryDto(
     val name: String,
     val colorHex: String,
     val photoCount: Int,
+    val autoEnabled: Boolean = false,
+    val rolledOut: Boolean = true,
 )
 
 @Serializable

@@ -8,4 +8,6 @@ data class TagEntity(
     @PrimaryKey val id: String,
     val name: String,
     val photoCount: Int = 0,
+    val autoEnabled: Boolean = false,
+    val rolledOut: Boolean = true,
 )

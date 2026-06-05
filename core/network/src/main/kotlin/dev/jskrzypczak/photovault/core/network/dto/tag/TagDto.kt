@@ -7,6 +7,8 @@ data class TagDto(
     val id: String,
     val name: String,
     val photoCount: Int,
+    val autoEnabled: Boolean = false,
+    val rolledOut: Boolean = true,
 )
 
 @Serializable

@@ -19,4 +19,18 @@ class TagDatabaseMapperTest {
         val original = Tag(id = TagId("tag-001"), name = "#morze")
         assertEquals(original, original.toEntity().toDomain())
     }
+
+    @Test
+    fun `TagEntity toDomain maps autoEnabled and rolledOut`() {
+        val entity = TagEntity(id = "t1", name = "#bot", autoEnabled = true, rolledOut = false)
+        val tag = entity.toDomain()
+        assertEquals(true, tag.autoEnabled)
+        assertEquals(false, tag.rolledOut)
+    }
+
+    @Test
+    fun `Tag toEntity round-trips autoEnabled and rolledOut`() {
+        val original = Tag(id = TagId("t1"), name = "#bot", autoEnabled = true, rolledOut = false)
+        assertEquals(original, original.toEntity().toDomain())
+    }
 }

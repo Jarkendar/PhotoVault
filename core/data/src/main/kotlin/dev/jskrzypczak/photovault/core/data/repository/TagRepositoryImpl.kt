@@ -5,9 +5,11 @@ import dev.jskrzypczak.photovault.core.data.mapper.database.toDomain
 import dev.jskrzypczak.photovault.core.data.mapper.database.toEntity
 import dev.jskrzypczak.photovault.core.data.mapper.network.toDomain
 import dev.jskrzypczak.photovault.core.database.dao.TagDao
+import dev.jskrzypczak.photovault.core.domain.id.TagId
 import dev.jskrzypczak.photovault.core.domain.model.Tag
 import dev.jskrzypczak.photovault.core.domain.repository.TagRepository
 import dev.jskrzypczak.photovault.core.network.api.TagsApi
+import dev.jskrzypczak.photovault.core.network.dto.tag.TagUpdateRequestDto
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
@@ -30,4 +32,20 @@ class TagRepositoryImpl(
             tagDao.upsert(dto.items.map { it.toDomain().toEntity() })
         }
     }
+
+    override suspend fun setAutoEnabled(id: TagId, enabled: Boolean): Result<Unit> =
+        withContext(dispatchers.io) {
+            runCatching {
+                // Optimistic local write
+                tagDao.setAutoEnabled(id.value, enabled)
+                try {
+                    tagsApi.patchTag(id.value, TagUpdateRequestDto(autoEnabled = enabled)).getOrThrow()
+                    Unit
+                } catch (t: Throwable) {
+                    // Rollback on network failure
+                    tagDao.setAutoEnabled(id.value, !enabled)
+                    throw t
+                }
+            }
+        }
 }

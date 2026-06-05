@@ -19,4 +19,18 @@ class CategoryDatabaseMapperTest {
         val original = Category(id = CategoryId("cat-001"), name = "Natura", colorHex = "#FF8B45")
         assertEquals(original, original.toEntity().toDomain())
     }
+
+    @Test
+    fun `CategoryEntity toDomain maps autoEnabled and rolledOut`() {
+        val entity = CategoryEntity(id = "cat-001", name = "Natura", colorHex = "#FF8B45", autoEnabled = true, rolledOut = false)
+        val cat = entity.toDomain()
+        assertEquals(true, cat.autoEnabled)
+        assertEquals(false, cat.rolledOut)
+    }
+
+    @Test
+    fun `Category toEntity round-trips autoEnabled and rolledOut`() {
+        val original = Category(id = CategoryId("cat-001"), name = "Natura", colorHex = "#FF8B45", autoEnabled = true, rolledOut = false)
+        assertEquals(original, original.toEntity().toDomain())
+    }
 }

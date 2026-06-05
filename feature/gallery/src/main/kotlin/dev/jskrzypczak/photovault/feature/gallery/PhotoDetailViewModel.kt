@@ -5,8 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dev.jskrzypczak.photovault.core.common.AppDispatchers
 import dev.jskrzypczak.photovault.core.domain.id.PhotoId
+import dev.jskrzypczak.photovault.core.domain.model.Category
+import dev.jskrzypczak.photovault.core.domain.model.Tag
 import dev.jskrzypczak.photovault.feature.gallery.domain.usecase.ObservePhotoUseCase
+import dev.jskrzypczak.photovault.feature.gallery.domain.usecase.ToggleCategoryAutoEnabledUseCase
 import dev.jskrzypczak.photovault.feature.gallery.domain.usecase.ToggleFavoriteUseCase
+import dev.jskrzypczak.photovault.feature.gallery.domain.usecase.ToggleTagAutoEnabledUseCase
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
@@ -17,6 +21,8 @@ class PhotoDetailViewModel(
     savedStateHandle: SavedStateHandle,
     observePhotoUseCase: ObservePhotoUseCase,
     private val toggleFavoriteUseCase: ToggleFavoriteUseCase,
+    private val toggleTagAutoEnabledUseCase: ToggleTagAutoEnabledUseCase,
+    private val toggleCategoryAutoEnabledUseCase: ToggleCategoryAutoEnabledUseCase,
     private val dispatchers: AppDispatchers,
 ) : ViewModel() {
 
@@ -35,6 +41,18 @@ class PhotoDetailViewModel(
     fun onFavoriteToggle() {
         viewModelScope.launch(dispatchers.io) {
             toggleFavoriteUseCase(photoId)
+        }
+    }
+
+    fun onToggleTagAutoEnabled(tag: Tag) {
+        viewModelScope.launch(dispatchers.io) {
+            toggleTagAutoEnabledUseCase(tag.id, !tag.autoEnabled)
+        }
+    }
+
+    fun onToggleCategoryAutoEnabled(category: Category) {
+        viewModelScope.launch(dispatchers.io) {
+            toggleCategoryAutoEnabledUseCase(category.id, !category.autoEnabled)
         }
     }
 }

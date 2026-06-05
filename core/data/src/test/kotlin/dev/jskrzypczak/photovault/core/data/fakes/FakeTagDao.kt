@@ -19,4 +19,8 @@ class FakeTagDao : TagDao {
     override suspend fun deleteById(id: String) {
         items.value = items.value.filterNot { it.id == id }
     }
+
+    override suspend fun setAutoEnabled(id: String, enabled: Boolean) {
+        items.value = items.value.map { if (it.id == id) it.copy(autoEnabled = enabled) else it }
+    }
 }

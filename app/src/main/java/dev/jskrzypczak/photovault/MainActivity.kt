@@ -190,6 +190,8 @@ class MainActivity : ComponentActivity() {
                                     state = state,
                                     onBack = { navController.navigateUp() },
                                     onFavoriteToggle = viewModel::onFavoriteToggle,
+                                    onToggleTagAutoEnabled = viewModel::onToggleTagAutoEnabled,
+                                    onToggleCategoryAutoEnabled = viewModel::onToggleCategoryAutoEnabled,
                                     onShare = {
                                         (state as? PhotoDetailUiState.Content)
                                             ?.photo

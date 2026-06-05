@@ -89,8 +89,9 @@ internal fun previewDetailPhoto(): Photo = Photo(
     camera = "Pixel 8 Pro",
     location = GeoLocation(latitude = 54.40, longitude = 18.57, placeName = "Sopot, PL"),
     tags = persistentListOf(
-        Tag(id = TagId("tag_s"), name = "#zachód-słońca"),
-        Tag(id = TagId("tag_m"), name = "#morze"),
+        Tag(id = TagId("tag_s"), name = "#zachód-słońca", autoEnabled = true, rolledOut = true),
+        Tag(id = TagId("tag_m"), name = "#morze", autoEnabled = false, rolledOut = false),
+        Tag(id = TagId("tag_l"), name = "#lato", autoEnabled = false, rolledOut = true),
     ),
     categories = previewCategories().take(2).toImmutableList(),
     labels = previewLabels(),
@@ -102,15 +103,15 @@ internal fun previewDetailPhoto(): Photo = Photo(
 )
 
 internal fun previewTags(): ImmutableList<Tag> = persistentListOf(
-    Tag(id = TagId("tag_1"), name = "#morze"),
-    Tag(id = TagId("tag_2"), name = "#góry"),
-    Tag(id = TagId("tag_3"), name = "#miasto"),
+    Tag(id = TagId("tag_1"), name = "#morze", autoEnabled = false, rolledOut = true),
+    Tag(id = TagId("tag_2"), name = "#góry", autoEnabled = true, rolledOut = true),
+    Tag(id = TagId("tag_3"), name = "#miasto", autoEnabled = false, rolledOut = false),
 )
 
 internal fun previewCategories(): ImmutableList<Category> = persistentListOf(
-    Category(id = CategoryId("cat_1"), name = "Natura", colorHex = "#4CAF50"),
-    Category(id = CategoryId("cat_2"), name = "Podróże", colorHex = "#2196F3"),
-    Category(id = CategoryId("cat_3"), name = "Ludzie", colorHex = "#FF5722"),
+    Category(id = CategoryId("cat_1"), name = "Natura", colorHex = "#4CAF50", autoEnabled = false, rolledOut = true),
+    Category(id = CategoryId("cat_2"), name = "Podróże", colorHex = "#2196F3", autoEnabled = true, rolledOut = true),
+    Category(id = CategoryId("cat_3"), name = "Ludzie", colorHex = "#FF5722", autoEnabled = false, rolledOut = false),
 )
 
 internal fun previewLabels(): ImmutableList<Label> = persistentListOf(
@@ -132,17 +133,25 @@ internal fun PhotoGridPreview() {
 
 @Preview(showBackground = true)
 @Composable
-internal fun TagChipUnselectedPreview() {
+internal fun TagChipAutoDisabledPreview() {
     PhotoVaultTheme {
-        TagChip(tag = previewTags().first())
+        TagChip(tag = previewTags()[0]) // autoEnabled = false
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-internal fun TagChipSelectedPreview() {
+internal fun TagChipAutoEnabledPreview() {
     PhotoVaultTheme {
-        TagChip(tag = previewTags().first(), selected = true)
+        TagChip(tag = previewTags()[1]) // autoEnabled = true
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+internal fun TagChipProcessingPreview() {
+    PhotoVaultTheme {
+        TagChip(tag = previewTags()[2]) // rolledOut = false
     }
 }
 
